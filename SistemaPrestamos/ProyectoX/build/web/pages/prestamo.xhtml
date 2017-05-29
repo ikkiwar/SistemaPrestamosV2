@@ -1,0 +1,172 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../plantilla/plantilla.xhtml">
+
+            <ui:define name="content">
+
+                <h:panelGrid columns="2" style="background-color:  transparent; padding-top: 10px;padding-left: 24px">
+                    <h:graphicImage id="Icon"  style="background-color:  transparent" class="icon" name="/img/list.png"  height="50" width="50"/>
+                    <p:outputLabel for="Icon" value="PRESTAMOS" style="color: white;background-color:  transparent"/>            
+                </h:panelGrid>
+
+                <div class="center">
+
+
+                    <p:outputLabel for="Buscar" value="Buscar Por Nombre" style="color: whitesmoke"/>
+                    <p:inputText id="Buscar"  required="true" label="Firstname">
+                    </p:inputText>
+
+                    <p:commandButton  icon="ui-icon-circle-plus" value="Nuevo Prestamo" onclick="PF('Nprestamo').show();"/>
+
+                </div>
+
+
+
+                <h:form id="formTable" style="text-align: center">
+
+
+                    <p:separator/>
+
+
+                    <p:dataTable id="prestamos1" var="Phistorial" value="#{prestamos.listaH}" editable="true" style="margin:20px" >
+                        <f:facet name="header">
+                            Historial de Prestamos
+                        </f:facet>
+                        <p:column headerText="No. De prestamo" style="width:80px">
+                            <h:outputText value="#{Phistorial.id_prestamo}"/>
+                        </p:column>
+
+                        <p:column headerText="DUI"  style="width:80px">
+                            <h:outputText value="#{Phistorial.dui}"/>
+                        </p:column>
+
+                        <p:column headerText="Cliente" style="width:200px">
+                            <h:outputText  style="text-transform: uppercase" value="#{Phistorial.apellidos} #{Phistorial.nombres}"/>
+                        </p:column>
+
+                        <p:column headerText="Monto" style="width:80px">
+                            <h:outputText value="#{Phistorial.monto}"/>
+                        </p:column>
+
+                        <p:column headerText="Saldo" style="width:80px">
+                            <h:outputText value="#{Phistorial.saldo}"/>
+                        </p:column>
+
+
+                        <p:column headerText="Cuotas" style="width:80px">
+                            <h:outputText value="#{Phistorial.cantidad_cuotas}"/>
+                        </p:column>
+
+
+
+                        <p:column style="width:32px">
+                            <p:commandButton icon="ui-icon-info" style="width: 25px;height: 25px;font-size: 5px;background-color: #00a0df" onclick="PF('Dprestamo').show();"  action="detallePrestamo">
+                                <f:setPropertyActionListener value="#{Phistorial}" target="#{prestamos.selectPrestamo}"/>
+                            </p:commandButton>
+                           <p:commandButton icon="ui-icon-calculator" style="width: 25px;height: 25px;font-size: 5px; background-color: greenyellow" ajax="false" action="pago.jsf" >
+                               <f:setPropertyActionListener value="#{Phistorial}" target="#{prestamos.selectPrestamo}"/>
+                            </p:commandButton>
+                        </p:column>
+
+                    </p:dataTable>
+
+
+                </h:form>
+
+
+
+
+                <p:dialog  modal="true" appendTo="@(body)" style="background-color:#EFEDEF" showEffect="blind" hideEffect="blind" widgetVar="Nprestamo"   header="Nuevo Prestamo"  draggable="false" closeOnEscape="true" resizable="false">
+
+                    <h:form id="dialog">
+
+                        <h:panelGrid id="grid" columns="2" cellpadding="1">
+
+                            <p:outputLabel  for="cliente" value="Cliente: "/>
+                            <p:selectOneMenu style="text-transform: uppercase" id="cliente" >
+                                <f:selectItems  var="lista" value="#{clientes.lista}" itemLabel="#{lista.apellidos} #{lista.nombres}"/>
+                            </p:selectOneMenu>
+
+                            <p:outputLabel  for="monto" value="Monto Total: " />
+                            <p:inputNumber id="monto" value="00.00" decimalSeparator="." thousandSeparator=","  size="40"/>
+
+
+                            <p:outputLabel  for="ncuotas" value="No Cuotas: " />
+                            <p:inputNumber id="ncuotas" decimalSeparator="none" size="40"/>
+
+
+                            <p:outputLabel for="inicio" value="Fecha de inicio: "  />
+                            <p:calendar pattern="yyyy-MM-dd" navigator="true" yearRange="-100:+0" id="inicio"  size="40"/>
+
+                            <p:outputLabel  for="vcuotas" value="Valor Cuotas: " />
+                            <p:inputNumber id="vcuotas" value="00.00" decimalSeparator="." thousandSeparator="," disabled="true" size="40"/>
+
+
+                            <p:outputLabel  for="fin" value="Fecha de Fin: "  />
+                            <p:calendar pattern="yyyy-MM-dd" id="fin" disabled="true" size="40"/>
+
+                            <p:outputLabel for="capita" value="Capitalizacion "  />
+                            <p:inputText id="capita" value="Mensual" disabled="true" size="40"/>
+
+
+                            <div class="center">
+                                <h:panelGrid  columns="2">
+                                    <p:commandButton  value="Registrar"  icon="ui-icon-disk"   oncomplete="PF('agregarCliente').hide();"/>
+                                    <p:commandButton value="Cancelar" icon="ui-icon-cancel" onclick="PF('agregarCliente').hide();" type="button"/>
+                                </h:panelGrid>
+                            </div>
+
+                        </h:panelGrid>
+
+                    </h:form>
+                </p:dialog>
+                
+                
+                
+                 <p:dialog  modal="true" appendTo="@(body)" style="background-color:#EFEDEF" showEffect="blind" hideEffect="blind" widgetVar="Npago"   header="Realizar Pago"  draggable="false" closeOnEscape="true" resizable="false">
+
+                    <h:form id="pago">
+
+                        <h:panelGrid id="grid" columns="2" cellpadding="1" style="text-align: left">
+                            
+                            <h:outputLabel for="Cliente" value="CLiente: " style="font-family: sans-serif "  />
+                            <p:inputText id="Cliente" size="15" disabled="true"/>
+
+                            <h:outputLabel for="saldoAnterior" value="Saldo Anterior: " style="font-family: sans-serif "  />
+                            <p:inputText id="saldoAnterior" size="15" />
+                            
+                            <h:outputLabel for="nuevoSaldo" value="Nuevo Saldo: " style=";font-family: sans-serif "  />
+                            <p:inputText id="nuevoSaldo" size="15" />
+                            
+                            <h:outputLabel for="interes" value="Interes" style="font-family: sans-serif "  />
+                            <p:inputText id="interes" size="15" />
+
+                            <h:outputLabel for="capital" value="Capital" style="font-family: sans-serif " />
+                            <p:inputText id="capital" size="15"/>
+                            
+                            <p:commandButton  value="Registrar Pago" icon="ui-icon-save" />
+                        </h:panelGrid>
+
+                    </h:form>
+                </p:dialog>
+                
+                
+                
+                
+                
+
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

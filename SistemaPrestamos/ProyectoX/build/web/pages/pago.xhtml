@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      >
+
+    <body>
+
+        <ui:composition template="./../plantilla/plantilla.xhtml">
+
+            <ui:define name="content" >
+                 <h:panelGrid columns="2">
+                    <h:panelGrid columns="2" style="padding-top: 10px;padding-left: 15px ">
+                        <h:graphicImage  id="iconoHome" class="icon" name="/img/archivo.png"  height="60" width="60"/>
+                        <p:outputLabel for="iconoHome" value="REGISTRAR PAGO" style="color: white; font-family: sans-serif"/>
+                    </h:panelGrid>
+                    <h:panelGrid  style=" padding-right: 0px; padding-left: 325px;padding-top: 0px">
+                        <p:panel  style="width: 500px; height: 120px;background-color: #26c281" >
+
+                            <h:panelGrid columns="2">
+                                <h:panelGrid columns="1">
+                                    <h:panelGrid>
+                                        <p:outputLabel value="CLIENTE: " style="color: red; font-family: sans-serif"/>    
+                                    </h:panelGrid>
+                                    <h:panelGrid columns="2">
+                                        <p:outputLabel id="nombre" value="NOMBRE: " style="font-family: sans-serif"/>
+                                        <p:outputLabel  style="text-transform: uppercase" for="nombre" value="#{prestamos.selectPrestamo.nombres}  "/>
+                                        <p:outputLabel id="apellido" value="APELLIDOS: " style="font-family: sans-serif"/>
+                                        <p:outputLabel  style="text-transform: uppercase" for="apellido" value="#{prestamos.selectPrestamo.apellidos} "/>    
+                                    </h:panelGrid>
+
+
+                                </h:panelGrid>
+                                <h:panelGrid columns="1">
+                                    <h:panelGrid columns="1">
+                                        <p:outputLabel  value="PRESTAMO" style="color: red; font-family: sans-serif"/>    
+                                    </h:panelGrid>
+                                    <h:panelGrid columns="2">
+                                        <p:outputLabel id="numeroPrestamo" value="N° PRESTAMO: " style="font-family: sans-serif"/>
+                                        <p:outputLabel for="numeroPrestamo" value="#{prestamos.selectPrestamo.id_prestamo}"/>
+                                        <p:outputLabel id="numeroCuota" value="N° CUOTA: " style="font-family: sans-serif"/>
+                                        <p:outputLabel for="numeroCuota" value="3 "/> 
+                                        <p:outputLabel id="valorCuota" value="VALOR CUOTA " style="font-family: sans-serif"/>
+                                        <p:outputLabel for="valorCuota" value="#{prestamos.selectPrestamo.valor_cuota} "/> 
+                                    </h:panelGrid>
+
+
+                                </h:panelGrid>
+
+
+                            </h:panelGrid>
+
+                        </p:panel>
+
+                    </h:panelGrid>  
+
+                </h:panelGrid>
+                <p:separator/>
+                <br/> 
+                <br/>
+                <h:panelGrid columns="1" style="padding-left: 60px">
+
+                    <h:panelGrid columns="1">
+                        <h:panelGrid columns="2">
+                            <h:outputLabel for="monto" value="Monto: " style="color: white; font-family: sans-serif"/>
+                            <p:inputText id="monto"  size="20" />
+                        </h:panelGrid>
+
+                        <h:panelGrid columns="1" style="padding:30px; margin: 0 auto">
+                            <p:commandButton icon="ui-icon-calculator" value="Calcular Valores"    />
+                        </h:panelGrid>
+
+
+                        <h:panelGrid columns="8" style="padding-left: 10px">
+                            <h:outputLabel for="saldoAnterior" value="Saldo Anterior: " style="color: white;font-family: sans-serif "  />
+                            <p:inputText id="saldoAnterior" size="15" />
+                            
+                            <h:outputLabel for="nuevoSaldo" value="Nuevo Saldo: " style="color: white;font-family: sans-serif "  />
+                            <p:inputText id="nuevoSaldo" size="15" />
+                            
+                            <h:outputLabel for="interes" value="Interes" style="color: white;font-family: sans-serif "  />
+                            <p:inputText id="interes" size="15" />
+
+                            <h:outputLabel for="capital" value="Capital" style="color: white;font-family: sans-serif " />
+                            <p:inputText id="capital" size="15"/>
+                        </h:panelGrid>    
+
+
+                        <h:panelGrid columns="1"   style="padding:30px; margin: 0 auto">
+                            <p:commandButton  value="Registrar Pago" icon="ui-icon-save" />
+                        </h:panelGrid>
+
+                    </h:panelGrid>    
+                </h:panelGrid>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

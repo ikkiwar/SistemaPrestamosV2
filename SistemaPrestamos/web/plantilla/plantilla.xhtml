@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="/css/default.css"/>
+        <h:outputStylesheet name="/css/cssLayout.css"/>
+        <h:outputStylesheet name="/css/sidenav.css"/>
+        <h:outputStylesheet name="/css/form.css"/>
+
+        <title>Facelets Template</title>
+    </h:head>
+
+    <h:body style="background-color:  #253A47">
+
+
+        <div id="top" class="top" >
+            <ui:insert name="top">
+                <h:panelGrid columns="2">
+                    <h:graphicImage  id="iconoHome" class="icon"  name="/img/service.png"  height="20" width="20"/> 
+            <h1 style="color: white;">
+                SISTEMA PRESTAMO
+            </h1>
+                
+             </h:panelGrid>
+        
+                
+                
+               
+            </ui:insert>
+        </div>
+        <div>
+            <div id="left">
+                <ui:insert name="left">
+
+                    <div class="icon-bar">
+                        
+                       
+                        
+                        <a  href="home.jsf">
+
+                            <h:graphicImage class="icon" name="/img/house.png"  height="32" width="32"/>
+                            <b/>
+                            Home
+                        </a> 
+                        <p:separator/>
+                        <a href="cliente.jsf">
+                            <h:graphicImage class="icon" name="/img/people.png"  height="32" width="32"/>
+                           Clientes
+                        </a> 
+                       <p:separator/>
+                        <a href="prestamo.jsf">
+                            <h:graphicImage class="icon" name="/img/notebook.png"  height="32" width="32"/>
+                            Prestamos
+                        </a> 
+                        <p:separator/>
+                        <a href="#">
+                            <h:graphicImage class="icon" name="/img/question.png"  height="32" width="32"/>
+                            Acerca de
+                        </a>
+                        <p:separator/>
+                        <a href="#"></a> 
+                    </div>
+
+
+                </ui:insert>
+            </div>
+            <div id="content" class="left_content" style="background-color: #253A47">
+                <ui:insert name="content">Content</ui:insert>
+            </div>
+        </div>
+    </h:body>
+
+</html>

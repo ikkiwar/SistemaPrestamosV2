@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../plantilla/plantilla.xhtml">
+
+            <ui:define name="content">
+
+
+
+                <h:panelGrid columns="2" style="padding-left: 10px; padding-top: 0px">
+                    <h:graphicImage id="clienteIcon"   class="icon" name="/img/boss.png"  height="50" width="50"/>
+                    <p:outputLabel for="clienteIcon" value="Nuevo Cliente" style="color: white;"/>
+                </h:panelGrid>
+
+
+
+                <h:form id="formulario" style="text-align: center; color: white">
+
+
+                    <h:panelGrid id="grid" columns="2"  cellpadding="1" style="text-align: center">
+
+                        <p:outputLabel  for="dui" value="Dui: "/>
+                        <p:inputMask mask="99999999-9"  id="dui" size="40" value="#{clientes.client.dui}"/>
+
+                        <p:outputLabel  for="nit" value="nit: "/>
+                        <p:inputMask mask="99999999-9"  id="nit" size="40"/>
+
+                        <p:outputLabel  for="nombre" value="Nombre: "/>
+                        <p:inputText  id="nombre" size="40"/>
+
+                        <p:outputLabel  for="apellido" value="Apellido:"/>
+                        <p:inputText  id="apellido" size="40"/>
+
+                        <p:outputLabel  for="sexo" value="Sexo: "/>
+                        <p:selectOneRadio id="sexo" >
+                            <f:selectItem  itemLabel="Masculino" itemValue="masculino"/>
+                            <f:selectItem itemLabel="Femenino" itemValue="femenino"/>  
+                        </p:selectOneRadio>
+                        
+                        
+                        <p:outputLabel for="fechaNacimiento" value="Fecha de Nacimiento: " />
+                        <p:calendar  id="fechaNacimiento"  locale="de" size="30"  pattern="yyyy-MM-dd" effect="blind" navigator="true" showOn="button" yearRange="-100:+0" />
+
+                        
+                        <p:outputLabel for="direccion" value="Direccion: "/>
+                        <p:inputTextarea id="direccion" rows="6" cols="35" autoResize="true"/>
+                        
+                        <p:outputLabel for="observaciones"   value="Observaciones:  " />
+                        <p:inputTextarea id="observaciones"   rows="6" cols="35" autoResize="true" />
+
+                        <p:commandButton  value="Cancelar"  icon="ui-icon-cancel"  action="#{clientes.submit()}" />
+
+                    </h:panelGrid>
+                </h:form>
+
+                
+
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

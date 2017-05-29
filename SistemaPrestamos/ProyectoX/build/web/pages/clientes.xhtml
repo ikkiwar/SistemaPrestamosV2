@@ -1,0 +1,165 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body onload="#{clientes.inicio()}">
+
+        <ui:composition template="./../plantilla/plantilla.xhtml">
+
+            <ui:define name="content">
+
+                <h:panelGrid columns="2" style="background-color:  transparent; padding-top: 10px;padding-left: 24px">
+                    <h:graphicImage id="clienteIcon"  style="background-color:  transparent" class="icon" name="/img/boss.png"  height="50" width="50"/>
+                    <p:outputLabel for="clienteIcon" value="CLIENTES" style="color: white;background-color:  transparent"/>            
+                </h:panelGrid>
+
+
+                <div class="center">
+
+
+                    <p:outputLabel for="Buscar" value="Buscar Por Nombre" style="color: whitesmoke"/>
+                    <p:inputText id="Buscar"  required="true" label="Firstname">
+                    </p:inputText>
+
+
+                    <p:commandButton value="Nuevo Cliente" icon="ui-icon-circle-plus" onclick="PF('agregarCliente').show();"/>
+                    <!--<p:commandButton value="Nuevo Cliente" icon="ui-icon-circle-plus" action="nuevoCliente.jsf?faces-redirect=true"/>-->
+
+                </div>
+
+                <h:form id="form" style="text-align: center">
+
+                    <p:separator/>
+
+
+                    <p:dataTable id="tablaCliente"  value="#{clientes.lista}"  var="cliente" 
+
+                                 paginator="true" rows="10" rowsPerPageTemplate="5,10,15"  editable="false" style="margin:20px">
+
+                        <f:facet name="header">
+                            Clientes
+                        </f:facet>
+
+
+                        <p:column headerText="DUI" style="width:80px">
+                            <h:outputText value="#{cliente.dui}"  />
+                        </p:column>
+
+                        <p:column headerText="NIT"  style="width:130px">
+                            <h:outputText value="#{cliente.nit}"  />
+                        </p:column>
+
+                        <p:column headerText="NOMBRE" style="width:100px">
+                            <h:outputText style="text-transform: uppercase" value="#{cliente.nombres}"  />
+                        </p:column>
+
+                        <p:column headerText="APELLIDOS" style="width:110px">
+                            <h:outputText style="text-transform: uppercase" value="#{cliente.apellidos}"  />
+                        </p:column>
+
+                        <p:column headerText="SEXO" style="width:40px">
+                            <h:outputText value="#{cliente.sexo}"  />
+                        </p:column>
+
+
+                        <p:column headerText="FECHA DE NACIMIENTO" style="width:80px">
+                            <h:outputText value="#{cliente.fecha_nacimiento}"  />
+                        </p:column>
+
+                        <p:column headerText="DIRECCION" style="width:80px">
+                            <h:outputText value="#{cliente.direccion}"  />
+                        </p:column> 
+
+                        <p:column headerText="TELEFONO" style="width:63px">
+                            <h:outputText value="#{cliente.telefono}"  />
+                        </p:column>
+
+                        <p:column style="width:42px">
+                            <p:commandButton icon="ui-icon-info" style="width: 25px;height: 25px;font-size: 5px;background-color: #00a0df" action="perfil">
+                                <f:setPropertyActionListener value="#{cliente}" target="#{clientes.selectedClient}" />
+                            </p:commandButton>
+
+
+                            <p:commandButton icon="ui-icon-close" update=":form:tablaCliente" style="width: 25px;height: 25px;font-size: 5px; background-color: orange" onclick="PF('confirmar').show();">
+                                <f:setPropertyActionListener value="#{cliente}" target="#{clientes.selectedClient}" />
+                            </p:commandButton>
+
+                        </p:column>
+                    </p:dataTable>
+
+                </h:form>
+
+
+
+                <p:dialog  id="dialog" modal="true" appendTo="@(body)" style="background-color:#EFEDEF; text-align: center" showEffect="blind" hideEffect="blind" widgetVar="agregarCliente"   header="Agregar Clientes"  draggable="false" closeOnEscape="true" resizable="false">
+                    <p:ajax event="close" listener="#{clientes.inicio()}" update=":form:tablaCliente" immediate="true" global="false" />
+
+                    <h:form id="formulario" style="text-align: center;">
+
+
+                        <h:panelGrid id="grid" columns="2"  style="text-align: left">
+
+
+
+                            <p:outputLabel  for="dui" value="Dui: "/>
+                            <p:inputMask mask="99999999-9"  id="dui" size="40" value="#{clientes.client.dui}"/>
+
+                            <p:outputLabel  for="nit" value="nit: "/>
+                            <p:inputMask mask="99999999-9"  id="nit" size="40" value="#{clientes.client.nit}"/>
+
+                            <p:outputLabel  for="nombre" value="Nombre:"/>
+                            <p:inputText  style="text-transform: uppercase" id="nombre" size="40" value="#{clientes.client.nombres}"/>
+
+                            <p:outputLabel  for="apellido" value="Apellido:"/>
+                            <p:inputText style="text-transform: uppercase" id="apellido" size="40" value="#{clientes.client.apellidos}"/>
+
+                            <p:outputLabel  for="sexo" value="Sexo:"/>
+                            <h:selectOneRadio id="sexo" value="#{clientes.client.sexo}">
+                                <f:selectItem  itemLabel="Masculino" itemValue="M"/>
+                                <f:selectItem itemLabel="Femenino" itemValue="F"/>  
+                            </h:selectOneRadio>
+
+                            <p:outputLabel  for="telefono" value="teléfono: "/>
+                            <p:inputMask mask="9999-9999"  id="telefono" size="40" value="#{clientes.client.telefono}"/>
+
+                            <p:outputLabel for="fechaNacimiento" value="Fecha de Nacimiento: " />
+                            <p:calendar  id="fechaNacimiento"  locale="de" size="30"  pattern="yyyy-MM-dd" 
+                                         effect="blind" navigator="true" showOn="button" yearRange="-100:+0" value="#{clientes.client.fecha_nacimiento}" />
+
+
+                            <p:outputLabel for="direccion" value="Direccion: "/>
+                            <p:inputTextarea id="direccion" rows="6" cols="35" autoResize="true" value="#{clientes.client.direccion}"/>
+
+                            <p:outputLabel for="observaciones"   value="Observaciones:  " />
+                            <p:inputTextarea id="observaciones"   rows="6" cols="35" autoResize="true" value="#{clientes.client.observaciones}"/>
+
+                            <h:panelGrid columns="2">
+                                <p:commandButton  value="Registrar"  icon="ui-icon-disk"  action="#{clientes.submit()}" oncomplete="PF('agregarCliente').hide();"/>
+                                <p:commandButton value="Cancelar" icon="ui-icon-cancel" onclick="PF('agregarCliente').hide();" type="button"/>
+                            </h:panelGrid>
+
+                        </h:panelGrid>
+                    </h:form>
+
+                </p:dialog>
+
+
+                <p:dialog  id="confirm" modal="true" appendTo="@(body)" style="background-color:#EFEDEF; text-align: center" showEffect="fade" hideEffect="fade" widgetVar="confirmar" header="¿Eliminar Cliente?"  draggable="false" closeOnEscape="true" resizable="false">
+                    <p:ajax event="close" listener="#{clientes.inicio()}" update=":form:tablaCliente" immediate="true" global="false" />
+
+                    <p:commandButton  value="Si"  icon="ui-icon-disk"  action="#{clientes.ver()}" oncomplete="PF('confirmar').hide();"/>
+                    <p:commandButton value="No" icon="ui-icon-cancel" onclick="PF('confirmar').hide();" type="button"/>
+
+                </p:dialog>
+
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

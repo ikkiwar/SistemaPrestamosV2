@@ -1,0 +1,258 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <f:ajax event="load" listener="#{prestamos.obtenerPorPrestamo(clientes.selectedClient)}" />
+
+        <ui:composition template="./../plantilla/plantilla.xhtml">
+
+            <ui:define name="content">
+
+
+
+                <h:panelGrid columns="2" style="background-color:  transparent;padding-left: 18px">
+                    <h:graphicImage id="clienteIcon"   class="icon" name="/img/cliente.png"  height="60" width="60"/>
+                    <p:outputLabel for="clienteIcon" value="PERFIL DE CLIENTE" style="color: white;font-family: sans-serif"/>            
+                </h:panelGrid>
+                <p:separator/>
+
+                <h:panelGrid style="padding-left: 12px; padding-top: 24px; margin: 0 auto">
+
+                    <p:panel>
+
+                        <h:panelGrid columns="3" >
+                            <h:panelGrid columns="1">
+
+                                <h:graphicImage  id="iconoNombre" class="icon" name="/img/users.png"  height="70" width="70" style="align-content: center"/>
+
+                            </h:panelGrid>
+
+
+                            <h:panelGrid columns="1" cellpadding="5">
+                                <h:panelGrid columns="2">
+                                    <p:outputLabel for="dui" value="DUI: " style="color:  #2793B7; font-family: sans-serif"/>
+                                    <p:outputLabel id="dui" value="#{clientes.selectedClient.dui}" />
+
+                                    <p:outputLabel  for="nit" value="NIT: " style="color:  #2793B7; font-family: sans-serif"/>
+                                    <p:outputLabel id="nit" value="#{clientes.selectedClient.nit}" />
+
+                                    <p:outputLabel for="nombre" value="NOMBRES: " style="color:  #2793B7; font-family: sans-serif" />
+                                    <p:outputLabel style="text-transform: uppercase" id="nombre" value="#{clientes.selectedClient.nombres}" />
+
+                                    <p:outputLabel for="apellido" value="APELLIDOS: " style="color:  #2793B7; font-family: sans-serif"/>
+                                    <p:outputLabel style="text-transform: uppercase" id="apellido" value="#{clientes.selectedClient.apellidos}" />
+
+                                    <p:outputLabel for="observaciones"  value="OBSERVACIONES: " style="color:  #2793B7; font-family: sans-serif" />
+                                    <p:outputLabel id="observaciones" value="#{clientes.selectedClient.observaciones}" />
+                                </h:panelGrid>
+                            </h:panelGrid>
+
+                            <h:panelGrid columns="1">
+                                <h:panelGrid columns="2">
+                                    <p:outputLabel for="sexo" value="SEXO: " style="color:  #2793B7; font-family: sans-serif"/>
+                                    <p:outputLabel id="sexo" value="#{clientes.selectedClient.sexo}" />
+                                    <p:outputLabel  for="fechaNacimiento" value="FECHA DE NACIMIENTO: " style="color:  #2793B7; font-family: sans-serif"/>
+                                    <p:outputLabel id="fechaNacimiento" value="#{clientes.selectedClient.fecha_nacimiento}" />
+                                    <p:outputLabel for="direccion" value="DIRECCION: " style="color:  #2793B7; font-family: sans-serif"/>
+                                    <p:outputLabel id="direccion" value="#{clientes.selectedClient.direccion}" />
+                                    <p:outputLabel for="telefono" value="TELEFONO: " style="color:  #2793B7; font-family: sans-serif"/>
+                                    <p:outputLabel id="telefono" value="#{clientes.selectedClient.telefono}" />
+                                </h:panelGrid>
+                            </h:panelGrid>
+
+                        </h:panelGrid>
+
+                    </p:panel>
+
+
+
+
+
+                </h:panelGrid>
+
+
+
+
+
+                <!-- <p:tabView style="background-color: #253A47; width: 800px; margin: 0 auto">
+                     <p:tab title="Prestamos">
+ 
+                         <p:dataList  var="prestamo" value="#{prestamos.listaC}" type="ordered" paginator="true" rows="10" styleClass="paginated">>
+                             <f:facet name="header">
+                             Prestamos
+                             </f:facet>
+                             
+                #{prestamo.fecha_inicio},  #{prestamo.monto}
+              
+           </p:dataList>
+
+       </p:tab>
+      
+         <p:tab title="Pagos">
+       
+             <p:dataList  var="car" type="ordered" paginator="true" rows="10" styleClass="paginated">>
+               <f:facet name="header">
+                   Pagos
+               </f:facet>
+              
+           </p:dataList>
+       
+   </p:tab>
+       
+       
+       
+   </p:tabView> -->
+
+
+                <h:panelGrid style="padding-left: 12px ;width: 100%; padding-top: 0px;padding-right: 10px;position: relative">
+                    <p:tabView style="padding-top:  0px;position: relative">
+                        <p:tab title="Actividad">
+                            <h:panelGrid columns="1" cellpadding="10">
+                                <p:accordionPanel style="width: 100%">
+                                    <p:tab title="Historial de Prestamos">
+                                        <!-- aqui comienza la tabla-->
+                                        <h:form id="formTable" style="text-align: center">
+
+
+                                            <p:separator/>
+
+
+                                            <p:dataTable id="prestamos1" var="Phistorial" value="#{prestamos.listaH}" editable="true" style="margin:20px" >
+                                                <f:facet name="header">
+                                                    Historial de Prestamos
+                                                </f:facet>
+                                                <p:column headerText="No. De prestamo" style="width:80px">
+                                                    <h:outputText value=""/>
+                                                </p:column>
+
+
+                                                <p:column headerText="Monto" style="width:80px">
+                                                    <h:outputText value=""/>
+                                                </p:column>
+
+                                                <p:column headerText="Saldo" style="width:80px">
+                                                    <h:outputText value=""/>
+                                                </p:column>
+
+
+                                                <p:column headerText="Cuotas" style="width:80px">
+                                                    <h:outputText value=""/>
+                                                </p:column>
+
+
+
+
+
+                                            </p:dataTable>
+
+
+                                        </h:form>
+                                        <!--aqui termina-->
+                                    </p:tab>
+
+                                    <p:tab title="Historial de Pagos" >
+
+                                        <h:form id="Hpagos" style="text-align: center">
+                                            <p:separator/>
+                                            <p:dataTable value="#{controllerPago.pagos}" var="pago" style="margin:20px" scrollable="true" scrollHeight="300">
+                                                <f:facet name="header">
+                                                    Historial de pagos
+                                                </f:facet>
+                                                <p:column headerText="N° Cuota">
+                                                    <h:outputText value="#{pago.numeroCuota}"  />
+
+                                                </p:column>
+                                                <p:column headerText="Cuota">
+
+                                                    <h:outputText value="#{pago.cuota}"/>
+                                                </p:column>
+                                                <p:column headerText="Capital">
+
+                                                    <h:outputText value="#{pago.capital}"/>
+                                                </p:column>
+                                                <p:column headerText="Interes">
+
+                                                    <h:outputText value="#{pago.interes}"/>
+                                                </p:column>
+                                                <p:column headerText="Saldo">
+
+                                                    <h:outputText value="#{pago.saldo}"/>
+                                                </p:column>
+                                                <p:column headerText="Fecha de Pago">
+
+                                                    <h:outputText value="#{pago.fechaPago}"/>
+                                                </p:column>
+
+
+                                            </p:dataTable>
+                                        </h:form>
+
+
+                                    </p:tab>
+                                </p:accordionPanel>
+
+                            </h:panelGrid>
+                        </p:tab>
+                        <p:tab title="Editar Perfil">
+                            <h:panelGrid columns="1" cellpadding="5">
+                                <p:outputLabel value="EDITAR PERFIL"  style="color: red; font-family: sans-serif" />
+                                <h:panelGrid columns="2" cellpadding="4">
+                                    <p:outputLabel  for="dui" value="DUI: " style="color: grey; font-family: sans-serif" />
+                                    <h:inputText id="dui" size="40" value="#{clientes.selectedClient.dui}" />
+
+                                    <p:outputLabel for="nit" value="NIT: " style="color: grey; font-family: sans-serif" />
+                                    <h:inputText id="nit" size="40" value="#{clientes.selectedClient.nit}" />
+
+                                    <p:outputLabel for="nombre" value="NOMBRES: " style="color: grey; font-family: sans-serif" />
+                                    <h:inputText style="text-transform: uppercase" id="nombre" size="40" value="#{clientes.selectedClient.nombres} "/>
+
+                                    <p:outputLabel for="apellido" value="APELLIDOS: " style="color: grey; font-family: sans-serif" />
+                                    <h:inputText style="text-transform: uppercase" id="apellido" size="40"  value="#{clientes.selectedClient.apellidos}"/>
+
+                                    <p:outputLabel for="observaciones" value="OBSERVACIONES: " style="color: grey; font-family: sans-serif" />
+                                    <h:inputText id="observaciones" size="40"  value="#{clientes.selectedClient.observaciones}"/>
+
+                                    <p:outputLabel for="sexo" value="SEXO: " style="color: grey; font-family: sans-serif" />
+                                    <h:inputText id="sexo" size="40" value="#{clientes.selectedClient.sexo}"/>
+
+                                    <p:outputLabel for="fechaNacimiento" value="FECHA DE NACIMIENTO: " style="color: grey; font-family: sans-serif" />
+                                    <h:inputText id="fechaNacimiento" value="#{clientes.selectedClient.fecha_nacimiento}" size="40" />
+
+                                    <p:outputLabel for="direccion" value="DIRECCION: " style="color: grey; font-family: sans-serif" />
+                                    <h:inputText id="direccion" size="40"  value="#{clientes.selectedClient.direccion}"/>
+
+                                    <p:outputLabel for="telefono" value="TELEFONO: " style="color: grey; font-family: sans-serif" />
+                                    <h:inputText id="telefono" size="40" value="#{clientes.selectedClient.telefono}" />
+
+
+
+                                </h:panelGrid>
+
+                                <h:panelGrid columns="2" class="center">
+                                    <p:commandButton value="Cancelar"   />
+                                    <p:commandButton value="Modificar"   />
+                                </h:panelGrid>
+
+                            </h:panelGrid>
+                        </p:tab>
+                    </p:tabView>
+
+                </h:panelGrid>
+
+
+
+
+
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

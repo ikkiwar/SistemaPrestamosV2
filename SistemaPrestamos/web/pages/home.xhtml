@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body onload="#{prestamos.inicio()}">
+
+        <ui:composition template="/plantilla/plantilla.xhtml">
+
+            <ui:define name="content">
+               
+                
+                
+                
+                <h:panelGrid columns="2" style="padding-top: 10px;padding-left: 24px ">
+                    <h:graphicImage  id="icono" class="icon" name="/img/home.png"  height="50" width="50"/>
+                    <p:outputLabel for="icono" value="INICIO" style="color: white; "/>
+                </h:panelGrid>
+                <p:separator/>
+                <br/>
+                
+                
+                
+                <!--Tabla-->
+                
+                
+                 <h:form id="prestamosPendientes">
+
+                    <p:dataTable id="prestamos" var="pactivos" value="#{prestamos.listaP}"  
+                          paginator="true" rows="10" rowsPerPageTemplate="5,10,15" editable="true" style="margin:20px" >
+                        
+                        <f:facet name="header">
+                            Prestamos Pendientes
+                        </f:facet>
+
+                        <p:column  headerText="No. De prestamo" style="width:80px">
+                            <h:outputText value="#{pactivos.id_prestamo}"/>
+                        </p:column>
+
+                        <p:column   headerText="DUI"  style="width:80px">
+                            <h:outputText value="#{pactivos.dui}"/>
+                        </p:column>
+
+                        <p:column  headerText="Cliente" style="width:200px" >
+                            <h:outputText  style="text-transform: uppercase" value="#{pactivos.apellidos} #{pactivos.nombres}"/>
+                        </p:column>
+
+                        <p:column headerText="Monto" style="width:80px">
+
+                            <h:outputText value="#{pactivos.monto}"/>
+                        </p:column>
+
+                        <p:column headerText="Saldo" style="width:80px">
+                            <h:outputText value="#{pactivos.saldo}"/>
+                        </p:column>
+
+
+                        <p:column headerText="cuotas" style="width:80px">
+                            <h:outputText value="#{pactivos.cantidad_cuotas}"/>
+                        </p:column>
+
+                        <p:column style="width:32px">
+                            <p:commandButton icon="ui-icon-info" style="width: 25px;height: 25px;font-size: 5px;background-color:#00a0df" ajax="false" action="detallePrestamo.jsf">
+                                <f:setPropertyActionListener value="#{pactivos}" target="#{prestamos.selectPrestamo}"/>
+                            </p:commandButton>
+                            <p:commandButton icon="ui-icon-calculator" style="width: 25px;height: 25px;font-size: 5px; background-color: greenyellow" ajax="false" action="pago.jsf" >
+                                <f:setPropertyActionListener value="#{pactivos}" target="#{prestamos.selectPrestamo}"/>
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+                
+                
+                
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

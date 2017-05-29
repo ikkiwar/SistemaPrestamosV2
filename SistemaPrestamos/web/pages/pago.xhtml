@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../plantilla/plantilla.xhtml">
+
+            <ui:define name="content" >
+                <h:panelGrid columns="2">
+                    <h:panelGrid columns="2" style="padding-top: 10px;padding-left: 15px ">
+                        <h:graphicImage  id="Home" class="icon" name="/img/archivo.png"  height="60" width="60"/>
+                        <p:outputLabel for="Home" value="REGISTRAR PAGO" style="color: white; font-family: sans-serif"/>
+                    </h:panelGrid>
+                    <h:panelGrid  style=" padding-right: 0px; padding-left: 325px;padding-top: 0px">
+                        <p:panel  style="width: 500px; height: 120px;background-color: #FFFFFF" >
+
+                            <h:panelGrid columns="2">
+                                <h:panelGrid columns="1">
+                                    <h:panelGrid>
+                                        <p:outputLabel value="CLIENTE: " style="color: #2793B7; font-family: sans-serif"/>    
+                                    </h:panelGrid>
+                                    <h:panelGrid columns="2">
+                                        <p:outputLabel id="nombre" value="NOMBRE: " style="font-family: sans-serif"/>
+                                        <p:outputLabel  style="text-transform: uppercase" for="nombre"  value="#{prestamos.selectPrestamo.dui}  "/>
+                                        <p:outputLabel id="apellido" value="APELLIDOS: " style="font-family: sans-serif"/>
+                                        <p:outputLabel  style="text-transform: uppercase" for="apellido" value="#{prestamos.selectPrestamo.apellidos} "/>    
+                                    </h:panelGrid>
+
+
+                                </h:panelGrid>
+                                <h:panelGrid columns="1">
+                                    <h:panelGrid columns="1">
+                                        <p:outputLabel  value="PRESTAMO" style="color: #2793B7; font-family: sans-serif"/>    
+                                    </h:panelGrid>
+                                    <h:panelGrid columns="2">
+                                        <p:outputLabel id="numeroPrestamo" value="N° PRESTAMO: " style="font-family: sans-serif"/>
+                                        <p:outputLabel for="numeroPrestamo" value="#{prestamos.selectPrestamo.id_prestamo}"/>
+                                        <p:outputLabel id="numeroCuota" value="SALDO: " style="font-family: sans-serif"/>
+                                        <p:outputLabel for="numeroCuota" value="#{prestamos.selectPrestamo.saldo} "/> 
+                                        <p:outputLabel id="valorCuota" value="VALOR CUOTA: " style="font-family: sans-serif"/>
+                                        <p:outputLabel for="valorCuota" value="#{prestamos.selectPrestamo.valor_cuota} "/> 
+                                    </h:panelGrid>
+
+
+                                </h:panelGrid>
+
+
+                            </h:panelGrid>
+
+                        </p:panel>
+
+                    </h:panelGrid>  
+
+                </h:panelGrid>
+                <p:separator/>
+                <br/> 
+                <br/>
+
+
+                <div style="width: 300px; margin-left:  400px"> 
+                    <h:form id="formp">
+                        <p:panel id="panel" header="Pagos" style="margin-bottom:10px;">
+                            <p:messages id="messages" />
+                            <h:panelGrid columns="2" cellpadding="5">
+                                <p:outputLabel for="monto" value="Monto:" />
+                                <p:inputNumber id="monto" value="#{prestamos.cuota.valor}" />
+
+                                <p:outputLabel for="saldoA" value="Saldo Anterior:" />
+                                <p:inputNumber id="saldoA" value="#{prestamos.cuota.saldo_anterior}" disabled="true"/>
+
+                                <p:outputLabel for="interes" value="interes:" />
+                                <p:inputNumber id="interes" value="#{prestamos.cuota.interes}" disabled="true"/>
+
+                                <p:outputLabel for="capital" value="Capital:" />
+                                <p:inputNumber id="capital" value="#{prestamos.cuota.capital}" disabled="true"/>
+
+
+                                <p:outputLabel for="saldoAc" value="Saldo Actualizado" />
+                                <p:inputNumber id="saldoAc" value="#{prestamos.cuota.saldo_actualizado}" disabled="true"/>
+
+                            </h:panelGrid>
+                        </p:panel>
+
+                        <p:toolbar >
+
+                            <f:facet name="left">
+                                <p:commandButton value="calcular" update="panel" actionListener="#{prestamos.calcular()}" style="margin-right:20px;" />
+                            </f:facet>
+
+
+
+                            <f:facet name="right">
+                                <p:commandButton value="Resgistrar"  actionListener="#{prestamos.submitCuota()}" oncomplete="prestamo.jsf"/>
+                            </f:facet>
+
+
+
+                        </p:toolbar>
+                    </h:form>
+                </div>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
