@@ -70,7 +70,7 @@
 
 
                         <p:column style="width:32px">
-                            <p:commandButton icon="ui-icon-info" style="width: 25px;height: 25px;font-size: 5px;background-color: #00a0df" action="detallePrestamo" oncomplete="#{prestamos.llenarhistorial()}">
+                            <p:commandButton icon="ui-icon-info" style="width: 25px;height: 25px;font-size: 5px;background-color: #00a0df" action="detallePrestamo" >
                                 <f:setPropertyActionListener value="#{Phistorial}" target="#{prestamos.selectPrestamo}"/>
                             </p:commandButton>
                             <p:commandButton icon="ui-icon-calculator" style="width: 25px;height: 25px;font-size: 5px; background-color: greenyellow" action="pago.jsf">

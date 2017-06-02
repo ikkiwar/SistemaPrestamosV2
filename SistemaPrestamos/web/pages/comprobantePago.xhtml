@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../plantilla/plantilla.xhtml">
+
+            <ui:define name="content">
+
+                <h:panelGrid columns="2" style="background-color:  transparent;padding-left: 18px">
+                    <h:graphicImage id="clienteIcon"   class="icon" name="/img/credit-card.png"  height="60" width="60"/>
+                    <p:outputLabel for="clienteIcon" value="Comprobante De Pago" style="color: white;font-family: sans-serif"/>            
+                </h:panelGrid>
+                <p:separator/>
+
+                <h:panelGrid style="padding-left: 12px; padding-top: 24px; margin: 0 auto; width: 300px">
+
+                    <p:panel header="Sistema De Prestamos">
+
+                        <h:panelGrid columns="1" >
+
+
+
+                            <h:panelGrid columns="1" cellpadding="5">
+                          
+                                    <h:panelGrid columns="2">
+                                        <p:outputLabel for="dui" value="DUI: " style="color:  #2793B7; font-family: sans-serif"/>
+                                        <p:outputLabel id="dui" value="78787878-7" />
+
+                                        <p:outputLabel for="nombre" value="NOMBRES: " style="color:  #2793B7; font-family: sans-serif" />
+                                        <p:outputLabel style="text-transform: uppercase" id="nombre" value="IKKI" />
+
+                                        <p:outputLabel for="apellido" value="APELLIDOS: " style="color:  #2793B7; font-family: sans-serif"/>
+                                        <p:outputLabel style="text-transform: uppercase" id="apellido" value="Riko" />
+
+                                        <p:outputLabel  for="id_prestamo" value="Prestamo: " style="color:  #2793B7; font-family: sans-serif"/>
+                                        <p:outputLabel id="id_prestamo" value="5" />
+
+                                        <p:outputLabel for="ncuota" value="Número De Cuota: " style="color:  #2793B7; font-family: sans-serif"/>
+                                        <p:outputLabel id="ncuota" value="1" />
+
+                                        <p:outputLabel for="monto" value="Monto: " style="color:  #2793B7; font-family: sans-serif" />
+                                        <p:outputLabel style="text-transform: uppercase" id="monto" value="100" />
+
+                                        <p:outputLabel for="saldoA" value="Saldo Atnerior: " style="color:  #2793B7; font-family: sans-serif"/>
+                                        <p:outputLabel style="text-transform: uppercase" id="saldoA" value="500" />
+
+                                        <p:outputLabel for="interes" value="Interes: " style="color:  #2793B7; font-family: sans-serif" />
+                                        <p:outputLabel style="text-transform: uppercase" id="interes" value="5%" />
+
+                                        <p:outputLabel for="capital" value="Capital: " style="color:  #2793B7; font-family: sans-serif"/>
+                                        <p:outputLabel style="text-transform: uppercase" id="capital" value="10" />
+
+                                        <p:outputLabel for="saldoAc" value="Saldo Actualizado: " style="color:  #2793B7; font-family: sans-serif"/>
+                                        <p:outputLabel style="text-transform: uppercase" id="saldoAc" value="300" />
+
+                                        <p:outputLabel for="fecha"  value="Fecha de pago: " style="color:  #2793B7; font-family: sans-serif" />
+                                        <p:outputLabel id="fecha" value="20017-05-30" />
+
+                                    </h:panelGrid>
+
+                                    
+
+
+                                
+
+
+
+                            </h:panelGrid>
+
+
+                        </h:panelGrid>
+
+
+                    </p:panel>
+
+
+
+
+
+                </h:panelGrid>
+
+
+
+
+
+
+
+
+
+
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
