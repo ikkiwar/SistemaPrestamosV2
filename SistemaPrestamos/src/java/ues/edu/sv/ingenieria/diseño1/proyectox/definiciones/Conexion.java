@@ -16,7 +16,7 @@ public class Conexion {
     private String url = "jdbc:mysql://localhost:3306/prestamos";
     //private String url = "jdbc:mysql://localhost:3306/baseDeDatos"; algunas veces es necesario cambiar localhost por 127.0.0.1
     private String login = "root"; //Administrador de MySQL
-    private String password = "admin";
+    private String password = "12345";
     private Connection cnx = null;
     private Statement sttm = null;
     private ResultSet rst = null;

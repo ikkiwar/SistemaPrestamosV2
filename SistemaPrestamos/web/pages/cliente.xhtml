@@ -39,7 +39,7 @@
 
                     <p:dataTable id="tablaCliente"  value="#{clientes.lista}"  var="cliente" 
 
-                     paginator="true" rows="10" rowsPerPageTemplate="5,10,15"  editable="false" style="margin:20px">
+                                 paginator="true" rows="10" rowsPerPageTemplate="5,10,15"  editable="false" style="margin:20px">
 
                         <f:facet name="header">
                             Clientes
@@ -100,13 +100,17 @@
                 <p:dialog  id="dialog" modal="true" appendTo="@(body)" height="100%" style="background-color:#EFEDEF; text-align: center" showEffect="blind" hideEffect="blind" widgetVar="agregarCliente"   header="Agregar Clientes"  draggable="false" closeOnEscape="true" resizable="false">
                     <p:ajax event="close" listener="#{clientes.inicio()}" update=":form:tablaCliente" immediate="true" global="true" />
 
-                    <h:form id="formulario" style="text-align: center;" >
-
+                    <h:form id="formulario" style="text-align: center" >
+                      
                         <p:messages id="messages" showDetail="true"  autoUpdate="true" closable="true" />
 
+                        <h:panelGrid columns="2">
+                            <p:graphicImage id="fotoclient" class="icon" name="/img/contac.png" height="70" width="60" />
+                            <p:fileUpload value="" mode="simple" skinSimple="true"  style="padding-left: 3%" allowTypes="/(jpg)"/>
+                        </h:panelGrid>
+                            
 
                         <h:panelGrid id="grid" columns="2"  style="text-align: left">
-
 
 
                             <p:outputLabel  for="dui" value="Dui: "/>
@@ -148,7 +152,7 @@
                             <p:outputLabel for="observaciones"   value="Observaciones:  " />
                             <p:inputTextarea id="observaciones"   rows="6" cols="35" autoResize="true" value="#{clientes.client.observaciones}"/>
 
-                            <h:panelGrid columns="2">
+                            <h:panelGrid columns="2" >
                                 <p:commandButton  value="Registrar"  icon="ui-icon-disk"  action="#{clientes.submit()}" update="grid" oncomplete="PF('agregarCliente').hide();" />
                                 <p:commandButton value="Cancelar" icon="ui-icon-cancel" onclick="PF('agregarCliente').hide();" type="button"/>
                             </h:panelGrid>
