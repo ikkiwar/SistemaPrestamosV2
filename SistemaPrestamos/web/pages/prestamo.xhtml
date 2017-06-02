@@ -20,11 +20,11 @@
                 <div class="center">
 
                     <h:form>
-                    <p:outputLabel style="margin-left: 1%; color: white; font-size: small" value="Buscar por Nombre"/>           
-                    <p:inputText style="margin-left: 1%"   value="#{prestamos.filtro}">
-                        <p:ajax event="keyup" listener="#{prestamos.filtrar()}" update=":formTable:prestamos1"   />
-                    </p:inputText>
-                    <p:commandButton style="margin-left: 10px" icon="ui-icon-circle-plus" value="Nuevo Prestamo" onclick="PF('Nprestamo').show();"/>
+                        <p:outputLabel style="margin-left: 1%; color: white; font-size: small" value="Buscar por Nombre"/>           
+                        <p:inputText style="margin-left: 1%"   value="#{prestamos.filtro}">
+                            <p:ajax event="keyup" listener="#{prestamos.filtrar()}" update=":formTable:prestamos1"   />
+                        </p:inputText>
+                        <p:commandButton style="margin-left: 10px" icon="ui-icon-circle-plus" value="Nuevo Prestamo" onclick="PF('Nprestamo').show();"/>
                     </h:form>
                 </div>
 
@@ -37,8 +37,8 @@
 
 
                     <p:dataTable id="prestamos1" var="Phistorial" value="#{prestamos.listaH}" 
-                        paginator="true" rows="10" rowsPerPageTemplate="5,10,15" editable="true" style="margin:20px" >
-                        
+                                 paginator="true" rows="10" rowsPerPageTemplate="5,10,15" editable="true" style="margin:20px" >
+
                         <f:facet name="header">
                             Historial de Prestamos
                         </f:facet>
@@ -123,7 +123,12 @@
                             <p:calendar  pattern="yyyy-MM-dd" id="fin" disabled="true" size="40"  value="#{prestamos.prestamo.fecha_fin}"/>
 
                             <p:outputLabel for="capita" value="Capitalizacion "  />
-                            <p:inputText id="capita" value="Mensual" disabled="true" size="40"/>
+                            <p:selectOneMenu id="capita"  >
+                                <f:selectItem itemLabel="diario"  />
+                                <f:selectItem itemLabel="semanal"/>
+                                <f:selectItem itemLabel="mensual"/>
+                               
+                            </p:selectOneMenu>
 
 
                             <div class="center">
