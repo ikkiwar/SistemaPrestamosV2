@@ -101,63 +101,64 @@
                     <p:ajax event="close" listener="#{clientes.inicio()}" update=":form:tablaCliente" immediate="true" global="true" />
 
                     <h:form id="formulario" style="text-align: center" >
-                      
+
                         <p:messages id="messages" showDetail="true"  autoUpdate="true" closable="true" />
 
                         <h:panelGrid columns="2">
-                            <p:graphicImage id="fotoclient" class="icon" name="/img/contac.png" height="65" width="55" style="padding-right: 10%" />
-                            <p:fileUpload value="" mode="simple" skinSimple="true"   allowTypes="/(jpg)" label="Archivo"/>
-                            <p:graphicImage id="docs" class="icon" name="/img/Documents.png" height="40" width="40" />
-                            <p:fileUpload value="" mode="simple" skinSimple="true"   allowTypes="/(jpg)" label="Archivo"/>
+                            <p:graphicImage id="fotoclient" value="" class="icon" name="/img/contac.png" height="65" width="55" style="padding-right: 10%" />
+                            <p:fileUpload value="" mode="simple" skinSimple="true"   allowTypes="/(\.|\/)(gif|jpe?g|png)$/" label="Archivo"/>
                         </h:panelGrid>
-                            
 
-                        <h:panelGrid id="grid" columns="2"  style="text-align: left">
+
+                        <h:panelGrid id="grid" columns="3"  style="text-align: left">
 
 
                             <p:outputLabel  for="dui" value="Dui: "/>
                             <p:inputMask mask="99999999-9"  id="dui" size="40" required="true" value="#{clientes.client.dui}"/>
-
+                            <p:fileUpload value="" mode="simple" skinSimple="true"   allowTypes="/(jpg)" label="Archivo"/>
 
                             <p:outputLabel  for="nit" value="nit: "/>
                             <p:inputMask mask="9999-999999-999-9"  id="nit" size="40" required="true" value="#{clientes.client.nit}"/>
-
+                            <p:fileUpload value="" mode="simple" skinSimple="true"   allowTypes="/(jpg)" label="Archivo"/>
 
                             <p:outputLabel  for="nombre" value="Nombre:"/>
                             <p:inputText  style="text-transform: uppercase" id="nombre"  required="true" size="40" value="#{clientes.client.nombres}"/>
-
+                            <a/>
 
 
                             <p:outputLabel  for="apellido" value="Apellido:"/>
                             <p:inputText style="text-transform: uppercase" id="apellido" required="true"   size="40" value="#{clientes.client.apellidos}"/>
-
+                            <a/>
 
                             <p:outputLabel  for="sexo" value="Sexo:"/>
                             <h:selectOneRadio id="sexo" value="#{clientes.client.sexo}" required="true">
                                 <f:selectItem  itemLabel="Masculino" itemValue="M"/>
                                 <f:selectItem itemLabel="Femenino" itemValue="F"/>  
                             </h:selectOneRadio>
-
+                            <a/>
 
                             <p:outputLabel  for="telefono" value="teléfono: "/>
                             <p:inputMask mask="9999-9999"  id="telefono" size="40" value="#{clientes.client.telefono}"/>
-
+                            <a/>
 
                             <p:outputLabel for="fechaNacimiento" value="Fecha de Nacimiento: " />
                             <p:calendar  id="fechaNacimiento"  locale="de" size="30" required="true" pattern="yyyy-MM-dd" 
                                          readonlyInput="true" effect="blind" navigator="true" showOn="button" yearRange="-100:+0" value="#{clientes.client.fecha_nacimiento}" />
-
+                            <a/>
 
                             <p:outputLabel for="direccion" value="Direccion: "/>
                             <p:inputTextarea id="direccion" rows="6" cols="35" autoResize="true" value="#{clientes.client.direccion}"/>
-
+                            <a/>
                             <p:outputLabel for="observaciones"   value="Observaciones:  " />
                             <p:inputTextarea id="observaciones"   rows="6" cols="35" autoResize="true" value="#{clientes.client.observaciones}"/>
-
-                            <h:panelGrid columns="2" >
+                            <a/>
+                           
+                            <div class="center">
+                            <h:panelGrid columns="2"  >
                                 <p:commandButton  value="Registrar"  icon="ui-icon-disk"  action="#{clientes.submit()}" update="grid" oncomplete="PF('agregarCliente').hide();" />
                                 <p:commandButton value="Cancelar" icon="ui-icon-cancel" onclick="PF('agregarCliente').hide();" type="button"/>
                             </h:panelGrid>
+                            </div>
 
                         </h:panelGrid>
                     </h:form>
