@@ -91,7 +91,8 @@
                     <h:form id="nform">
 
                         <h:panelGrid id="grid" columns="2" cellpadding="1">
-
+                            <p:growl id="growl"  life="3000" showDetail="true" sticky="true" />
+                            
                             <p:outputLabel  for="cliente" value="Cliente: "/>
                             <p:selectOneMenu style="text-transform: uppercase"  id="cliente" value="#{prestamos.prestamo.dui}">
                                 <f:selectItems  var="lista" value="#{clientes.lista}" itemLabel="#{lista.nombres} #{lista.apellidos}" itemValue="#{lista.dui}"/>
@@ -112,8 +113,16 @@
                             <p:outputLabel for="interes" value="Tasa de intetes (%)"  />
                             <p:inputNumber id="interes" decimalSeparator="none" size="10" value="#{prestamos.prestamo.tasa_interes}"/>
 
+                            <p:outputLabel for="capita" value="Capitalizacion "  />
+                            <p:selectOneMenu id="capita"  value="#{prestamos.prestamo.capitalizacion}" >
+
+                                <f:selectItem itemLabel="Diario" itemValue="D"  />
+                                <f:selectItem itemLabel="Mensual" itemValue="M"/>
+
+                            </p:selectOneMenu>
+
                             <a/>
-                            <p:commandButton value="Calcular" icon="ui-icon-calculator" action="#{prestamos.prestamo.calcularCuotaMensual()}" update="vcuotas fin"/>
+                            <p:commandButton value="Calcular" icon="ui-icon-calculator" action="#{prestamos.prestamo.calcularCuota()}" update="vcuotas fin"/>
 
                             <p:outputLabel  for="vcuotas" value="Valor Cuotas: " />
                             <p:inputNumber id="vcuotas"  decimalSeparator="." thousandSeparator="," disabled="true" size="40" value="#{prestamos.prestamo.valor_cuota}"/>
@@ -122,18 +131,10 @@
                             <p:outputLabel  for="fin" value="Fecha de Fin: "  />
                             <p:calendar  pattern="yyyy-MM-dd" id="fin" disabled="true" size="40"  value="#{prestamos.prestamo.fecha_fin}"/>
 
-                            <p:outputLabel for="capita" value="Capitalizacion "  />
-                            <p:selectOneMenu id="capita"  >
-                                <f:selectItem itemLabel="diario"  />
-                                <f:selectItem itemLabel="semanal"/>
-                                <f:selectItem itemLabel="mensual"/>
-                               
-                            </p:selectOneMenu>
-
 
                             <div class="center">
                                 <h:panelGrid  columns="2">
-                                    <p:commandButton  value="Registrar"  icon="ui-icon-disk" action="#{prestamos.submit()}"  oncomplete="PF('Nprestamo').hide();"/>
+                                    <p:commandButton  value="Registrar"  icon="ui-icon-disk" action="#{prestamos.submit()}" update="growl" oncomplete="PF('Nprestamo').hide();"/>
                                     <p:commandButton value="Cancelar" icon="ui-icon-cancel" onclick="PF('Nprestamo').hide();" type="button"/>
                                 </h:panelGrid>
                             </div>

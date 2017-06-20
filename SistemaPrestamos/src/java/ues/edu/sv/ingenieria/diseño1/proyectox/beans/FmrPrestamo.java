@@ -6,16 +6,15 @@
 package ues.edu.sv.ingenieria.diseño1.proyectox.beans;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import ues.edu.sv.ingenieria.diseño1.proyectox.controladores.ControladorCuota;
 import ues.edu.sv.ingenieria.diseño1.proyectox.controladores.ControladorPrestamo;
@@ -51,15 +50,13 @@ public class FmrPrestamo implements Serializable {
         try {
             listaP = pControl.obtenerActivos();
             listaH = pControl.obtenerHistorial();
-           
 
         } catch (ErrorPrestamo ex) {
             Logger.getLogger(FmrPrestamo.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    
-    public void detalle(){
+
+    public void detalle() {
         try {
             listaC = cControl.obtenerPorPrestamo(selectPrestamo.getId_prestamo());
         } catch (ErrorPrestamo ex) {
@@ -67,21 +64,17 @@ public class FmrPrestamo implements Serializable {
         }
     }
 
-    public void llenarhistorial(){
+    public void llenarhistorial() {
         try {
             listaC = cControl.obtenerPorPrestamo(selectPrestamo.getId_prestamo());
             System.out.println(selectPrestamo.getId_prestamo());
-            
-            
-            
+
         } catch (ErrorPrestamo ex) {
             Logger.getLogger(FmrPrestamo.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
-  
-    
-    
+
     public void filtrar() {
         try {
             System.out.println(filtro);
@@ -93,17 +86,16 @@ public class FmrPrestamo implements Serializable {
     }
 
     public void calcular() throws ErrorPrestamo {
-        long diferencia ;
-        long diferenciadias ;
-        
-       
+        long diferencia;
+        long diferenciadias;
+
         cuota.setId_prestamo(selectPrestamo.getId_prestamo());
         cuota.setSaldo_anterior(selectPrestamo.getSaldo());
         Date anterior = cControl.masreciente(selectPrestamo.getId_prestamo());
         Date ahora = cuota.getFecha();
 
         if (anterior == null) {
-           cuota.setInteres(cuota.getValor() * selectPrestamo.getTasa_interes());
+            cuota.setInteres(cuota.getValor() * selectPrestamo.getTasa_interes());
 
         } else {
 
@@ -118,53 +110,32 @@ public class FmrPrestamo implements Serializable {
             }
 
         }
-        
+
         cuota.setCapital(cuota.getValor() - cuota.getInteres());
-        cuota.setSaldo_actualizado(cuota.getSaldo_anterior()-cuota.getCapital());
-
+        cuota.setSaldo_actualizado(cuota.getSaldo_anterior() - cuota.getCapital());
 
     }
-    
-    public void submitCuota() throws ErrorPrestamo{
-        
-       cuota.setNum_cuota(cControl.obtenerMaxId(selectPrestamo.getId_prestamo()));
+
+    public void submitCuota() throws ErrorPrestamo {
+
+        cuota.setNum_cuota(cControl.obtenerMaxId(selectPrestamo.getId_prestamo()));
         System.out.println(cuota.getNum_cuota());
-        
-       if(cuota.getSaldo_actualizado() == 0){
+
+        if (cuota.getSaldo_actualizado() == 0) {
             System.out.println("VALIDAR");
-        }else{
-            
+        } else {
+
             cControl.agregar(cuota);
-            pControl.actualizar(cuota.getSaldo_actualizado(), selectPrestamo.getId_prestamo(),cuota.getFecha());
-           
-            
-            
+            pControl.actualizar(cuota.getSaldo_actualizado(), selectPrestamo.getId_prestamo(), cuota.getFecha());
+
         }
-        
-       
-        
+
     }
-    
-    
 
     public void submit() {
-        /*  String fecha1;
-        String fecha2;
-        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        System.out.print(prestamo.getId_prestamo());
-        System.out.print(prestamo.getDui());
-        System.out.print(prestamo.getMonto());
-        System.out.print(prestamo.getValor_cuota());
-        System.out.print(prestamo.getTasa_interes());
-        System.out.print(prestamo.getCantidad_cuotas());
-        fecha1 = formato.format(prestamo.getFecha_inicio());
-        fecha2 = formato.format(prestamo.getFecha_fin());
-        System.out.print(fecha1);
-        System.out.print(fecha2);
-        System.out.print(prestamo.getSaldo());
-        System.out.print(prestamo.getEstado());*/
-        
-        prestamo.setTasa_interes(prestamo.getTasa_interes()/100);
+
+        FacesContext context = FacesContext.getCurrentInstance();
+        prestamo.setTasa_interes(prestamo.getTasa_interes() / 100);
 
         try {
             prestamo.setId_prestamo(pControl.obtenerMaxId());
@@ -177,6 +148,8 @@ public class FmrPrestamo implements Serializable {
         } catch (ErrorPrestamo ex) {
             Logger.getLogger(FmrPrestamo.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        context.addMessage(null, new FacesMessage("Successful", "Prestamo Agregado Correctamente "));
 
     }
 
