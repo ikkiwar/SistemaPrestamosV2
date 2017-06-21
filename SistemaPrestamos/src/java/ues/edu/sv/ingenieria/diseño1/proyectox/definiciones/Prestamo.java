@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ues.edu.sv.ingenieria.diseño1.proyectox.definiciones;
 
 import java.util.Calendar;
@@ -14,7 +9,7 @@ import java.util.List;
  * @author estuardo
  */
 public class Prestamo {
-    
+
     private int id_prestamo;
     private Cliente cliente;
     private double monto;
@@ -30,12 +25,15 @@ public class Prestamo {
     private List<Cuota> cuota;
     private String dui;
     private String nombres;
-    private  String apellidos;
-    
+    private String apellidos;
+    private String capitalizacion;
+    private double interesCapitalizado = 0.0;
+
     public Prestamo() {
+        fecha_inicio= Calendar.getInstance().getTime();
     }
 
-    public Prestamo(Integer id_prestamo, String dui,String nombres ,String apellidos ,double monto, double valor_cuota, double tasa_interes, int cantidad_cuotas, Date fecha_inicio, Date fecha_fin, Date fecha_ultimo_pago, double saldo, int estado, String observaciones) {
+    public Prestamo(Integer id_prestamo, String dui, String nombres, String apellidos, double monto, double valor_cuota, double tasa_interes, int cantidad_cuotas, Date fecha_inicio, Date fecha_fin, Date fecha_ultimo_pago, double saldo, int estado, String observaciones, String capitalizacion) {
         this.id_prestamo = id_prestamo;
         this.monto = monto;
         this.valor_cuota = valor_cuota;
@@ -47,44 +45,87 @@ public class Prestamo {
         this.saldo = saldo;
         this.estado = estado;
         this.observaciones = observaciones;
-        this.dui=dui;
-        this.nombres=nombres;
-        this.apellidos=apellidos;
-        
+        this.capitalizacion = capitalizacion;
+        this.dui = dui;
+        this.nombres = nombres;
+        this.apellidos = apellidos;
+
     }
 
-  
+    public double calcularCuota() {
 
-    public double calcularCuotaMensual() {
-        double cuotaMensual = 0.0;
+        double cuota = 0.0;
         this.saldo = this.monto;
-        this.tasa_interes=this.tasa_interes/100;
-       
-        
-        if (this.monto > 0 && this.tasa_interes >= 0 && this.cantidad_cuotas > 0) {
-            cuotaMensual = this.monto * (this.tasa_interes / (1 - Math.pow(1 + this.tasa_interes, -1 * this.cantidad_cuotas)));
-        }
 
+        if (this.monto > 0 && this.cantidad_cuotas > 0) {
+
+            calcularInteresCapitalizacion();
+
+            cuota = this.monto * (this.interesCapitalizado / (1 - Math.pow(1 + this.interesCapitalizado, -1 * this.cantidad_cuotas)));
+        }
+        System.out.println("valor de la Cuota" + cuota);
+        
         Calendar fin = Calendar.getInstance();
         fin.setTime(this.fecha_inicio);
         fin.add(Calendar.MONTH, this.cantidad_cuotas);
         this.fecha_fin = fin.getTime();
-        
-        
-        
-        this.estado=1;
-        this.valor_cuota=Math.round(cuotaMensual*100.0)/100.0;
-        System.out.print(this.tasa_interes);
-        //this.valor_cuota=cuotaMensual;
-        return cuotaMensual;
+
+        this.estado = 1;
+        this.valor_cuota = Math.round(cuota * 100.0) / 100.0;
+       
+
+        return cuota;
 
     }
 
+    public void calcularInteresCapitalizacion() {
+
+        System.out.println("LA CAPITALIZACION ES:" + this.capitalizacion);
+
+        this.tasa_interes = this.tasa_interes / 100;
+        if (this.capitalizacion != null && this.tasa_interes >= 0) {
+
+            if (this.capitalizacion.equals("M")) {
+                System.out.println("Estoy en Capitalizacion Mensual");
+                interesCapitalizado = this.tasa_interes;
+
+            } else if (this.capitalizacion.equals("D")) {
+
+                interesCapitalizado = this.tasa_interes / 360;
+
+                System.out.println("Estoy en Capitalizacion Diaria");
+            }
+
+        }
+
+    }
+
+    public double calcularInteres() {
+        if (this.saldo > 0 && this.tasa_interes > 0) {
+            int diff = 1;
+            Calendar lastFecha = Calendar.getInstance();
+            if (this.getCuota().size() > 0) {
+                lastFecha.setTime(this.fecha_ultimo_pago);
+            } else {
+                lastFecha.setTime(this.fecha_inicio);
+            }
+
+            diff = Calendar.getInstance().get(Calendar.MONTH) - lastFecha.get(Calendar.MONTH);
+            return this.saldo * diff * this.tasa_interes;
+        }
+
+        return 0;
+
+    }
+
+    public void calcularMora() {
+
+    }
 
     public boolean validar() {
         if (this == null) {
             return false;
-        } else if (this.id_prestamo == 0 ) {
+        } else if (this.id_prestamo == 0) {
             return false;
         } else if (this.monto <= 0) {
             return false;
@@ -100,7 +141,9 @@ public class Prestamo {
             return false;
         } else if (this.estado <= 0 || this.estado > 2) {
             return false;
-        } else if (this.valor_cuota != calcularCuotaMensual()) {
+        } else if (this.valor_cuota != calcularCuota()) {
+            return false;
+        } else if (this.capitalizacion == null) {
             return false;
         }
 
@@ -127,40 +170,18 @@ public class Prestamo {
         }
 
     }
-    
-   public void pagar(){
-    
-       
-       
-       
-   }
-    
+
+    public void pagar() {
+
+    }
 
     public Cuota crearCuota() {
         Cuota cuota = new Cuota();
         cuota.setPrestamo(this);
         cuota.setFecha(Calendar.getInstance().getTime());
-        cuota.setInteres(this.calcularInteresMensual());
-        
+        cuota.setInteres(this.calcularInteres());
+
         return cuota;
-
-    }
-
-    public double calcularInteresMensual() {
-        if (this.saldo > 0 && this.tasa_interes > 0) {
-            int diff = 1;
-            Calendar lastFecha = Calendar.getInstance();
-            if (this.getCuota().size() > 0) {
-                lastFecha.setTime(this.fecha_ultimo_pago);
-            } else {
-                lastFecha.setTime(this.fecha_inicio);
-            }
-            
-            diff = Calendar.getInstance().get(Calendar.MONTH) - lastFecha.get(Calendar.MONTH);
-            return this.saldo * diff * this.tasa_interes;
-        }
-
-        return 0;
 
     }
 
@@ -291,6 +312,21 @@ public class Prestamo {
     public void setApellidos(String apellidos) {
         this.apellidos = apellidos;
     }
-    
-    
+
+    public String getCapitalizacion() {
+        return capitalizacion;
+    }
+
+    public void setCapitalizacion(String capitalizacion) {
+        this.capitalizacion = capitalizacion;
+    }
+
+    public double getInteresCapitalizado() {
+        return interesCapitalizado;
+    }
+
+    public void setInteresCapitalizado(double interesCapitalizado) {
+        this.interesCapitalizado = interesCapitalizado;
+    }
+
 }
