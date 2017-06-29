@@ -21,6 +21,7 @@ import ues.edu.sv.ingenieria.diseño1.proyectox.controladores.ControladorPrestam
 import ues.edu.sv.ingenieria.diseño1.proyectox.controladores.ErrorPrestamo;
 import ues.edu.sv.ingenieria.diseño1.proyectox.definiciones.Cliente;
 import ues.edu.sv.ingenieria.diseño1.proyectox.definiciones.Cuota;
+import ues.edu.sv.ingenieria.diseño1.proyectox.definiciones.Parametro;
 import ues.edu.sv.ingenieria.diseño1.proyectox.definiciones.Prestamo;
 
 /**
@@ -39,6 +40,7 @@ public class FmrPrestamo implements Serializable {
     private Prestamo prestamo = new Prestamo();
     private Cuota cuota = new Cuota();
     private Prestamo selectPrestamo;
+    private Parametro parametro = new Parametro();
     private String filtro;
 
     public FmrPrestamo() {
@@ -88,6 +90,14 @@ public class FmrPrestamo implements Serializable {
     public void calcular() throws ErrorPrestamo {
         long diferencia;
         long diferenciadias;
+        double tasa_mora = 0;
+        double valormora = 0;
+        double valor_cuota = 0;
+        String mora=null;
+
+       if (cuota.getValor() < selectPrestamo.getValor_cuota()) {
+            cuota.setValor(selectPrestamo.getValor_cuota());
+        }
 
         cuota.setId_prestamo(selectPrestamo.getId_prestamo());
         cuota.setSaldo_anterior(selectPrestamo.getSaldo());
@@ -101,11 +111,20 @@ public class FmrPrestamo implements Serializable {
 
             diferencia = ahora.getTime() - anterior.getTime();
             diferenciadias = TimeUnit.MILLISECONDS.toDays(diferencia);
-
+             tasa_mora = parametro.obtenerTasas("Mora");
+             System.out.print(tasa_mora);
+            
             if (diferenciadias <= 30) {
                 cuota.setInteres(0);
                 System.out.println("mismo mes");
             } else {
+                diferenciadias = diferenciadias - 30;
+                if (!selectPrestamo.getCapitalizacion().equals("D")) {
+                    valormora = (((cuota.getValor() * tasa_mora) / 30) * diferenciadias);
+                } else {
+                    valormora = ((cuota.getValor() * (tasa_mora / (30 * selectPrestamo.getCantidad_cuotas()))) * diferenciadias);
+                }
+
                 cuota.setInteres(cuota.getValor() * selectPrestamo.getTasa_interes());
             }
 
@@ -113,6 +132,7 @@ public class FmrPrestamo implements Serializable {
 
         cuota.setCapital(cuota.getValor() - cuota.getInteres());
         cuota.setSaldo_actualizado(cuota.getSaldo_anterior() - cuota.getCapital());
+        
 
     }
 
@@ -131,6 +151,14 @@ public class FmrPrestamo implements Serializable {
         }
 
     }
+    
+    public void inciocalculo() throws ErrorPrestamo{
+        cuota.setValor(selectPrestamo.getValor_cuota());
+        System.out.println(selectPrestamo.getValor_cuota());
+        calcular();
+    }
+    
+
 
     public void submit() {
 

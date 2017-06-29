@@ -91,7 +91,7 @@ public class Prestamo {
 
             } else if (this.capitalizacion.equals("D")) {
 
-                interesCapitalizado = this.tasa_interes / 360;
+                interesCapitalizado = this.tasa_interes / (30*this.cantidad_cuotas);
 
                 System.out.println("Estoy en Capitalizacion Diaria");
             }

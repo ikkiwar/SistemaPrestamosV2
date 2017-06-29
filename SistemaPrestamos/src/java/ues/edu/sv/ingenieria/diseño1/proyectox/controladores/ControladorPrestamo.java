@@ -65,8 +65,11 @@ public class ControladorPrestamo implements Serializable {
 
             Conexion conexion = new Conexion();
             resultado = conexion.getValores("SELECT id_prestamo from prestamo ORDER BY id_prestamo DESC LIMIT 1");
-            resultado.next();
-            id = resultado.getInt(1);
+            
+            if(resultado.next()){
+              id = resultado.getInt(1);
+            }
+           
 
         } catch (SQLException ex) {
             Logger.getLogger(ControladorPrestamo.class.getName()).log(Level.SEVERE, null, ex);

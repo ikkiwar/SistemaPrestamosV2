@@ -185,6 +185,8 @@
 
                                                     <h:outputText value="#{pago.fechaPago}"/>
                                                 </p:column>
+                                                
+                                               
 
 
                                             </p:dataTable>
@@ -207,11 +209,11 @@
 
 
                                     <p:outputLabel  for="dui" value="Dui: "/>
-                                    <p:inputMask mask="99999999-9" disabled="true" id="dui" size="40" required="true" value="#{clientes.selectedClient.dui}"/>
+                                    <p:inputText  disabled="true" id="dui" size="40" required="true" value="#{clientes.selectedClient.dui}"/>
 
 
                                     <p:outputLabel  for="nit" value="nit: "/>
-                                    <p:inputMask mask="9999-999999-999-9"  id="nit" size="40" required="true" value="#{clientes.selectedClient.nit}"/>
+                                    <p:inputText   id="nit" size="40" required="true" value="#{clientes.selectedClient.nit}"/>
 
 
                                     <p:outputLabel  for="nombre" value="Nombre:"/>

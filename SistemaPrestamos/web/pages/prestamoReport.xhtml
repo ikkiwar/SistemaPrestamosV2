@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+
+        <h:panelGrid columns="2" border="1">
+            <h:panelGroup>Dui</h:panelGroup>
+            <h:panelGroup><p:outputLabel value="#{prestamos.selectPrestamo.dui}"/></h:panelGroup>
+
+            <h:panelGroup>Cliente</h:panelGroup>
+            <h:panelGroup><p:outputLabel value="#{prestamos.selectPrestamo.nombres} #{prestamos.selectPrestamo.apellidos}"/></h:panelGroup>
+
+            <h:panelGroup>Monto Prestado</h:panelGroup>
+            <h:panelGroup><p:outputLabel value="#{prestamos.selectPrestamo.monto}"/></h:panelGroup>
+
+            <h:panelGroup>Interes</h:panelGroup>
+            <h:panelGroup><p:outputLabel value="#{prestamos.selectPrestamo.tasa_interes}"/></h:panelGroup>
+
+            <h:panelGroup>Valor Cuota</h:panelGroup>
+            <h:panelGroup><p:outputLabel value="#{prestamos.selectPrestamo.valor_cuota}"/></h:panelGroup>
+
+            <h:panelGroup>Fecha Inicio</h:panelGroup>
+            <h:panelGroup><p:outputLabel value="#{prestamos.selectPrestamo.fecha_inicio}"/></h:panelGroup>
+        </h:panelGrid>
+
+
+        <h:panelGrid columns="1">
+
+            <p:dataTable value="#{prestamos.listaC}" var="cuotas" id="tablaCuotas" style="margin:20px;text-align: center" scrollable="true" scrollHeight="300">
+                <f:facet name="header">
+                    Historial de pagos
+                </f:facet>
+                <p:column headerText="N° Cuota">
+                    <h:outputText value="#{cuotas.num_cuota}"  />
+
+                </p:column>
+                <p:column headerText="Cuota">
+
+                    <h:outputText value="#{cuotas.valor}"/>
+                </p:column>
+                <p:column headerText="Capital">
+
+                    <h:outputText value="#{cuotas.capital}"/>
+                </p:column>
+                <p:column headerText="Interes">
+
+                    <h:outputText value="#{cuotas.interes}"/>
+                </p:column>
+                <p:column headerText="Mora">
+
+                    <h:outputText value="#{cuotas.mora}"/>
+                </p:column>
+                <p:column headerText="Saldo">
+
+                    <h:outputText value="#{cuotas.saldo_actualizado}"/>
+                </p:column>
+                <p:column headerText="Fecha de Pago">
+
+                    <h:outputText value="#{cuotas.fecha}"/>
+                </p:column>
+
+
+            </p:dataTable>
+            
+        </h:panelGrid>
+
+
+    </h:body>
+</html>
+
