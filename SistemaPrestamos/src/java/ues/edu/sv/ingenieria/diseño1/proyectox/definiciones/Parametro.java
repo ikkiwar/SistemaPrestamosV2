@@ -105,6 +105,30 @@ public class Parametro {
         
         return tasa;
     }
+
+    public int getId_parametro() {
+        return id_parametro;
+    }
+
+    public void setId_parametro(int id_parametro) {
+        this.id_parametro = id_parametro;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getValor() {
+        return valor;
+    }
+
+    public void setValor(String valor) {
+        this.valor = valor;
+    }
     
    
     
