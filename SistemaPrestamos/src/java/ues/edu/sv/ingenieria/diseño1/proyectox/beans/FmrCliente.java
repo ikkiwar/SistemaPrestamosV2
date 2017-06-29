@@ -34,6 +34,7 @@ public class FmrCliente implements Serializable {
     private String fecha;
     private String filtro;
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    
 
     public FmrCliente() {
 
@@ -83,12 +84,15 @@ public class FmrCliente implements Serializable {
         System.out.print(Client.getTelefono());
         System.out.print(Client.getDireccion());
         System.out.print(Client.getObservaciones());
+  
 
         try {
             Control.agregar(Client);
         } catch (ErrorPrestamo ex) {
             Logger.getLogger(FmrCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+      
 
     }
 
@@ -100,8 +104,13 @@ public class FmrCliente implements Serializable {
             Logger.getLogger(FmrCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+  
     
     
+    
+
+     
     public void seleccionado() {
         System.out.print(SelectedClient.getDui());
     }

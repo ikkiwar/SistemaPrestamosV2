@@ -19,6 +19,7 @@ public class Cuota {
     private double valor;
     private double interes;
     private double capital;
+    private double mora;
     private Date fecha;
     private double saldo_anterior;
     private double saldo_actualizado;
@@ -28,12 +29,13 @@ public class Cuota {
         
     }
 
-    public Cuota(int id_prestamo, int num_cuota, double valor, double interes, double capital, Date fecha, double saldo_anterior, double saldo_actualizado) {
+    public Cuota(int id_prestamo, int num_cuota, double valor, double interes, double capital, Date fecha, double saldo_anterior, double saldo_actualizado,double mora) {
         this.id_prestamo = id_prestamo;
         this.num_cuota = num_cuota;
         this.valor = valor;
         this.interes = interes;
         this.capital = capital;
+        this.mora=mora;
         this.fecha = fecha;
         this.saldo_anterior = saldo_anterior;
         this.saldo_actualizado = saldo_actualizado;
@@ -122,6 +124,16 @@ public class Cuota {
     public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
+
+    public double getMora() {
+        return mora;
+    }
+
+    public void setMora(double mora) {
+        this.mora = mora;
+    }
+    
+    
 
     public double getSaldo_anterior() {
         return saldo_anterior;

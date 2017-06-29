@@ -6,11 +6,17 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <body onload="#{prestamos.llenarhistorial()}">
-        
+
+
+    <body>
+
         <ui:composition template="./../plantilla/plantilla.xhtml">
 
             <ui:define name="content">
+
+              <!--  <h:form style="display: none">
+                    <p:remoteCommand name="llenar" action="#{prestamos.llenarhistorial()}" autoRun="true" update="tablaCuotas"/>
+                </h:form>-->
 
 
                 <h:panelGrid columns="2">
@@ -79,11 +85,15 @@
                 </h:panelGrid>
 
                 <p:separator/>
-
-                <br/>
+                
+                <a href="pago.jsf" style="text-decoration: none;color: white;margin-left: 30px">
+                    <h:graphicImage class="icon" name="/img/notebook.png"  height="32" width="32"/>
+                    Realizar Pago
+                </a> 
                 <h:panelGrid columns="1">
 
-                    <p:dataTable value="#{prestamos.listaC}" var="cuotas" style="margin:20px" scrollable="true" scrollHeight="300">
+
+                    <p:dataTable value="#{prestamos.listaC}" var="cuotas" id="tablaCuotas" style="margin:20px;text-align: center" scrollable="true" scrollHeight="300">
                         <f:facet name="header">
                             Historial de pagos
                         </f:facet>
@@ -102,6 +112,10 @@
                         <p:column headerText="Interes">
 
                             <h:outputText value="#{cuotas.interes}"/>
+                        </p:column>
+                        <p:column headerText="Mora">
+
+                            <h:outputText value="#{cuotas.mora}"/>
                         </p:column>
                         <p:column headerText="Saldo">
 

@@ -30,7 +30,7 @@ public class ControladorCuota {
         Conexion conexion = new Conexion();
         
         if (conexion != null) {
-        conexion.UID("INSERT INTO cuota (id_prestamo,num_cuota,valor,interes,fecha,capital,saldo_anterior,saldo_actualizado) VALUES ('"+cuota.getId_prestamo()+"','"+cuota.getNum_cuota()+"','"+cuota.getValor() +"','"+cuota.getInteres()+"','"+fecha+"','"+cuota.getCapital()+"','"+cuota.getSaldo_anterior()+"','"+cuota.getSaldo_actualizado()+"')");
+        conexion.UID("INSERT INTO cuota (id_prestamo,num_cuota,valor,interes,fecha,capital,saldo_anterior,saldo_actualizado,mora) VALUES ('"+cuota.getId_prestamo()+"','"+cuota.getNum_cuota()+"','"+cuota.getValor() +"','"+cuota.getInteres()+"','"+fecha+"','"+cuota.getCapital()+"','"+cuota.getSaldo_anterior()+"','"+cuota.getSaldo_actualizado()+"','"+cuota.getMora()+"')");
         }else{
             throw new ErrorPrestamo("Error al Insertar Datos", "ControladorCuota.agregar", "Error al Agregar Cuota");
         }
@@ -53,7 +53,7 @@ public class ControladorCuota {
             resultado = conexion.getValores("SELECT * FROM cuota");
             
             while (resultado.next()) {
-                cuotas.add(new Cuota(resultado.getInt("id_prestamo"),resultado.getInt("num_cuota"), resultado.getDouble("valor"), resultado.getDouble("interes"), resultado.getDouble("capital"), resultado.getDate("fecha"), resultado.getDouble("saldo_anterior"), resultado.getDouble("saldo_actualizado")));
+                cuotas.add(new Cuota(resultado.getInt("id_prestamo"),resultado.getInt("num_cuota"), resultado.getDouble("valor"), resultado.getDouble("interes"), resultado.getDouble("capital"), resultado.getDate("fecha"), resultado.getDouble("saldo_anterior"), resultado.getDouble("saldo_actualizado"),resultado.getDouble("mora")));
                // System.out.println("Estoy en el While");
                 
             }
@@ -79,7 +79,7 @@ public class ControladorCuota {
             resultado = conexion.getValores("SELECT * FROM cuota WHERE id_prestamo='"+id+"'");
             
             while (resultado.next()) {
-                cuotas.add(new Cuota(resultado.getInt("id_prestamo"),resultado.getInt("num_cuota") ,resultado.getDouble("valor"), resultado.getDouble("interes"), resultado.getDouble("capital"), resultado.getDate("fecha"), resultado.getDouble("saldo_anterior"), resultado.getDouble("saldo_actualizado")));
+                cuotas.add(new Cuota(resultado.getInt("id_prestamo"),resultado.getInt("num_cuota") ,resultado.getDouble("valor"), resultado.getDouble("interes"), resultado.getDouble("capital"), resultado.getDate("fecha"), resultado.getDouble("saldo_anterior"), resultado.getDouble("saldo_actualizado"),resultado.getDouble("mora")));
                // System.out.println("Estoy en el While");
                 
             }
