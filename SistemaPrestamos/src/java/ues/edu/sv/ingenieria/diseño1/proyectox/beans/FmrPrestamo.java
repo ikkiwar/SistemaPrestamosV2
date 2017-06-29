@@ -42,9 +42,11 @@ public class FmrPrestamo implements Serializable {
     private Prestamo selectPrestamo;
     private Parametro parametro = new Parametro();
     private String filtro;
+    private int cantidadCuotas;
+    private int cuotasPorcentaje = 0;
 
     public FmrPrestamo() {
-    
+
     }
 
     @PostConstruct
@@ -56,7 +58,7 @@ public class FmrPrestamo implements Serializable {
         } catch (ErrorPrestamo ex) {
             Logger.getLogger(FmrPrestamo.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         try {
             prestamo.setTasa_interes(parametro.obtenerTasas("tasa_interes"));
         } catch (ErrorPrestamo ex) {
@@ -70,6 +72,41 @@ public class FmrPrestamo implements Serializable {
         } catch (ErrorPrestamo ex) {
             Logger.getLogger(FmrPrestamo.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public int obtenerCantidadCuotas(int idPrestamo) {
+
+        cantidadCuotas = cControl.cantidadCuotas(idPrestamo);
+
+        if (cantidadCuotas == 1) {
+            cuotasPorcentaje = 8;
+        } else if (cantidadCuotas == 2) {
+            cuotasPorcentaje = 17;
+        } else if (cantidadCuotas == 3) {
+            cuotasPorcentaje = 25;
+        } else if (cantidadCuotas == 4) {
+            cuotasPorcentaje = 33;
+        } else if (cantidadCuotas == 5) {
+            cuotasPorcentaje = 42;
+        } else if (cantidadCuotas == 6) {
+            cuotasPorcentaje = 50;
+        } else if (cantidadCuotas == 7) {
+            cuotasPorcentaje = 58;
+        } else if (cantidadCuotas == 8) {
+            cuotasPorcentaje = 67;
+        } else if (cantidadCuotas == 9) {
+            cuotasPorcentaje = 75;
+        } else if (cantidadCuotas == 10) {
+            cuotasPorcentaje = 83;
+        } else if (cantidadCuotas == 11) {
+            cuotasPorcentaje = 92;
+
+        } else if (cantidadCuotas == 12) {
+            cuotasPorcentaje = 100;
+        }
+
+        return cuotasPorcentaje;
+
     }
 
     public void llenarhistorial() {
@@ -99,13 +136,13 @@ public class FmrPrestamo implements Serializable {
         double tasa_mora = 0;
         double valormora = 0;
         double valor_cuota = 0;
-        String mora=null;
+        String mora = null;
 
-       if (cuota.getValor() < selectPrestamo.getValor_cuota()) {
+        if (cuota.getValor() < selectPrestamo.getValor_cuota()) {
             cuota.setValor(selectPrestamo.getValor_cuota());
         }
 
-       // prestamo.setCantidad_cuotas(12);
+        // prestamo.setCantidad_cuotas(12);
         cuota.setId_prestamo(selectPrestamo.getId_prestamo());
         cuota.setSaldo_anterior(selectPrestamo.getSaldo());
         Date anterior = cControl.masreciente(selectPrestamo.getId_prestamo());
@@ -118,9 +155,9 @@ public class FmrPrestamo implements Serializable {
 
             diferencia = ahora.getTime() - anterior.getTime();
             diferenciadias = TimeUnit.MILLISECONDS.toDays(diferencia);
-             tasa_mora = parametro.obtenerTasas("Mora");
-             System.out.print(tasa_mora);
-            
+            tasa_mora = parametro.obtenerTasas("Mora");
+            System.out.print(tasa_mora);
+
             if (diferenciadias <= 30) {
                 cuota.setInteres(0);
                 System.out.println("mismo mes");
@@ -139,7 +176,6 @@ public class FmrPrestamo implements Serializable {
 
         cuota.setCapital(cuota.getValor() - cuota.getInteres());
         cuota.setSaldo_actualizado(cuota.getSaldo_anterior() - cuota.getCapital());
-        
 
     }
 
@@ -159,14 +195,12 @@ public class FmrPrestamo implements Serializable {
 
         prestamo = new Prestamo();
     }
-    
-    public void inciocalculo() throws ErrorPrestamo{
+
+    public void inciocalculo() throws ErrorPrestamo {
         cuota.setValor(selectPrestamo.getValor_cuota());
         System.out.println(selectPrestamo.getValor_cuota());
         calcular();
     }
-    
-
 
     public void submit() {
 
@@ -196,6 +230,22 @@ public class FmrPrestamo implements Serializable {
         } catch (ErrorPrestamo ex) {
             Logger.getLogger(FmrPrestamo.class.getName()).log(Level.SEVERE, null, ex);
         }*/
+    }
+
+    public int getCantidadCuotas() {
+        return cantidadCuotas;
+    }
+
+    public void setCantidadCuotas(int cantidadCuotas) {
+        this.cantidadCuotas = cantidadCuotas;
+    }
+
+    public int getCuotasPorcentaje() {
+        return cuotasPorcentaje;
+    }
+
+    public void setCuotasPorcentaje(int cuotasPorcentaje) {
+        this.cuotasPorcentaje = cuotasPorcentaje;
     }
 
     public void pagar() {
