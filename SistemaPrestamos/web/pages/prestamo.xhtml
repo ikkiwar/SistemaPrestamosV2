@@ -111,7 +111,7 @@
 
 
                             <p:outputLabel for="interes" value="Tasa de intetes (%)"  />
-                            <p:inputNumber id="interes" decimalSeparator="none" size="10" value="#{prestamos.prestamo.tasa_interes}"/>
+                            <p:inputNumber id="interes" decimalSeparator="none" size="10" readonly="true" value="#{prestamos.prestamo.tasa_interes}"/>
 
                             <p:outputLabel for="capita" value="Capitalizacion "  />
                             <p:selectOneMenu id="capita"  value="#{prestamos.prestamo.capitalizacion}" >
@@ -125,11 +125,11 @@
                             <p:commandButton value="Calcular" icon="ui-icon-calculator" action="#{prestamos.prestamo.calcularCuota()}" update="vcuotas fin"/>
 
                             <p:outputLabel  for="vcuotas" value="Valor Cuotas: " />
-                            <p:inputNumber id="vcuotas"  decimalSeparator="." thousandSeparator="," disabled="true" size="40" value="#{prestamos.prestamo.valor_cuota}"/>
+                            <p:inputNumber id="vcuotas"  decimalSeparator="." thousandSeparator="," readonly="true" size="40" value="#{prestamos.prestamo.valor_cuota}"/>
 
 
                             <p:outputLabel  for="fin" value="Fecha de Fin: "  />
-                            <p:calendar  pattern="yyyy-MM-dd" id="fin" disabled="true" size="40"  value="#{prestamos.prestamo.fecha_fin}"/>
+                            <p:calendar  pattern="yyyy-MM-dd" id="fin" readonly="true" size="40"  value="#{prestamos.prestamo.fecha_fin}"/>
 
                             <p:growl id="growl"  life="3000" showDetail="true" sticky="true" />
                             

@@ -31,6 +31,7 @@ public class Prestamo {
 
     public Prestamo() {
         fecha_inicio= Calendar.getInstance().getTime();
+        this.cantidad_cuotas=12;
     }
 
     public Prestamo(Integer id_prestamo, String dui, String nombres, String apellidos, double monto, double valor_cuota, double tasa_interes, int cantidad_cuotas, Date fecha_inicio, Date fecha_fin, Date fecha_ultimo_pago, double saldo, int estado, String observaciones, String capitalizacion) {

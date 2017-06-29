@@ -14,9 +14,9 @@
 
             <ui:define name="content">
 
-              <!--  <h:form style="display: none">
-                    <p:remoteCommand name="llenar" action="#{prestamos.llenarhistorial()}" autoRun="true" update="tablaCuotas"/>
-                </h:form>-->
+               <h:form style="display: none">
+                    <p:remoteCommand action="#{prestamos.llenarhistorial()}" autoRun="true" update="tablaCuotas"/>
+                </h:form>
 
 
                 <h:panelGrid columns="2">
