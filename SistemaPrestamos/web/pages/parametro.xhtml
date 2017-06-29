@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./../plantilla/plantilla.xhtml">
+
+            <ui:define name="content">
+                
+                
+                <h:panelGrid columns="2" style="padding-top: 10px;padding-left: 24px ">
+                    <h:graphicImage  id="icono" class="icon" name="/img/clipboard.png"  height="50" width="50"/>
+                    <p:outputLabel for="icono" value="PARAMETROS" style="color: white; "/>
+                </h:panelGrid>
+                <p:separator/>
+                <br/>
+
+                <h:form id="parametros">
+                    
+                    <p:dataTable id="tblparametros" var="par" value="#{parametro.lista}"  
+                                 paginator="false" rows="10" rowsPerPageTemplate="5,10,15" editable="true" style="margin:20px" >
+
+                        <f:facet name="header">
+                            Parametros del negocio
+                        </f:facet>
+
+                        <p:column  headerText="id" style="width:80px">
+                            <h:outputText value="#{par.id_parametro}"/>
+                        </p:column>
+
+                        <p:column   headerText="Parametro"  style="width:80px">
+                            <h:outputText value="#{par.nombre}"/>
+                        </p:column>
+
+                        <p:column  headerText="Valor" style="width:200px" >
+                            <h:outputText  style="text-transform: uppercase" value="#{par.valor}"/>
+                        </p:column>
+
+                        <p:column style="width:42px">
+                            <p:commandButton icon="ui-icon-info" style="width: 25px;height: 25px;font-size: 5px;background-color: #00a0df" onclick="PF('edParametro').show();" update="editarParametro">
+                                <f:setPropertyActionListener value="#{par}" target="#{parametro.selectedParametro}" /> 
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+
+
+
+                <p:dialog  modal="true" appendTo="@(body)" style="background-color:#EFEDEF" showEffect="blind" hideEffect="blind" widgetVar="edParametro"   header="Nuevo Prestamo"  draggable="false" closeOnEscape="true" resizable="false">
+                    <p:ajax event="close" listener="#{parametro.inicio()}" update="parametros:tblparametros" immediate="false" global="false"/>                          
+
+                    <h:form id="editarParametro">
+                    <h:panelGrid id="grid" columns="2" cellpadding="1" style="text-align: left">
+                        
+                            <h:outputLabel for="id" value="id: " style="font-family: sans-serif "  />
+                            <p:inputText  disabled="true" style="text-transform: uppercase" id="id"  required="true" size="40" value="#{parametro.selectedParametro.id_parametro}" />
+
+                            <h:outputLabel for="parametro" value="Nombre del Parametro: " style="font-family: sans-serif "  />
+                            <p:inputText  style="text-transform: uppercase" id="parametro"  required="true" size="40" value="#{parametro.selectedParametro.nombre}"/>
+
+                            <h:outputLabel for="valor" value="Valor: " style=";font-family: sans-serif "  />
+                            <p:inputText  style="text-transform: uppercase" id="valor"  required="true" size="40" value="#{parametro.selectedParametro.valor}"/>
+
+                            <div class="center">
+                                <h:panelGrid columns="2"  >
+                                    <p:commandButton  value="Modificar"  icon="ui-icon-disk"  action="#{parametro.submit()}" update="grid" oncomplete="PF('edParametro').hide();"/>
+                                    <p:commandButton value="Cancelar" icon="ui-icon-cancel" onclick="PF('edParametro').hide();" type="button"/>
+                                </h:panelGrid>
+                            </div>
+                        
+                    </h:panelGrid>
+                    </h:form>
+
+                </p:dialog>
+                
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
