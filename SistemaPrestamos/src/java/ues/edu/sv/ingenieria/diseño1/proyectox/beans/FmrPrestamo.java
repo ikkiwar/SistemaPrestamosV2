@@ -44,7 +44,7 @@ public class FmrPrestamo implements Serializable {
     private String filtro;
 
     public FmrPrestamo() {
-
+    
     }
 
     @PostConstruct
@@ -53,6 +53,12 @@ public class FmrPrestamo implements Serializable {
             listaP = pControl.obtenerActivos();
             listaH = pControl.obtenerHistorial();
 
+        } catch (ErrorPrestamo ex) {
+            Logger.getLogger(FmrPrestamo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        try {
+            prestamo.setTasa_interes(parametro.obtenerTasas("tasa_interes"));
         } catch (ErrorPrestamo ex) {
             Logger.getLogger(FmrPrestamo.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -99,6 +105,7 @@ public class FmrPrestamo implements Serializable {
             cuota.setValor(selectPrestamo.getValor_cuota());
         }
 
+       // prestamo.setCantidad_cuotas(12);
         cuota.setId_prestamo(selectPrestamo.getId_prestamo());
         cuota.setSaldo_anterior(selectPrestamo.getSaldo());
         Date anterior = cControl.masreciente(selectPrestamo.getId_prestamo());
@@ -150,6 +157,7 @@ public class FmrPrestamo implements Serializable {
 
         }
 
+        prestamo = new Prestamo();
     }
     
     public void inciocalculo() throws ErrorPrestamo{

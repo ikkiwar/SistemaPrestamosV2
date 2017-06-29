@@ -76,17 +76,17 @@
                                 <p:inputNumber id="monto" value="#{prestamos.cuota.valor}" />
 
                                 <p:outputLabel for="saldoA" value="Saldo Anterior:" />
-                                <p:inputNumber id="saldoA" value="#{prestamos.cuota.saldo_anterior}" disabled="true"/>
+                                <p:inputNumber id="saldoA" value="#{prestamos.cuota.saldo_anterior}" readonly="true"/>
 
                                 <p:outputLabel for="interes" value="interes:" />
-                                <p:inputNumber id="interes"  value="#{prestamos.cuota.interes}" disabled="true"/>
+                                <p:inputNumber id="interes"  value="#{prestamos.cuota.interes}" readonly="true"/>
 
                                 <p:outputLabel for="capital" value="Capital:" />
-                                <p:inputNumber id="capital" value="#{prestamos.cuota.capital}" disabled="true"/>
+                                <p:inputNumber id="capital" value="#{prestamos.cuota.capital}" readonly="true"/>
 
 
                                 <p:outputLabel for="saldoAc" value="Saldo Actualizado" />
-                                <p:inputNumber id="saldoAc" value="#{prestamos.cuota.saldo_actualizado}" disabled="true"/>
+                                <p:inputNumber id="saldoAc" value="#{prestamos.cuota.saldo_actualizado}" readonly="true"/>
 
                             </h:panelGrid>
                         </p:panel>
