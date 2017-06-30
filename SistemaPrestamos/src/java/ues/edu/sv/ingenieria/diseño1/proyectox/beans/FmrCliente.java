@@ -127,12 +127,12 @@ public class FmrCliente implements Serializable {
     
     
     public void handleFileUpload(FileUploadEvent event) throws IOException, ErrorPrestamo {
-        int correlativo = doc.obtenerMaxId(Client.getDui());
+        int correlativo = doc.obtenerMaxId("787878-1");
         FacesMessage message = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
         FacesContext.getCurrentInstance().addMessage(null, message);
         Conexion conexion = new Conexion();
         try{
-        conexion.UID("INSERT INTO documentos (dui,correlativo,nombre_archivo,archivo,descripcion) VALUES('"+"787878-1"+"','"+1+"','"+"fja"+"','"+event.getFile().getInputstream()+"','"+"adga"+"')");
+        conexion.UID("INSERT INTO documentos (dui,correlativo,nombre_archivo,archivo,descripcion) VALUES('"+"787878-1"+"','"+correlativo+"','"+"fja"+"','"+event.getFile().getInputstream()+"','"+"adga"+"')");
         }catch(Exception e){
             throw new ErrorPrestamo("Error al ActualizarSaldo", "ControladorPrestamo.atualizarSaldo", "Error al actualiar el saldo");
         }

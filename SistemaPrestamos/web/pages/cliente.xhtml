@@ -80,13 +80,13 @@
                         </p:column>
 
                         <p:column style="width:42px">
-                            <p:commandButton icon="ui-icon-info" style="width: 25px;height: 25px;font-size: 5px;background-color: #00a0df" action="perfil">
+                            <p:commandButton icon="ui-icon-info" style="width: 25px;height: 25px;font-size: 5px;background-color: #00a0df" title="Perfil" action="perfil">
                                 <f:setPropertyActionListener value="#{cliente}" target="#{clientes.selectedClient}"/>
 
                             </p:commandButton>
 
 
-                            <p:commandButton icon="ui-icon-close" update=":form:tablaCliente" style="width: 25px;height: 25px;font-size: 5px; background-color: orange" onclick="PF('confirmar').show();">
+                            <p:commandButton icon="ui-icon-close" update=":form:tablaCliente" style="width: 25px;height: 25px;font-size: 5px; background-color: orange" title="Eliminar" onclick="PF('confirmar').show();">
                                 <f:setPropertyActionListener value="#{cliente}" target="#{clientes.selectedClient}" />
                             </p:commandButton>
 
