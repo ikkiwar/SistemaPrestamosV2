@@ -12,8 +12,13 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
+import org.primefaces.component.fileupload.FileUpload;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 import ues.edu.sv.ingenieria.diseño1.proyectox.controladores.ControladorCliente;
 import ues.edu.sv.ingenieria.diseño1.proyectox.controladores.ControladorPrestamo;
 import ues.edu.sv.ingenieria.diseño1.proyectox.controladores.ErrorPrestamo;
@@ -33,8 +38,8 @@ public class FmrCliente implements Serializable {
     private Cliente SelectedClient;
     private String fecha;
     private String filtro;
+    private UploadedFile img;
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-    
 
     public FmrCliente() {
 
@@ -44,23 +49,23 @@ public class FmrCliente implements Serializable {
     public void inicio() {
         try {
             lista = Control.obtener();
-            
+
         } catch (ErrorPrestamo ex) {
             Logger.getLogger(FmrCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
 
-    public void filtrar(){
+    public void filtrar() {
         //metodo encargado de mandar el valor de filtro que se obtiene desde el inputext y lo manda a el metodo buscar
         try {
-            
-            lista=Control.buscar(filtro);
+
+            lista = Control.buscar(filtro);
         } catch (ErrorPrestamo ex) {
             Logger.getLogger(FmrCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void ver() {
         System.out.print(SelectedClient.getDui());
 
@@ -84,7 +89,6 @@ public class FmrCliente implements Serializable {
         System.out.print(Client.getTelefono());
         System.out.print(Client.getDireccion());
         System.out.print(Client.getObservaciones());
-  
 
         try {
             Control.agregar(Client);
@@ -92,11 +96,9 @@ public class FmrCliente implements Serializable {
             Logger.getLogger(FmrCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-      
-
     }
 
-    public void actualizar(){
+    public void actualizar() {
         try {
             Control.actualizar(SelectedClient);
             //System.out.println("Actualizo");
@@ -105,12 +107,34 @@ public class FmrCliente implements Serializable {
         }
     }
 
-  
-    
-    
-    
+    public void imagen(FileUploadEvent event) {
+        UploadedFile file= event.getFile();
+        String nombre = file.getFileName();
+        System.out.println(nombre);
+        /*if (getImg() == null) {
+            System.out.println("none");
 
-     
+        } else {
+            System.out.println(getImg().getFileName());
+        }
+        System.out.println("lol");*/
+
+    }
+    
+    
+    public void handleFileUpload(FileUploadEvent event) {
+        FacesMessage message = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+
+    public UploadedFile getImg() {
+        return img;
+    }
+
+    public void setImg(UploadedFile img) {
+        this.img = img;
+    }
+
     public void seleccionado() {
         System.out.print(SelectedClient.getDui());
     }
