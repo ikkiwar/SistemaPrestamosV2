@@ -83,8 +83,7 @@
 
                 </h:form>
 
-
-
+                
 
                 <p:dialog  modal="true" appendTo="@(body)" style="background-color:#EFEDEF" showEffect="blind" hideEffect="blind" widgetVar="Nprestamo"   header="Nuevo Prestamo"  draggable="false" closeOnEscape="true" resizable="false">
                     <p:ajax event="close" listener="#{prestamos.inicio()}" update=":formTable:prestamos1" immediate="true" global="false" />
@@ -132,10 +131,10 @@
                             <p:calendar  pattern="yyyy-MM-dd" id="fin" readonly="true" size="40"  value="#{prestamos.prestamo.fecha_fin}"/>
 
                             <p:growl id="growl"  life="3000" showDetail="true" sticky="true" />
-                            
+
                             <div class="center">
                                 <h:panelGrid  columns="2">
-                                    <p:commandButton  value="Registrar"  icon="ui-icon-disk" action="#{prestamos.submit()}" update="growl" oncomplete="PF('Nprestamo').hide();"/>
+                                    <p:commandButton  value="Registrar"  icon="ui-icon-disk" action="#{prestamos.submit()}"  update="growl" oncomplete="PF('Nprestamo').hide();"/>
                                     <p:commandButton value="Cancelar" icon="ui-icon-cancel" onclick="PF('Nprestamo').hide();" type="button"/>
                                 </h:panelGrid>
                             </div>

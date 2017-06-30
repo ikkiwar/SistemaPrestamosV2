@@ -18,7 +18,7 @@
                     <h:panelGrid columns="2" style="padding-top: 10px;padding-left: 15px ">
                         <h:graphicImage  id="Home" class="icon" name="/img/archivo.png"  height="60" width="60"/>
                         <p:outputLabel for="Home" value="REGISTRAR PAGO" style="color: white; font-family: sans-serif"/>
-                    </h:panelGrid>
+                    </h:panelGrid>| 
                     <h:panelGrid  style=" padding-right: 0px; padding-left: 325px;padding-top: 0px">
                         <p:panel  style="width: 500px; height: 120px;background-color: #FFFFFF" >
 
@@ -104,16 +104,25 @@
 
 
                             <f:facet name="right">
-                                <p:commandButton value="Resgistrar"  actionListener="#{prestamos.submitCuota()}"/>
+                                <p:commandButton value="Resgistrar" onclick="PF('dialogInforme').show();" actionListener="#{prestamos.submitCuota()}"/>
                             </f:facet>
 
 
 
                         </p:toolbar>
                     </h:form>
+
+
                 </div>
+                <p:dialog header="Informes" widgetVar="dialogInforme" modal="true" showEffect="fade" hideEffect="fade" resizable="false" width="200" height="100">
+                    <a href="reporte.jsf" style="text-decoration: none;color:black;margin-left: 30px">
+                        Ver Reporte
+                    </a>    
+                </p:dialog>
 
             </ui:define>
+
+
 
         </ui:composition>
 
