@@ -54,7 +54,7 @@ public class Documento {
         try {
 
             Conexion conexion = new Conexion();
-            resultado = conexion.getValores("SELECT MAX(num_cuota) From documentos WHERE dui='" + DUI + "'");
+            resultado = conexion.getValores("SELECT MAX(correlativo) From documentos WHERE dui='" + DUI + "'");
             resultado.next();
             id = resultado.getInt(1);
 

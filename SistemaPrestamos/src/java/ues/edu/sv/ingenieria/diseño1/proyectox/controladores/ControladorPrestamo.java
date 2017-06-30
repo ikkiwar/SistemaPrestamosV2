@@ -29,7 +29,7 @@ public class ControladorPrestamo implements Serializable {
         try {
 
             Conexion conexion = new Conexion();
-            conexion.UID("INSERT INTO prestamo (id_prestamo,dui,monto,valor_cuota,tasa_interes,cantidad_cuotas,fecha_inicio,fecha_fin,fecha_ultimo_pago,saldo,estado,observaciones,capitalizacion) VALUES ('" + prestamo.getId_prestamo() + "','" + prestamo.getDui() + "','" + prestamo.getMonto() + "','" + prestamo.getValor_cuota() + "','" + prestamo.getTasa_interes() + "','" + prestamo.getCantidad_cuotas() + "','" + fecha1 + "','" + fecha2 + "'," + prestamo.getFecha_ultimo_pago() + ",'" + prestamo.getSaldo() + "','" + prestamo.getEstado() + "','" + prestamo.getObservaciones() + "','" + prestamo.getCapitalizacion() + "')");
+            conexion.UID("INSERT INTO prestamo (id_prestamo,dui,monto,valor_cuota,tasa_interes,cantidad_cuotas,fecha_inicio,fecha_fin,fecha_ultimo_pago,fecha_ultimo_pago,saldo,estado,observaciones,capitalizacion) VALUES ('" + prestamo.getId_prestamo() + "','" + prestamo.getDui() + "','" + prestamo.getMonto() + "','" + prestamo.getValor_cuota() + "','" + prestamo.getTasa_interes() + "','" + prestamo.getCantidad_cuotas() + "','" + fecha1 + "','" + fecha2 + "',"+fecha1 + prestamo.getFecha_ultimo_pago() + ",'" + prestamo.getSaldo() + "','" + prestamo.getEstado() + "','" + prestamo.getObservaciones() + "','" + prestamo.getCapitalizacion() + "')");
 
         } catch (Exception e) {
             throw new ErrorPrestamo("Error al Agregar", "ControladorPrestamo.Agregar", "Error al Agregar Prestamo");
