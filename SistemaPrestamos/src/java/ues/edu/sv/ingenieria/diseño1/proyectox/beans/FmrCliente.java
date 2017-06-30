@@ -5,6 +5,7 @@
  */
 package ues.edu.sv.ingenieria.diseño1.proyectox.beans;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -23,6 +24,8 @@ import ues.edu.sv.ingenieria.diseño1.proyectox.controladores.ControladorCliente
 import ues.edu.sv.ingenieria.diseño1.proyectox.controladores.ControladorPrestamo;
 import ues.edu.sv.ingenieria.diseño1.proyectox.controladores.ErrorPrestamo;
 import ues.edu.sv.ingenieria.diseño1.proyectox.definiciones.Cliente;
+import ues.edu.sv.ingenieria.diseño1.proyectox.definiciones.Conexion;
+import ues.edu.sv.ingenieria.diseño1.proyectox.definiciones.Documento;
 
 /**
  *
@@ -38,6 +41,7 @@ public class FmrCliente implements Serializable {
     private Cliente SelectedClient;
     private String fecha;
     private String filtro;
+    private Documento doc=new Documento();
     private UploadedFile img;
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -122,9 +126,16 @@ public class FmrCliente implements Serializable {
     }
     
     
-    public void handleFileUpload(FileUploadEvent event) {
+    public void handleFileUpload(FileUploadEvent event) throws IOException, ErrorPrestamo {
+        int correlativo = doc.obtenerMaxId(Client.getDui());
         FacesMessage message = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
         FacesContext.getCurrentInstance().addMessage(null, message);
+        Conexion conexion = new Conexion();
+        try{
+        conexion.UID("INSERT INTO documentos (dui,correlativo,nombre_archivo,archivo,descripcion) VALUES('"+"787878-1"+"','"+1+"','"+"fja"+"','"+event.getFile().getInputstream()+"','"+"adga"+"')");
+        }catch(Exception e){
+            throw new ErrorPrestamo("Error al ActualizarSaldo", "ControladorPrestamo.atualizarSaldo", "Error al actualiar el saldo");
+        }
     }
 
     public UploadedFile getImg() {
