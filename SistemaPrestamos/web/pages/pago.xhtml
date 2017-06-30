@@ -14,13 +14,21 @@
         <ui:composition template="./../plantilla/plantilla.xhtml">
 
             <ui:define name="content" >
+
+
+                <h:form style="display: none">
+                    <p:remoteCommand action="#{prestamos.obtenerCantidadCuotas(prestamos.selectPrestamo.id_prestamo)}" autoRun="true" update="barraProgreso cuotas" />
+                </h:form>
+                
                 <h:panelGrid columns="2">
                     <h:panelGrid columns="2" style="padding-top: 10px;padding-left: 15px ">
                         <h:graphicImage  id="Home" class="icon" name="/img/archivo.png"  height="60" width="60"/>
                         <p:outputLabel for="Home" value="REGISTRAR PAGO" style="color: white; font-family: sans-serif"/>
+
+
                     </h:panelGrid>| 
                     <h:panelGrid  style=" padding-right: 0px; padding-left: 325px;padding-top: 0px">
-                        <p:panel  style="width: 500px; height: 120px;background-color: #FFFFFF" >
+                        <p:panel  style="width: 680px; height: 150px;background-color: #FFFFFF" >
 
                             <h:panelGrid columns="2">
                                 <h:panelGrid columns="1">
@@ -47,13 +55,23 @@
                                         <p:outputLabel for="numeroCuota" value="#{prestamos.selectPrestamo.saldo} "/> 
                                         <p:outputLabel id="valorCuota" value="VALOR CUOTA: " style="font-family: sans-serif"/>
                                         <p:outputLabel for="valorCuota" value="#{prestamos.selectPrestamo.valor_cuota} "/> 
-                                    </h:panelGrid>
 
-
+                                    </h:panelGrid>  
                                 </h:panelGrid>
 
 
                             </h:panelGrid>
+
+                            <h:panelGrid columns="2">
+                                <h:outputLabel value="PROGRESO EN PROPORCION: " />
+                                <h:outputLabel value="#{prestamos.cantidadCuotas} / 12 CUOTAS " id="cuotas" style="font-family: sans-serif" />
+                            </h:panelGrid>
+                            
+                            <h:panelGrid columns="2">
+                                <p:outputLabel value="PROGRESO DEL PAGO: " style="color: #000000;font-family: sans-serif" />    
+                                <p:progressBar id="barraProgreso"  value="#{prestamos.cuotasPorcentaje}"  labelTemplate="{value}%"  style="height: 20px; width: 500px"  displayOnly="true"/>
+                            </h:panelGrid>
+
 
                         </p:panel>
 
@@ -80,10 +98,6 @@
 
                                 <p:outputLabel for="interes" value="interes:" />
                                 <p:inputNumber id="interes"  value="#{prestamos.cuota.interes}" readonly="true"/>
-                                
-                                <p:outputLabel for="mora" value="mora:" />
-                                <p:inputNumber id="mora"  value="#{prestamos.cuota.mora}" readonly="true"/>
-                                
 
                                 <p:outputLabel for="capital" value="Capital:" />
                                 <p:inputNumber id="capital" value="#{prestamos.cuota.capital}" readonly="true"/>

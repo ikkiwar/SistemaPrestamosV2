@@ -14,7 +14,11 @@
 
             <ui:define name="content">
 
-               <h:form style="display: none">
+                <h:form style="display: none">
+                    <p:remoteCommand action="#{prestamos.obtenerCantidadCuotas(prestamos.selectPrestamo.id_prestamo)}" autoRun="true" update="barraProgreso cuotas" />
+                </h:form>
+
+                <h:form style="display: none">
                     <p:remoteCommand action="#{prestamos.llenarhistorial()}" autoRun="true" update="tablaCuotas"/>
                 </h:form>
 
@@ -27,7 +31,7 @@
                     </h:panelGrid>
 
                     <h:panelGrid style="padding-left: 44px" >
-                        <p:panel style="width: 870px; height: 140px;background-color: whitesmoke;padding-top: 0px">
+                        <p:panel style="width: 880px; height: 190px;background-color: whitesmoke;padding-top: 0px">
 
                             <h:panelGrid columns="2" cellspacing="10">
 
@@ -68,7 +72,7 @@
                                             </h:panelGrid>
                                             <h:panelGrid columns="2">
                                                 <h:outputLabel for="capitalizacion" value="CAPITALIZACION :" style="color: #2793B7; font-family: sans-serif"/>
-                                                <h:outputLabel id="capitalizacion"  value="MENSUAL"/>
+                                                <h:outputLabel id="capitalizacion"  value="#{prestamos.selectPrestamo.capitalizacion}"/>
                                             </h:panelGrid>
                                         </h:panelGrid>
 
@@ -78,6 +82,16 @@
 
                             </h:panelGrid>
 
+                            <h:panelGrid columns="2">
+                                <h:outputLabel value="PROGRESO EN PROPORCION  :" />
+                                <h:outputLabel value=" #{prestamos.cantidadCuotas}   / 12 CUOTAS " id="cuotas" />
+                            </h:panelGrid>
+
+                            <h:panelGrid columns="2">
+                                <p:outputLabel value="PROGRESO DEL PAGO: " style="color: #000000;font-family: sans-serif" />    
+                                <p:progressBar id="barraProgreso"  value="#{prestamos.cuotasPorcentaje}"  labelTemplate="{value}%"  style="height: 20px; width: 700px"  displayOnly="true"/>
+                            </h:panelGrid>
+
 
                         </p:panel>
 
@@ -85,12 +99,12 @@
                 </h:panelGrid>
 
                 <p:separator/>
-                
+
                 <a href="pago.jsf" style="text-decoration: none;color: white;margin-left: 30px">
                     <h:graphicImage class="icon" name="/img/notebook.png"  height="32" width="32"/>
                     Realizar Pago
                 </a> 
-                 <a href="prestamoReport.jsf" style="text-decoration: none;color: white;margin-left: 10px">
+                <a href="prestamoReport.jsf" style="text-decoration: none;color: white;margin-left: 10px">
                     <h:graphicImage class="icon" name="/img/notebook.png"  height="32" width="32"/>
                     Reporte
                 </a> 
