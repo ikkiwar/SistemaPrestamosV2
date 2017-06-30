@@ -5,7 +5,14 @@
  */
 package ues.edu.sv.ingenieria.diseño1.proyectox.definiciones;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.primefaces.model.UploadedFile;
+import ues.edu.sv.ingenieria.diseño1.proyectox.controladores.ControladorPrestamo;
+import ues.edu.sv.ingenieria.diseño1.proyectox.controladores.ErrorPrestamo;
 
 /**
  *
@@ -22,6 +29,7 @@ public class Documento {
     
     public Documento(){
         
+        
     }
 
     public  void upload(String dui,int correlativo,String nombre,UploadedFile file,String descripcion){
@@ -35,6 +43,28 @@ public class Documento {
         }
     }
     
+    public void agregar(){
+         
+    }
+    
+    public int obtenerMaxId(String DUI) throws ErrorPrestamo {
+        int id = 0;
+        ResultSet resultado;
+
+        try {
+
+            Conexion conexion = new Conexion();
+            resultado = conexion.getValores("SELECT MAX(num_cuota) From documentos WHERE dui='" + DUI + "'");
+            resultado.next();
+            id = resultado.getInt(1);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ControladorPrestamo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        id = id + 1;
+        return id;
+    }
     
     public String getDui() {
         return dui;
