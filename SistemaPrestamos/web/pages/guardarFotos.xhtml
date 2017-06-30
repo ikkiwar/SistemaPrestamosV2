@@ -14,7 +14,7 @@
                     <h:form>
                         <p:growl id="messages" showDetail="true" />
                         <p:fileUpload fileUploadListener="#{clientes.handleFileUpload}" mode="advanced" dragDropSupport="false"
-                                      multiple="true" update="messages"  fileLimit="3" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+                                      sizeLimit="100000000"   multiple="true" update="messages"  fileLimit="1" allowTypes="/(\.|\/)(gif|jpe?g|png|pdf)$/" />
 
                     </h:form>
                 </h:panelGrid>
