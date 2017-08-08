@@ -78,31 +78,48 @@ public class FmrPrestamo implements Serializable {
 
         cantidadCuotas = cControl.cantidadCuotas(idPrestamo);
 
-        if (cantidadCuotas == 1) {
-            cuotasPorcentaje = 8;
-        } else if (cantidadCuotas == 2) {
-            cuotasPorcentaje = 17;
-        } else if (cantidadCuotas == 3) {
-            cuotasPorcentaje = 25;
-        } else if (cantidadCuotas == 4) {
-            cuotasPorcentaje = 33;
-        } else if (cantidadCuotas == 5) {
-            cuotasPorcentaje = 42;
-        } else if (cantidadCuotas == 6) {
-            cuotasPorcentaje = 50;
-        } else if (cantidadCuotas == 7) {
-            cuotasPorcentaje = 58;
-        } else if (cantidadCuotas == 8) {
-            cuotasPorcentaje = 67;
-        } else if (cantidadCuotas == 9) {
-            cuotasPorcentaje = 75;
-        } else if (cantidadCuotas == 10) {
-            cuotasPorcentaje = 83;
-        } else if (cantidadCuotas == 11) {
-            cuotasPorcentaje = 92;
-
-        } else if (cantidadCuotas == 12) {
-            cuotasPorcentaje = 100;
+        switch (cantidadCuotas) {
+            case 0:
+                cuotasPorcentaje=0;
+                break;
+            case 1:
+                cuotasPorcentaje = 8;
+                break;
+            case 2:
+                cuotasPorcentaje = 17;
+                break;
+            case 3:
+                cuotasPorcentaje = 25;
+                break;
+            case 4:
+                cuotasPorcentaje = 33;
+                break;
+            case 5:
+                cuotasPorcentaje = 42;
+                break;
+            case 6:
+                cuotasPorcentaje = 50;
+                break;
+            case 7:
+                cuotasPorcentaje = 58;
+                break;
+            case 8:
+                cuotasPorcentaje = 67;
+                break;
+            case 9:
+                cuotasPorcentaje = 75;
+                break;
+            case 10:
+                cuotasPorcentaje = 83;
+                break;
+            case 11:
+                cuotasPorcentaje = 92;
+                break;
+            case 12:
+                cuotasPorcentaje = 100;
+                break;
+            default:
+                break;
         }
 
         return cuotasPorcentaje;
@@ -168,8 +185,9 @@ public class FmrPrestamo implements Serializable {
                 } else {
                     valormora = ((cuota.getValor() * (tasa_mora / (30 * selectPrestamo.getCantidad_cuotas()))) * diferenciadias);
                 }
-
+                cuota.setMora(valormora);
                 cuota.setInteres(cuota.getValor() * selectPrestamo.getTasa_interes());
+                cuota.setValor(cuota.getValor()+valormora);
             }
 
         }
@@ -205,7 +223,7 @@ public class FmrPrestamo implements Serializable {
     public void submit() {
 
         FacesContext context = FacesContext.getCurrentInstance();
-        prestamo.setTasa_interes(prestamo.getTasa_interes() / 100);
+       // prestamo.setTasa_interes(prestamo.getTasa_interes() / 100);
 
         try {
             prestamo.setId_prestamo(pControl.obtenerMaxId());
