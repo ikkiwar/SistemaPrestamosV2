@@ -154,7 +154,7 @@
                            
                             <div class="center">
                             <h:panelGrid columns="2"  >
-                                <p:commandButton  value="Registrar"  icon="ui-icon-disk"  action="#{clientes.submit()}" update="grid" oncomplete="PF('agregarCliente').hide();" />
+                                <p:commandButton  value="Registrar"  icon="ui-icon-disk"  action="#{clientes.submit()}" update="grid" onclick="PF('documentos').show()" oncomplete="PF('agregarCliente').hide();" />
                                 <p:commandButton value="Cancelar" icon="ui-icon-cancel" onclick="PF('agregarCliente').hide();" type="button"/>
                             </h:panelGrid>
                             </div>
@@ -170,6 +170,14 @@
 
                     <p:commandButton  value="Si"  icon="ui-icon-disk"  action="#{clientes.ver()}" oncomplete="PF('confirmar').hide();"/>
                     <p:commandButton value="No" icon="ui-icon-cancel" onclick="PF('confirmar').hide();" type="button"/>
+
+                </p:dialog> 
+                
+                 <p:dialog  id="doc" modal="true" appendTo="@(body)" style="background-color:#EFEDEF; text-align: center" showEffect="fade" hideEffect="fade" widgetVar="documentos" header="¿Desea Agregar Documentos?"  draggable="false" closeOnEscape="true" resizable="false">
+                    <p:ajax event="close" listener="#{clientes.inicio()}" update=":form:tablaCliente" immediate="true" global="false" />
+
+                    <p:commandButton  value="Si"  icon="ui-icon-disk"  action="guardarFotos" oncomplete="PF('documentos').hide();"/>
+                    <p:commandButton value="No" icon="ui-icon-cancel" onclick="PF('documentos').hide();" type="button"/>
 
                 </p:dialog>
 

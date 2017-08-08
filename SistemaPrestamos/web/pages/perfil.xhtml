@@ -153,47 +153,7 @@
                                         <!--aqui termina-->
                                     </p:tab>
 
-                                    <p:tab title="Historial de Pagos" >
-
-                                        <h:form id="Hpagos" style="text-align: center">
-                                            <p:separator/>
-                                            <p:dataTable value="#{controllerPago.pagos}" var="pago" style="margin:20px" scrollable="true" scrollHeight="300">
-                                                <f:facet name="header">
-                                                    Historial de pagos
-                                                </f:facet>
-                                                <p:column headerText="N° Cuota">
-                                                    <h:outputText value="#{pago.numeroCuota}"  />
-
-                                                </p:column>
-                                                <p:column headerText="Cuota">
-
-                                                    <h:outputText value="#{pago.cuota}"/>
-                                                </p:column>
-                                                <p:column headerText="Capital">
-
-                                                    <h:outputText value="#{pago.capital}"/>
-                                                </p:column>
-                                                <p:column headerText="Interes">
-
-                                                    <h:outputText value="#{pago.interes}"/>
-                                                </p:column>
-                                                <p:column headerText="Saldo">
-
-                                                    <h:outputText value="#{pago.saldo}"/>
-                                                </p:column>
-                                                <p:column headerText="Fecha de Pago">
-
-                                                    <h:outputText value="#{pago.fechaPago}"/>
-                                                </p:column>
-                                                
-                                               
-
-
-                                            </p:dataTable>
-                                        </h:form>
-
-
-                                    </p:tab>
+                                    
                                 </p:accordionPanel>
 
                             </h:panelGrid>
@@ -256,15 +216,7 @@
                             </h:form>
                         </p:tab>
                         
-                        <p:tab title="Reportes">
-                            
-                            <object type="application/pdf" data="" width="100%" height="300px">
-                                
-                                
-                            </object>
-                            
-                            
-                        </p:tab>
+                       
                         
                     </p:tabView>
 

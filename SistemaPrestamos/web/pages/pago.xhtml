@@ -80,7 +80,7 @@
                 </h:panelGrid>
                 <p:separator/>
                 <br/> 
-                <br/>
+                
                 <!--<h:form style="display: none">
                     <p:remoteCommand name="llenar" action="#{prestamos.inciocalculo()}" autoRun="true" update="formp"/>
                 </h:form>-->
@@ -95,6 +95,9 @@
 
                                 <p:outputLabel for="saldoA" value="Saldo Anterior:" />
                                 <p:inputNumber id="saldoA" value="#{prestamos.cuota.saldo_anterior}" readonly="true"/>
+                                
+                                <p:outputLabel for="moraA" value="Mora:" />
+                                <p:inputNumber id="moraA" value="#{prestamos.cuota.mora}" readonly="true"/>
 
                                 <p:outputLabel for="interes" value="interes:" />
                                 <p:inputNumber id="interes"  value="#{prestamos.cuota.interes}" readonly="true"/>

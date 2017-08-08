@@ -23,13 +23,14 @@ public class ControladorPrestamo implements Serializable {
 
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String fecha1 = formato.format(prestamo.getFecha_inicio());
+        String fecha11 = formato.format(prestamo.getFecha_inicio());
         String fecha2 = formato.format(prestamo.getFecha_fin());
         prestamo.setFecha_ultimo_pago(null);
 
         try {
 
             Conexion conexion = new Conexion();
-            conexion.UID("INSERT INTO prestamo (id_prestamo,dui,monto,valor_cuota,tasa_interes,cantidad_cuotas,fecha_inicio,fecha_fin,fecha_ultimo_pago,fecha_ultimo_pago,saldo,estado,observaciones,capitalizacion) VALUES ('" + prestamo.getId_prestamo() + "','" + prestamo.getDui() + "','" + prestamo.getMonto() + "','" + prestamo.getValor_cuota() + "','" + prestamo.getTasa_interes() + "','" + prestamo.getCantidad_cuotas() + "','" + fecha1 + "','" + fecha2 + "',"+fecha1 + prestamo.getFecha_ultimo_pago() + ",'" + prestamo.getSaldo() + "','" + prestamo.getEstado() + "','" + prestamo.getObservaciones() + "','" + prestamo.getCapitalizacion() + "')");
+            conexion.UID("INSERT INTO prestamo (id_prestamo,dui,monto,valor_cuota,tasa_interes,cantidad_cuotas,fecha_inicio,fecha_fin,fecha_ultimo_pago,saldo,estado,observaciones,capitalizacion) VALUES ('" + prestamo.getId_prestamo() + "','" + prestamo.getDui() + "','" + prestamo.getMonto() + "','" + prestamo.getValor_cuota() + "','" + prestamo.getTasa_interes() + "','" + prestamo.getCantidad_cuotas() + "','" + fecha1 + "','" + fecha2 + "'," + prestamo.getFecha_ultimo_pago() + ",'" + prestamo.getSaldo() + "','" + prestamo.getEstado() + "','" + prestamo.getObservaciones() + "','" + prestamo.getCapitalizacion() + "')");
 
         } catch (Exception e) {
             throw new ErrorPrestamo("Error al Agregar", "ControladorPrestamo.Agregar", "Error al Agregar Prestamo");

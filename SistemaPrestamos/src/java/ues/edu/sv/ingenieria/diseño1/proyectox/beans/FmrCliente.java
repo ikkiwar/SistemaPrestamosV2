@@ -41,7 +41,7 @@ public class FmrCliente implements Serializable {
     private Cliente SelectedClient;
     private String fecha;
     private String filtro;
-    private Documento doc=new Documento();
+    private Documento doc = new Documento();
     private UploadedFile img;
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -112,7 +112,7 @@ public class FmrCliente implements Serializable {
     }
 
     public void imagen(FileUploadEvent event) {
-        UploadedFile file= event.getFile();
+        UploadedFile file = event.getFile();
         String nombre = file.getFileName();
         System.out.println(nombre);
         /*if (getImg() == null) {
@@ -124,18 +124,22 @@ public class FmrCliente implements Serializable {
         System.out.println("lol");*/
 
     }
-    
-    
+
     public void handleFileUpload(FileUploadEvent event) throws IOException, ErrorPrestamo {
-        int correlativo = doc.obtenerMaxId("787878-1");
+        int correlativo = doc.obtenerMaxId(Client.getDui());
         FacesMessage message = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
         FacesContext.getCurrentInstance().addMessage(null, message);
+
         Conexion conexion = new Conexion();
-        try{
-        conexion.UID("INSERT INTO documentos (dui,correlativo,nombre_archivo,archivo,descripcion) VALUES('"+"787878-1"+"','"+correlativo+"','"+"fja"+"','"+event.getFile().getInputstream()+"','"+"adga"+"')");
-        }catch(Exception e){
-            throw new ErrorPrestamo("Error al ActualizarSaldo", "ControladorPrestamo.atualizarSaldo", "Error al actualiar el saldo");
-        }
+       
+            try {
+                conexion.UID("INSERT INTO documentos (dui,correlativo,nombre_archivo,archivo,descripcion) VALUES('" + Client.getDui() + "','" + correlativo + "','" + "fja" + "','" + event.getFile().getInputstream() + "','" + "adga" + "')");
+            } catch (Exception e) {
+                throw new ErrorPrestamo("Error al ActualizarSaldo", "ControladorPrestamo.atualizarSaldo", "Error al actualiar el saldo");
+            }
+
+        
+
     }
 
     public UploadedFile getImg() {
