@@ -12,7 +12,7 @@ import java.util.Date;
  * @author estuardo
  */
 public class Cliente {
-    
+
     private String dui;
     private String nit;
     private String nombres;
@@ -22,12 +22,14 @@ public class Cliente {
     private String telefono;
     private Date fecha_nacimiento;
     private String observaciones;
-    
+
     public Cliente() {
 
     }
 
-    public Cliente(String dui, String nit, String nombres, String apellidos, Character sexo, String direccion, String telefono, Date fechaNacimiento, String observaciones) {
+    public Cliente(String dui, String nit, String nombres, String apellidos,
+            Character sexo, String direccion, String telefono, Date fechaNacimiento,
+            String observaciones) {
         this.dui = dui;
         this.nit = nit;
         this.nombres = nombres;
@@ -110,8 +112,5 @@ public class Cliente {
     public void setObservaciones(String observaciones) {
         this.observaciones = observaciones;
     }
-    
-    
-    
-    
+
 }

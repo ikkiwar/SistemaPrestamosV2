@@ -183,7 +183,8 @@ public class FmrPrestamo implements Serializable {
                 if (!selectPrestamo.getCapitalizacion().equals("D")) {
                     valormora = (((cuota.getValor() * tasa_mora) / 30) * diferenciadias);
                 } else {
-                    valormora = ((cuota.getValor() * (tasa_mora / (30 * selectPrestamo.getCantidad_cuotas()))) * diferenciadias);
+                    valormora = ((cuota.getValor()*(tasa_mora /(30 * selectPrestamo.getCantidad_cuotas()))) 
+                            *diferenciadias);
                 }
                 cuota.setMora(valormora);
                 cuota.setInteres(cuota.getValor() * selectPrestamo.getTasa_interes());

@@ -1,4 +1,3 @@
-
 package ues.edu.sv.ingenieria.diseño1.proyectox.definiciones;
 
 import java.util.Date;
@@ -22,16 +21,18 @@ public class Cuota {
 
     public Cuota() {
         this.fecha = new Date();
-        
+
     }
 
-    public Cuota(int id_prestamo, int num_cuota, double valor, double interes, double capital, Date fecha, double saldo_anterior, double saldo_actualizado,double mora) {
+    public Cuota(int id_prestamo, int num_cuota, double valor, double interes,
+            double capital, Date fecha, double saldo_anterior, double saldo_actualizado,
+            double mora) {
         this.id_prestamo = id_prestamo;
         this.num_cuota = num_cuota;
         this.valor = valor;
         this.interes = interes;
         this.capital = capital;
-        this.mora=mora;
+        this.mora = mora;
         this.fecha = fecha;
         this.saldo_anterior = saldo_anterior;
         this.saldo_actualizado = saldo_actualizado;
@@ -55,7 +56,8 @@ public class Cuota {
         } else if (this.interes < 0) {
 
             return false;
-        } else if (this.fecha == null || this.fecha.before(this.getPrestamo().getFecha_inicio()) || this.fecha.after(this.getPrestamo().getFecha_fin())) {
+        } else if (this.fecha == null || this.fecha.before(this.getPrestamo().getFecha_inicio())
+                || this.fecha.after(this.getPrestamo().getFecha_fin())) {
 
             return false;
         } else if (this.capital < 0) {
@@ -128,8 +130,6 @@ public class Cuota {
     public void setMora(double mora) {
         this.mora = mora;
     }
-    
-    
 
     public double getSaldo_anterior() {
         return saldo_anterior;

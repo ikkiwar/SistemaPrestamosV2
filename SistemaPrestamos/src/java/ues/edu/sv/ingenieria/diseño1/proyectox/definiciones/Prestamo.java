@@ -30,11 +30,15 @@ public class Prestamo {
     private double interesCapitalizado = 0.0;
 
     public Prestamo() {
-        fecha_inicio= Calendar.getInstance().getTime();
-        this.cantidad_cuotas=12;
+        fecha_inicio = Calendar.getInstance().getTime();
+        this.cantidad_cuotas = 12;
     }
 
-    public Prestamo(Integer id_prestamo, String dui, String nombres, String apellidos, double monto, double valor_cuota, double tasa_interes, int cantidad_cuotas, Date fecha_inicio, Date fecha_fin, Date fecha_ultimo_pago, double saldo, int estado, String observaciones, String capitalizacion) {
+    public Prestamo(Integer id_prestamo, String dui, String nombres,
+            String apellidos, double monto, double valor_cuota,
+            double tasa_interes, int cantidad_cuotas, Date fecha_inicio,
+            Date fecha_fin, Date fecha_ultimo_pago, double saldo, int estado,
+            String observaciones, String capitalizacion) {
         this.id_prestamo = id_prestamo;
         this.monto = monto;
         this.valor_cuota = valor_cuota;
@@ -62,10 +66,11 @@ public class Prestamo {
 
             calcularInteresCapitalizacion();
 
-            cuota = this.monto * (this.interesCapitalizado / (1 - Math.pow(1 + this.interesCapitalizado, -1 * this.cantidad_cuotas)));
+            cuota = this.monto * (this.interesCapitalizado 
+                    / (1 - Math.pow(1 + this.interesCapitalizado, -1 * this.cantidad_cuotas)));
         }
         System.out.println("valor de la Cuota" + cuota);
-        
+
         Calendar fin = Calendar.getInstance();
         fin.setTime(this.fecha_inicio);
         fin.add(Calendar.MONTH, this.cantidad_cuotas);
@@ -73,7 +78,6 @@ public class Prestamo {
 
         this.estado = 1;
         this.valor_cuota = Math.round(cuota * 100.0) / 100.0;
-       
 
         return cuota;
 
@@ -92,7 +96,7 @@ public class Prestamo {
 
             } else if (this.capitalizacion.equals("D")) {
 
-                interesCapitalizado = this.tasa_interes / (30*this.cantidad_cuotas);
+                interesCapitalizado = this.tasa_interes / (30 * this.cantidad_cuotas);
 
                 System.out.println("Estoy en Capitalizacion Diaria");
             }
