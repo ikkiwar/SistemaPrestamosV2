@@ -30,7 +30,15 @@ public class ControladorPrestamo implements Serializable {
         try {
 
             Conexion conexion = new Conexion();
-            conexion.UID("INSERT INTO prestamo (id_prestamo,dui,monto,valor_cuota,tasa_interes,cantidad_cuotas,fecha_inicio,fecha_fin,fecha_ultimo_pago,saldo,estado,observaciones,capitalizacion) VALUES ('" + prestamo.getId_prestamo() + "','" + prestamo.getDui() + "','" + prestamo.getMonto() + "','" + prestamo.getValor_cuota() + "','" + prestamo.getTasa_interes() + "','" + prestamo.getCantidad_cuotas() + "','" + fecha1 + "','" + fecha2 + "'," + prestamo.getFecha_ultimo_pago() + ",'" + prestamo.getSaldo() + "','" + prestamo.getEstado() + "','" + prestamo.getObservaciones() + "','" + prestamo.getCapitalizacion() + "')");
+            conexion.UID("INSERT INTO prestamo (id_prestamo,dui,monto,valor_cuota,"
+                    + "tasa_interes,cantidad_cuotas,fecha_inicio,fecha_fin,"
+                    + "fecha_ultimo_pago,saldo,estado,observaciones,capitalizacion) "
+                    + "VALUES ('" + prestamo.getId_prestamo() + "','" + prestamo.getDui()
+                    + "','" + prestamo.getMonto() + "','" + prestamo.getValor_cuota()
+                    + "','" + prestamo.getTasa_interes() + "','" + prestamo.getCantidad_cuotas()
+                    + "','" + fecha1 + "','" + fecha2 + "'," + prestamo.getFecha_ultimo_pago()
+                    + ",'" + prestamo.getSaldo() + "','" + prestamo.getEstado() + "','"
+                    + prestamo.getObservaciones() + "','" + prestamo.getCapitalizacion() + "')");
 
         } catch (Exception e) {
             throw new ErrorPrestamo("Error al Agregar", "ControladorPrestamo.Agregar", "Error al Agregar Prestamo");
@@ -49,7 +57,14 @@ public class ControladorPrestamo implements Serializable {
             resultado = conexion.getValores("Select * from cliente C left join prestamo P on C.dui=P.dui where estado=1 ");
             while (resultado.next()) {
                 System.out.println("Estoy en el While");
-                activo.add(new Prestamo(resultado.getInt("id_prestamo"), resultado.getString("dui"), resultado.getString("nombres"), resultado.getString("apellidos"), resultado.getDouble("monto"), resultado.getDouble("valor_cuota"), resultado.getDouble("tasa_interes"), resultado.getInt("cantidad_cuotas"), resultado.getDate("fecha_inicio"), resultado.getDate("fecha_fin"), resultado.getDate("fecha_ultimo_pago"), resultado.getDouble("saldo"), resultado.getInt("estado"), resultado.getString("observaciones"), resultado.getString("capitalizacion")));
+                activo.add(new Prestamo(resultado.getInt("id_prestamo"),
+                        resultado.getString("dui"), resultado.getString("nombres"),
+                        resultado.getString("apellidos"), resultado.getDouble("monto"),
+                        resultado.getDouble("valor_cuota"), resultado.getDouble("tasa_interes"),
+                        resultado.getInt("cantidad_cuotas"), resultado.getDate("fecha_inicio"),
+                        resultado.getDate("fecha_fin"), resultado.getDate("fecha_ultimo_pago"),
+                        resultado.getDouble("saldo"), resultado.getInt("estado"),
+                        resultado.getString("observaciones"), resultado.getString("capitalizacion")));
 
             }
         } catch (Exception e) {
@@ -66,11 +81,10 @@ public class ControladorPrestamo implements Serializable {
 
             Conexion conexion = new Conexion();
             resultado = conexion.getValores("SELECT id_prestamo from prestamo ORDER BY id_prestamo DESC LIMIT 1");
-            
-            if(resultado.next()){
-              id = resultado.getInt(1);
+
+            if (resultado.next()) {
+                id = resultado.getInt(1);
             }
-           
 
         } catch (SQLException ex) {
             Logger.getLogger(ControladorPrestamo.class.getName()).log(Level.SEVERE, null, ex);
@@ -90,7 +104,14 @@ public class ControladorPrestamo implements Serializable {
             resultado = conexion.getValores("SELECT * FROM prestamo p LEFT JOIN cliente c ON c.dui = p.dui");
             while (resultado.next()) {
 
-                historial.add(new Prestamo(resultado.getInt("id_prestamo"), resultado.getString("dui"), resultado.getString("nombres"), resultado.getString("apellidos"), resultado.getDouble("monto"), resultado.getDouble("valor_cuota"), resultado.getDouble("tasa_interes"), resultado.getInt("cantidad_cuotas"), resultado.getDate("fecha_inicio"), resultado.getDate("fecha_fin"), resultado.getDate("fecha_ultimo_pago"), resultado.getDouble("saldo"), resultado.getInt("estado"), resultado.getString("observaciones"), resultado.getString("capitalizacion")));
+                historial.add(new Prestamo(resultado.getInt("id_prestamo"),
+                        resultado.getString("dui"), resultado.getString("nombres"),
+                        resultado.getString("apellidos"), resultado.getDouble("monto"),
+                        resultado.getDouble("valor_cuota"), resultado.getDouble("tasa_interes"),
+                        resultado.getInt("cantidad_cuotas"), resultado.getDate("fecha_inicio"),
+                        resultado.getDate("fecha_fin"), resultado.getDate("fecha_ultimo_pago"),
+                        resultado.getDouble("saldo"), resultado.getInt("estado"),
+                        resultado.getString("observaciones"), resultado.getString("capitalizacion")));
 
             }
         } catch (Exception e) {
@@ -104,8 +125,17 @@ public class ControladorPrestamo implements Serializable {
         try {
 
             Conexion conexion = new Conexion();
-            conexion.UID("UPDATE prestamo SET dui='" + prestamo.getCliente().getDui() + "',monto='" + prestamo.getMonto() + "',valor_cuota='" + prestamo.getValor_cuota() + "',tasa_interes='" + prestamo.getTasa_interes() + "',cantidad_cuotas='" + prestamo.getCantidad_cuotas() + "',fecha_inicio='" + prestamo.getFecha_inicio() + "',fecha_fin='" + prestamo.getFecha_fin() + "',fecha_ultimo_pago='" + prestamo.getFecha_ultimo_pago() + "',saldo='" + prestamo.getSaldo() + "',estado='" + prestamo.getEstado() + "',"
-                    + "observaciones='" + prestamo.getObservaciones() + "' WHERE id_prestamo='" + prestamo.getId_prestamo() + "'");
+            conexion.UID("UPDATE prestamo SET dui='" + prestamo.getCliente().getDui() + "',"
+                    + "monto='" + prestamo.getMonto() + "',valor_cuota='" + prestamo.getValor_cuota() + "',"
+                    + "tasa_interes='" + prestamo.getTasa_interes() + "',"
+                    + "cantidad_cuotas='" + prestamo.getCantidad_cuotas() + "',"
+                    + "fecha_inicio='" + prestamo.getFecha_inicio() + "',"
+                    + "fecha_fin='" + prestamo.getFecha_fin() + "',"
+                    + "fecha_ultimo_pago='" + prestamo.getFecha_ultimo_pago() + "',"
+                    + "saldo='" + prestamo.getSaldo() + "',"
+                    + "estado='" + prestamo.getEstado() + "',"
+                    + "observaciones='" + prestamo.getObservaciones() + "' "
+                    + "WHERE id_prestamo='" + prestamo.getId_prestamo() + "'");
 
         } catch (Exception e) {
             throw new ErrorPrestamo("Error al Modificar", "ControladorPrestamo.Modificar", "Error al Modificar el Prestamo");
@@ -120,7 +150,8 @@ public class ControladorPrestamo implements Serializable {
 
         try {
             Conexion conexion = new Conexion();
-            conexion.UID("UPDATE prestamo SET saldo='" + saldo + "',fecha_ultimo_pago='" + fecha + "' WHERE id_prestamo='" + id + "'");
+            conexion.UID("UPDATE prestamo SET saldo='" + saldo + "',fecha_ultimo_pago='" + fecha + "'"
+                    + " WHERE id_prestamo='" + id + "'");
         } catch (Exception e) {
             throw new ErrorPrestamo("Error al ActualizarSaldo", "ControladorPrestamo.atualizarSaldo", "Error al actualiar el saldo");
         }
@@ -135,7 +166,14 @@ public class ControladorPrestamo implements Serializable {
             Conexion conexion = new Conexion();
             resultado = conexion.getValores("SELECT * FROM prestamo WHERE cliente='" + cliente.getDui() + "';");
             while (resultado.next()) {
-                seleccionado.add(new Prestamo(resultado.getInt("id_prestamo"), resultado.getString("dui"), resultado.getString("nombres"), resultado.getString("apellidos"), resultado.getDouble("monto"), resultado.getDouble("valor_cuota"), resultado.getDouble("tasa_interes"), resultado.getInt("cantidad_cuotas"), resultado.getDate("fecha_inicio"), resultado.getDate("fecha_fin"), resultado.getDate("fecha_ultimo_pago"), resultado.getDouble("saldo"), resultado.getInt("estado"), resultado.getString("observaciones"), resultado.getString("capitalizacion")));
+                seleccionado.add(new Prestamo(resultado.getInt("id_prestamo"),
+                        resultado.getString("dui"), resultado.getString("nombres"),
+                        resultado.getString("apellidos"), resultado.getDouble("monto"),
+                        resultado.getDouble("valor_cuota"), resultado.getDouble("tasa_interes"),
+                        resultado.getInt("cantidad_cuotas"), resultado.getDate("fecha_inicio"),
+                        resultado.getDate("fecha_fin"), resultado.getDate("fecha_ultimo_pago"),
+                        resultado.getDouble("saldo"), resultado.getInt("estado"),
+                        resultado.getString("observaciones"), resultado.getString("capitalizacion")));
             }
         } catch (Exception e) {
             throw new ErrorPrestamo("Error al obtener", "ControladorCliente.obtenerPorCliente", "Error al obtener por Cliente");
@@ -152,10 +190,18 @@ public class ControladorPrestamo implements Serializable {
         ResultSet resultado;
         try {
 
-            resultado = conexion.getValores("SELECT * FROM prestamo p LEFT JOIN cliente c ON c.dui = p.dui where nombres LIKE '" + filtro + "%' OR apellidos LIKE '" + filtro + "%'");
+            resultado = conexion.getValores("SELECT * FROM prestamo p LEFT JOIN cliente c ON c.dui "
+                    + "= p.dui where nombres LIKE '" + filtro + "%' OR apellidos LIKE '" + filtro + "%'");
             while (resultado.next()) {
 
-                prestamo.add(new Prestamo(resultado.getInt("id_prestamo"), resultado.getString("dui"), resultado.getString("nombres"), resultado.getString("apellidos"), resultado.getDouble("monto"), resultado.getDouble("valor_cuota"), resultado.getDouble("tasa_interes"), resultado.getInt("cantidad_cuotas"), resultado.getDate("fecha_inicio"), resultado.getDate("fecha_fin"), resultado.getDate("fecha_ultimo_pago"), resultado.getDouble("saldo"), resultado.getInt("estado"), resultado.getString("observaciones"), resultado.getString("capitalizacion")));
+                prestamo.add(new Prestamo(resultado.getInt("id_prestamo"),
+                        resultado.getString("dui"), resultado.getString("nombres"),
+                        resultado.getString("apellidos"), resultado.getDouble("monto"),
+                        resultado.getDouble("valor_cuota"), resultado.getDouble("tasa_interes"),
+                        resultado.getInt("cantidad_cuotas"), resultado.getDate("fecha_inicio"),
+                        resultado.getDate("fecha_fin"), resultado.getDate("fecha_ultimo_pago"),
+                        resultado.getDouble("saldo"), resultado.getInt("estado"),
+                        resultado.getString("observaciones"), resultado.getString("capitalizacion")));
 
             }
 

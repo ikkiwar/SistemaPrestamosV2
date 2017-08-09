@@ -19,9 +19,9 @@ public class Parametro {
     private int id_parametro;
     private String nombre;
     private String valor;
-    
-    public Parametro(){
-        
+
+    public Parametro() {
+
     }
 
     public Parametro(int id_parametro, String nombre, String valor) {
@@ -60,7 +60,8 @@ public class Parametro {
 
             ResultSet resultado = conexion.getValores("SELECT * FROM parametros");
             while (resultado.next()) {
-            lista.add(new Parametro(resultado.getInt("id"),resultado.getString("parametro"),resultado.getString("valor")));
+                lista.add(new Parametro(resultado.getInt("id"), resultado.getString("parametro"),
+                        resultado.getString("valor")));
             }
         } catch (Exception e) {
             throw new ErrorPrestamo("Error al Obtener", "Obtener Lista parametro", "Error al obtener paramtros");
@@ -68,41 +69,43 @@ public class Parametro {
 
         return lista;
     }
-    
-    public void modificar(Parametro parametro) throws ErrorPrestamo{
+
+    public void modificar(Parametro parametro) throws ErrorPrestamo {
         Conexion conexion = new Conexion();
 
         try {
 
-         conexion.UID("UPDATE parametros SET parametro='"+parametro.nombre+"',valor='"+parametro.valor+"' WHERE id='"+parametro.id_parametro+"'");
-         
+            conexion.UID("UPDATE parametros SET parametro='" + parametro.nombre + "',"
+                    + "valor='" + parametro.valor + "' "
+                    + "WHERE id='" + parametro.id_parametro + "'");
+
         } catch (Exception e) {
             throw new ErrorPrestamo("Error al modificar", "modificar parametros", "Error al modificar parametros");
         }
-        
+
     }
-   public void agregar(){
-       
-   }
-    
-    public double obtenerTasas(String nombreTasa) throws ErrorPrestamo{
-        double tasa=0;
+
+    public void agregar() {
+
+    }
+
+    public double obtenerTasas(String nombreTasa) throws ErrorPrestamo {
+        double tasa = 0;
         //String tasa=null;
         Conexion conexion = new Conexion();
         ResultSet resultado;
-        
+
         try {
 
-         resultado=conexion.getValores("SELECT valor FROM parametros WHERE parametro='"+nombreTasa+"'");
-         if(resultado.next()){
-         tasa = Double.parseDouble(resultado.getString(1));
-         }
-        
-         
+            resultado = conexion.getValores("SELECT valor FROM parametros WHERE parametro='" + nombreTasa + "'");
+            if (resultado.next()) {
+                tasa = Double.parseDouble(resultado.getString(1));
+            }
+
         } catch (Exception e) {
             throw new ErrorPrestamo("Error al Obtener", "Parametros tasas", "Error al obtener parametros");
         }
-        
+
         return tasa;
     }
 
@@ -129,11 +132,5 @@ public class Parametro {
     public void setValor(String valor) {
         this.valor = valor;
     }
-    
-   
-    
-    
-    
-    
 
 }

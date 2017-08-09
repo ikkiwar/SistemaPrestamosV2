@@ -32,7 +32,9 @@ public class ControladorParametro {
             resultado = conexion.getValores("SELECT * FROM parametros");
             
             while (resultado.next()) {
-                parametros.add(new Parametro(resultado.getInt("id"), resultado.getString("parametro"), resultado.getString("valor")));
+                parametros.add(new Parametro(resultado.getInt("id"), 
+                        resultado.getString("parametro"), 
+                        resultado.getString("valor")));
                // System.out.println("Estoy en el While");
                 
             }
@@ -52,7 +54,9 @@ public class ControladorParametro {
         
         try {
             Conexion conexion = new Conexion();
-            conexion.UID("UPDATE parametros SET parametro='" + parametro.getNombre()+ "', Valor='" + parametro.getValor() +"' WHERE id='" + parametro.getId_parametro()+ "'");
+            conexion.UID("UPDATE parametros SET parametro='" + parametro.getNombre()+ "', "
+                    + "Valor='" + parametro.getValor() +"' "
+                            + "WHERE id='" + parametro.getId_parametro()+ "'");
         } catch (Exception e) {
             throw new ErrorPrestamo("Error al Actualizar parametro", "ControladorParametro.actualizarParametro", "Error al actualizar el parametro");
         }
