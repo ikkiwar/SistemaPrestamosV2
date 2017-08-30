@@ -37,20 +37,21 @@
             <div id="content" class="left_content" style="background-color: #253A47" >
                 <ui:insert name="content">
                     <h:form>
-                    <div align="center" style="padding-right: 10%; padding-top:6% ">
+                    <div align="center" style="padding-right: 10%; padding-top:4% ">
                        <h:graphicImage id="logoempresa" class="icon" name="/img/logoempresa.png" 
                                        style="width: 25% "/>
                        
-                       <h:panelGrid columns="2" style="padding-top: 2% ; font-size: 16px">
+                       <h:panelGrid columns="2" style="padding-top: 2% ;padding-bottom:1%; font-size: 16px">
                            <p:outputLabel value="Usuario" style="color: white;background-color:  transparent"/>
                            <p:inputText />
                            <p:outputLabel value="Contraseña" style="color: white;background-color:  transparent"/>
                             <p:password />
                             
                        </h:panelGrid>
-                       <p:commandButton value="Ingresar" style="margin-top:1%; font-size: 16px" 
-                                        actionListener="home" />
-                    
+                       
+                       <p:commandButton value="Ingresar" action="/pages/home" 
+                                        style="font-size: 14px"/>
+                       
                      
                     </div>
                  
