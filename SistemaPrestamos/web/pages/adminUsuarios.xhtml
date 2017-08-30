@@ -124,7 +124,17 @@
                                 <f:selectItem itemLabel="Femenino" itemValue="F"/>  
                             </h:selectOneRadio>
 
+                            <p:outputLabel for="usuario" value="Usuario: "/>
+                            <p:inputText style="text-transform: uppercase" id="usuario" 
+                                         required="true"   size="40" value=""/>
 
+                            <p:outputLabel for="contra1" value="Ingrese Contraseña: " />
+                            <p:password id="contra1" value="" 
+                                        feedback="true" match="contra2" required="true"/>
+                            
+                            <p:outputLabel for="contra2" value="Repita Contraseña: " />
+                            <p:password id="contra2" value="" required="true" />
+                            
                             <p:outputLabel  for="telefono" value="teléfono: "/>
                             <p:inputMask mask="9999-9999"  id="telefono" size="40" 
                                          value=""/>
@@ -133,21 +143,21 @@
 
 
                             <p:outputLabel for="cargo" value="Cargo: "/>
-                              <p:inputText style="text-transform: uppercase" id="cargo" 
+                            <p:inputText style="text-transform: uppercase" id="cargo" 
                                          required="true"   size="40" value=""/>
 
-                            
+
 
 
                             <div class="center">
                                 <h:panelGrid columns="2"  >
                                     <p:commandButton  value="Registrar"  icon="ui-icon-disk"  
-                                                       update="grid"
+                                                      update="grid"
                                                       oncomplete="PF('agregarCliente').hide();"/>
-                                                     
-                                                      
 
-                                                      <p:commandButton value="Cancelar" icon="ui-icon-cancel"
+
+
+                                    <p:commandButton value="Cancelar" icon="ui-icon-cancel"
                                                      onclick="PF('agregarUsuario').hide();" type="button"/>
 
                                 </h:panelGrid>
