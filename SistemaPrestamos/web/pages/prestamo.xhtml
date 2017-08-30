@@ -24,7 +24,8 @@
                         <p:inputText style="margin-left: 1%"   value="#{prestamos.filtro}">
                             <p:ajax event="keyup" listener="#{prestamos.filtrar()}" update=":formTable:prestamos1"   />
                         </p:inputText>
-                        <p:commandButton style="margin-left: 10px" icon="ui-icon-circle-plus" value="Nuevo Prestamo" onclick="PF('Nprestamo').show();"/>
+                        <p:commandButton style="margin-left: 10px" icon="ui-icon-circle-plus" value="Nuevo Prestamo"
+                                         onclick="PF('Nprestamo').show();"/>
                     </h:form>
                 </div>
 

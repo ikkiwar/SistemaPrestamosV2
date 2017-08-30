@@ -3,20 +3,161 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
 
         <ui:composition template="./../plantilla/plantilla.xhtml">
 
             <ui:define name="content">
-                 <h:panelGrid columns="2" style="padding-top: 10px;padding-left: 24px ">
+                <h:panelGrid columns="2" style="padding-top: 10px;padding-left: 24px ">
                     <h:graphicImage  id="icono" class="icon" name="/img/userconf.png"  height="50" width="50"/>
                     <p:outputLabel for="icono" value="Administracion de Usuarios" 
                                    style="color: white; font-size: 14px  "/>
                 </h:panelGrid>
-                <p:separator/>
-              
+
+                <div class="center">
+
+                    <h:form>
+                        <p:outputLabel style="margin-left: 1%; color: white; font-size: small" value="Buscar por Nombre"/>           
+                        <p:inputText style="margin-left: 1%"   value="#{prestamos.filtro}">
+
+                        </p:inputText>
+                        <p:commandButton style="margin-left: 10px" icon="ui-icon-circle-plus" value="Nuevo usuario"
+                                         onclick="PF('agregarUsuario').show();"/>
+                    </h:form>
+                </div>
+
+                <h:form id="form" style="text-align: center">
+
+                    <p:separator/>
+
+
+                    <p:dataTable id="tablaUsuarios"  value="#{clientes}"  var="cliente" 
+
+                                 paginator="true" rows="10" rowsPerPageTemplate="5,10,15"  editable="false" style="margin:20px">
+
+                        <f:facet name="header">
+                            Usuarios
+                        </f:facet>
+
+
+                        <p:column headerText="DUI" style="width:80px"  >
+                            <h:outputText value=""  />
+                        </p:column>
+
+                        <p:column headerText="NIT"  style="width:130px" >
+                            <h:outputText value=""  />
+                        </p:column>
+
+                        <p:column headerText="NOMBRE" style="width:100px" >
+                            <h:outputText style="text-transform: uppercase" value=""  />
+                        </p:column>
+
+                        <p:column headerText="CARGO" style="width:110px">
+                            <h:outputText style="text-transform: uppercase" value=""  />
+                        </p:column>
+
+
+
+                        <p:column style="width:42px">
+                            <p:commandButton icon="ui-icon-clipboard" style="width: 25px;height: 25px;
+                                             font-size: 5px;background-color: #00a0df"
+                                             title="Bitacora" action="Bitacora">
+                                <f:setPropertyActionListener value="}" target=""/>
+
+                            </p:commandButton>
+
+
+
+                        </p:column>
+                    </p:dataTable>
+
+                </h:form>
+
+                <p:dialog  id="dialog" modal="true" appendTo="@(body)" height="100%" 
+                           style="background-color:#EFEDEF; text-align: center" 
+                           showEffect="blind" hideEffect="blind" widgetVar="agregarUsuario"  
+                           header="Agregar Usuario"  draggable="false" closeOnEscape="true" 
+                           resizable="false">
+
+                    <p:ajax event="close" listener="#{clientes.inicio()}" update=":form:tablaUsuarios" 
+                            immediate="true" global="true" />
+
+                    <h:form id="formulario" style="text-align: center" >
+
+                        <p:messages id="messages" showDetail="true"  autoUpdate="true" closable="true" />
+
+                        <h:panelGrid columns="2">
+
+                        </h:panelGrid>
+
+
+                        <h:panelGrid id="grid" columns="2"  style="text-align: left">
+
+
+                            <p:outputLabel  for="dui" value="Dui: "/>
+                            <p:inputMask mask="99999999-9"  id="dui" size="40" 
+                                         required="true" value=""/>
+
+
+                            <p:outputLabel  for="nit" value="nit: "/>
+                            <p:inputMask mask="9999-999999-999-9"  id="nit" size="40" 
+                                         required="true" value=""/>
+
+
+                            <p:outputLabel  for="nombre" value="Nombre:"/>
+                            <p:inputText  style="text-transform: uppercase" id="nombre" 
+                                          required="true" size="40" value=""/>
+
+
+
+                            <p:outputLabel  for="apellido" value="Apellido:"/>
+                            <p:inputText style="text-transform: uppercase" id="apellido" 
+                                         required="true"   size="40" value=""/>
+
+
+                            <p:outputLabel  for="sexo" value="Sexo:"/>
+                            <h:selectOneRadio id="sexo" value="" required="true">
+                                <f:selectItem  itemLabel="Masculino" itemValue="M"/>
+                                <f:selectItem itemLabel="Femenino" itemValue="F"/>  
+                            </h:selectOneRadio>
+
+
+                            <p:outputLabel  for="telefono" value="teléfono: "/>
+                            <p:inputMask mask="9999-9999"  id="telefono" size="40" 
+                                         value=""/>
+
+
+
+
+                            <p:outputLabel for="cargo" value="Cargo: "/>
+                              <p:inputText style="text-transform: uppercase" id="cargo" 
+                                         required="true"   size="40" value=""/>
+
+                            
+
+
+                            <div class="center">
+                                <h:panelGrid columns="2"  >
+                                    <p:commandButton  value="Registrar"  icon="ui-icon-disk"  
+                                                       update="grid"
+                                                      oncomplete="PF('agregarCliente').hide();"/>
+                                                     
+                                                      
+
+                                                      <p:commandButton value="Cancelar" icon="ui-icon-cancel"
+                                                     onclick="PF('agregarUsuario').hide();" type="button"/>
+
+                                </h:panelGrid>
+                            </div>
+
+                        </h:panelGrid>
+                    </h:form>
+
+                </p:dialog>
+
             </ui:define>
 
         </ui:composition>

@@ -19,6 +19,7 @@
 
 
         <div id="top" class="top" >
+
             <ui:insert name="top">
                 <h:panelGrid columns="2">
                     <h:graphicImage  id="iconoHome" class="icon"  name="/img/service.png"  height="20" width="20"/> 
@@ -26,11 +27,14 @@
                         SISTEMA DE PRESTAMOS
                     </h1>
 
+
                 </h:panelGrid>
 
-
-
-
+                <div align="right"  >
+                    <p:commandButton value="Salir" action="/SistemaPrestamos"
+                                     style="background-color: darkseagreen"
+                                     icon="ui-icon-power"/>
+                </div>
             </ui:insert>
         </div>
         <div>
@@ -63,7 +67,7 @@
                             Parametros
                         </a>
                         <p:separator/>
-                        <a href="adminUsuarios.jsf">
+                        <a href="/SistemaPrestamos/pages/adminUsuarios.jsf">
                             <h:graphicImage class="icon" name="/img/adjust.png" height="32" width="32"/>
                             Admin usuarios
                         </a> 
