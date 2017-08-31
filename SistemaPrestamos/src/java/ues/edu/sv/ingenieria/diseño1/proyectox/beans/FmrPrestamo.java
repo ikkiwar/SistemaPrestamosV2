@@ -166,14 +166,18 @@ public class FmrPrestamo implements Serializable {
         Date ahora = cuota.getFecha();
 
         if (anterior == null) {
-            cuota.setInteres(cuota.getValor() * selectPrestamo.getTasa_interes());
+            cuota.setInteres(selectPrestamo.getMonto() * selectPrestamo.getTasa_interes());
+            
+           System.out.print("TASA MORA"+ tasa_mora);
+            System.out.println("valor"+ cuota.getValor());
+            System.out.println("Interes"+ selectPrestamo.getTasa_interes());
 
         } else {
 
             diferencia = ahora.getTime() - anterior.getTime();
             diferenciadias = TimeUnit.MILLISECONDS.toDays(diferencia);
             tasa_mora = parametro.obtenerTasas("Mora");
-            System.out.print(tasa_mora);
+           
 
             if (diferenciadias <= 30) {
                 cuota.setInteres(0);
@@ -187,7 +191,7 @@ public class FmrPrestamo implements Serializable {
                             *diferenciadias);
                 }
                 cuota.setMora(valormora);
-                cuota.setInteres(cuota.getValor() * selectPrestamo.getTasa_interes());
+                cuota.setInteres(selectPrestamo.getMonto() * selectPrestamo.getTasa_interes());
                 cuota.setValor(cuota.getValor()+valormora);
             }
 

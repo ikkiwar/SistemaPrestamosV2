@@ -157,6 +157,37 @@ public class ControladorPrestamo implements Serializable {
         }
 
     }
+  
+   /* public int validar(String Dui) {
+        int cuotasPagadas = 0;
+
+        ResultSet resultado;
+        System.out.println("id del prestamo suministrado: " + Dui);
+        System.out.println("Estoy en cantidadCuotas del Controlador");
+
+        try {
+            Conexion conexion = new Conexion();
+            resultado = conexion.getValores("SELECT COUNT(id_prestamo) "
+                    + "FROM prestamo where dui='" + Dui + "'");
+
+            resultado.next();
+            cuotasPagadas = resultado.getInt(1);
+
+            System.out.println("El total de Cuotas pagadas son: " + cuotasPagadas);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ControladorCuota.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+
+        return cuotasPagadas;
+
+    }*/
+    
+    
+    
+    
+    
 
     public List<Prestamo> obtenerPorCliente(Cliente cliente) throws ErrorPrestamo {
         List<Prestamo> seleccionado = new ArrayList<>();
