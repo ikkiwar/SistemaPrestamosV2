@@ -58,6 +58,8 @@ public class Prestamo {
     }
 
     public double calcularCuota() {
+        
+        
 
         double cuota = 0.0;
         this.saldo = this.monto;
@@ -84,24 +86,28 @@ public class Prestamo {
     }
 
     public void calcularInteresCapitalizacion() {
-
+        double tasaInteres=0; 
         System.out.println("LA CAPITALIZACION ES:" + this.capitalizacion);
-
-        this.tasa_interes = this.tasa_interes / 100;
+        System.out.println("TSA INTERES"+this.tasa_interes);
+        tasaInteres = this.tasa_interes / 100;
         if (this.capitalizacion != null && this.tasa_interes >= 0) {
 
             if (this.capitalizacion.equals("M")) {
                 System.out.println("Estoy en Capitalizacion Mensual");
-                interesCapitalizado = this.tasa_interes;
+                interesCapitalizado = tasaInteres;
 
             } else if (this.capitalizacion.equals("D")) {
 
-                interesCapitalizado = this.tasa_interes / (30 * this.cantidad_cuotas);
+                interesCapitalizado = tasaInteres / (30 * this.cantidad_cuotas);
 
                 System.out.println("Estoy en Capitalizacion Diaria");
             }
 
         }
+        
+        
+       
+        
 
     }
 

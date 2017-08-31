@@ -43,6 +43,7 @@ public class FmrCliente implements Serializable {
     private String filtro;
     private Documento doc = new Documento();
     private UploadedFile img;
+    private ControladorPrestamo ControlPrestamo = new ControladorPrestamo();
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     public FmrCliente() {
@@ -70,14 +71,23 @@ public class FmrCliente implements Serializable {
         }
     }
 
-    public void ver() {
-        System.out.print(SelectedClient.getDui());
+    public void ver() throws ErrorPrestamo {
+    /*    System.out.print(SelectedClient.getDui());
 
-        try {
-            Control.eliminar(SelectedClient);
-        } catch (ErrorPrestamo ex) {
-            Logger.getLogger(FmrCliente.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        int prestamovalido = ControlPrestamo.validar(SelectedClient.getDui());
+
+        if (prestamovalido != 0) {
+
+            System.out.println("cliente no se puede eliminar");
+
+        } else {
+
+            try {
+                Control.eliminar(SelectedClient);
+            } catch (ErrorPrestamo ex) {
+                Logger.getLogger(FmrCliente.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }*/
 
     }
 
