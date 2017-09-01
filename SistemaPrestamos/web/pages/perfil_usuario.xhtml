@@ -1,0 +1,190 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body >
+
+
+        <ui:composition template="./../plantilla/plantilla.xhtml">
+
+            <ui:define name="content">
+
+
+
+                <h:panelGrid columns="2" style="background-color:  transparent;padding-left: 18px">
+                    <h:graphicImage id="clienteIcon"   class="icon" name="/img/cliente.png"  height="60" width="60"/>
+                    <p:outputLabel for="clienteIcon" value="PERFIL DE USUARIO" style="color: white;font-family: sans-serif"/>            
+                </h:panelGrid>
+                <p:separator/>
+
+                <h:panelGrid style="padding-left: 12px; padding-top: 24px; margin: 0 auto">
+
+                    <p:panel>
+
+                        <h:panelGrid columns="3" >
+                            <h:panelGrid columns="1">
+
+                                <h:graphicImage  id="iconoNombre" class="icon" name="/img/users.png"  height="70" width="70" style="align-content: center"/>
+
+                            </h:panelGrid>
+
+
+                            <h:panelGrid columns="1" cellpadding="5">
+                                <h:panelGrid columns="2">
+                                    <p:outputLabel for="dui" value="DUI: " style="color:  #2793B7; font-family: sans-serif"/>
+                                    <p:outputLabel id="dui" value="#{clientes.selectedClient.dui}" />
+
+                                    <p:outputLabel  for="nit" value="NIT: " style="color:  #2793B7; font-family: sans-serif"/>
+                                    <p:outputLabel id="nit" value="#{clientes.selectedClient.nit}" />
+
+                                    <p:outputLabel for="nombre" value="NOMBRES: " style="color:  #2793B7; font-family: sans-serif" />
+                                    <p:outputLabel style="text-transform: uppercase" id="nombre" value="#{clientes.selectedClient.nombres}" />
+
+                                    <p:outputLabel for="apellido" value="APELLIDOS: " style="color:  #2793B7; font-family: sans-serif"/>
+                                    <p:outputLabel style="text-transform: uppercase" id="apellido" value="#{clientes.selectedClient.apellidos}" />
+
+                                    <p:outputLabel for="observaciones"  value="OBSERVACIONES: " style="color:  #2793B7; font-family: sans-serif" />
+                                    <p:outputLabel id="observaciones" value="#{clientes.selectedClient.observaciones}" />
+                                </h:panelGrid>
+                            </h:panelGrid>
+
+                            <h:panelGrid columns="1">
+                                <h:panelGrid columns="2">
+                                    <p:outputLabel for="sexo" value="SEXO: " style="color:  #2793B7; font-family: sans-serif"/>
+                                    <p:outputLabel id="sexo" value="#{clientes.selectedClient.sexo}" />
+                                    <p:outputLabel  for="fechaNacimiento" value="FECHA DE NACIMIENTO: " style="color:  #2793B7; font-family: sans-serif"/>
+                                    <p:outputLabel id="fechaNacimiento" value="#{clientes.selectedClient.fecha_nacimiento}" />
+                                    <p:outputLabel for="direccion" value="DIRECCION: " style="color:  #2793B7; font-family: sans-serif"/>
+                                    <p:outputLabel id="direccion" value="#{clientes.selectedClient.direccion}" />
+                                    <p:outputLabel for="telefono" value="TELEFONO: " style="color:  #2793B7; font-family: sans-serif"/>
+                                    <p:outputLabel id="telefono" value="#{clientes.selectedClient.telefono}" />
+                                </h:panelGrid>
+                            </h:panelGrid>
+
+                        </h:panelGrid>
+
+                    </p:panel>
+
+
+
+
+
+                </h:panelGrid>
+
+
+
+
+
+                <!-- <p:tabView style="background-color: #253A47; width: 800px; margin: 0 auto">
+                     <p:tab title="Prestamos">
+ 
+                         <p:dataList  var="prestamo" value="#{prestamos.listaC}" type="ordered" paginator="true" rows="10" styleClass="paginated">>
+                             <f:facet name="header">
+                             Prestamos
+                             </f:facet>
+                             
+                #{prestamo.fecha_inicio},  #{prestamo.monto}
+              
+           </p:dataList>
+
+       </p:tab>
+      
+         <p:tab title="Pagos">
+       
+             <p:dataList  var="car" type="ordered" paginator="true" rows="10" styleClass="paginated">>
+               <f:facet name="header">
+                   Pagos
+               </f:facet>
+              
+           </p:dataList>
+       
+   </p:tab>
+       
+       
+       
+   </p:tabView> -->
+
+
+                <h:panelGrid style="padding-left: 12px ;width: 100%; padding-top: 0px;padding-right: 10px;position: relative">
+                    <p:tabView style="padding-top:  0px;position: relative">
+                        <p:tab title="MI BITÁCORA">
+                            <h:panelGrid columns="1" cellpadding="10">
+                                    <p:tab title="Bitácora del Usuario">
+                                        <!-- aqui comienza la tabla-->
+                                        <h:form id="formTable" style="text-align: center">
+
+                                            <p:dataTable id="tablaBitacora"  var="bitacora" 
+
+                                            paginator="true" rows="10" rowsPerPageTemplate="5,10,15"  editable="false" style="margin:20px">
+
+                                            <f:facet name="header">
+                                                BITÁCORA
+                                            </f:facet>
+
+
+                                            <p:column headerText="FECHA" style="width:80px"  >
+                                                <h:outputText   />
+                                            </p:column>
+
+                                            <p:column headerText="HORA"  style="width:130px" >
+                                                <h:outputText />
+                                            </p:column>
+
+                                            <p:column headerText="ACCIÓN" style="width:100px" >
+                                                <h:outputText style="text-transform: uppercase"  />
+                                            </p:column>
+
+                                            </p:dataTable>
+
+
+                                        </h:form>
+                                        <!--aqui termina-->
+                                    </p:tab>
+
+                                    
+                               
+
+                            </h:panelGrid>
+                        </p:tab>
+                        <p:tab title="CAMBIAR CONTRRASEÑA">
+                            <h:form id="formulario" style="text-align: center;" >
+
+                                <p:messages id="messages" showDetail="true"  autoUpdate="true" closable="true" />
+
+
+                                <h:panelGrid id="grid" columns="2"  style="text-align: center">
+
+                                    <p:outputLabel value="Usuario" style="color: black;background-color:  transparent"/>
+                                    <p:inputText value="Ikki" />
+                                    <p:outputLabel value="Antigua Contraseña" style="color: black;background-color:  transparent"/>
+                                    <p:password />
+                                    <p:outputLabel value="Nueva Contraseña" style="color: black;background-color:  transparent"/>
+                                    <p:password />
+                                    
+                                    <p:commandButton value="CAMBIAR" action="/pages/home.jsf" style="font-size: 14px"/>
+                                </h:panelGrid>
+                            </h:form>
+                        </p:tab>
+                        
+                       
+                        
+                    </p:tabView>
+
+                </h:panelGrid>
+
+
+
+
+
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
