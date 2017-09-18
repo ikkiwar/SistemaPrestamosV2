@@ -29,12 +29,13 @@
 
 
                 </h:panelGrid>
-
-                <div align="right"  >
-                    <p:commandButton value="Salir" action="index"
-                                     style="background-color: darkseagreen"
-                                     icon="ui-icon-power"/>
-                </div>
+                <h:form>
+                    <div align="right"  >
+                        <p:commandButton value="Salir" action="/SistemaPrestamos/index"
+                                         style="background-color: darkseagreen"
+                                         icon="ui-icon-power"/>
+                    </div>
+                </h:form>
             </ui:insert>
         </div>
         <div>
@@ -47,35 +48,44 @@
 
                         <a  href="/SistemaPrestamos/pages/home.jsf">
 
-                            <h:graphicImage class="icon" name="/img/house.png"  height="32" width="32"/>
+                            <h:graphicImage class="icon" name="/img/house.png"  height="25" width="25"/>
                             <b/>
                             Home
                         </a> 
                         <p:separator/>
                         <a href="/SistemaPrestamos/pages/cliente.jsf">
-                            <h:graphicImage class="icon" name="/img/people.png"  height="32" width="32"/>
+                            <h:graphicImage class="icon" name="/img/people.png"  height="25" width="25"/>
                             Clientes
                         </a> 
                         <p:separator/>
                         <a href="/SistemaPrestamos/pages/prestamo.jsf">
-                            <h:graphicImage class="icon" name="/img/notebook.png"  height="32" width="32"/>
+                            <h:graphicImage class="icon" name="/img/notebook.png"  height="25" width="25"/>
                             Prestamos
                         </a>
                         <p:separator/>
                         <a href="/SistemaPrestamos/pages/parametro.jsf">
-                            <h:graphicImage class="icon" name="/img/contract.png"  height="32" width="32"/>
+                            <h:graphicImage class="icon" name="/img/contract.png"  height="25" width="25"/>
                             Parametros
                         </a>
                         <p:separator/>
+                        <a href="/SistemaPrestamos/pages/adminFinanciera.jsf">
+                            <h:graphicImage class="icon" name="/img/presentation.png" height="25" width="25"/>
+                            Finanzas
+                        </a> 
+                        <p:separator/>
+                        <a href="/SistemaPrestamos/pages/bitacora.jsf">
+                            <h:graphicImage class="icon" name="/img/agenda.png" height="25" width="25"/>
+                            Bitacora
+                        </a> 
+                        <p:separator/>
                         <a href="/SistemaPrestamos/pages/adminUsuarios.jsf">
-                            <h:graphicImage class="icon" name="/img/adjust.png" height="32" width="32"/>
+                            <h:graphicImage class="icon" name="/img/adjust.png" height="25" width="25"/>
                             Admin usuarios
                         </a> 
-
                         <p:separator/>
                         <a href="#">
 
-                            <h:graphicImage class="icon" name="/img/question.png"  height="32" width="32"/>
+                            <h:graphicImage class="icon" name="/img/question.png"  height="25" width="25"/>
                             Acerca de
                         </a>
 
