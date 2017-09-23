@@ -152,7 +152,8 @@ public class FmrPrestamo implements Serializable {
         long diferenciadias;
         double tasa_mora = 0;
         double valormora = 0;
-        double valor_cuota = 0;
+        double valor_cuota = cuota.getValor();
+        
         String mora = null;
 
         if (cuota.getValor() < selectPrestamo.getValor_cuota()) {
@@ -185,19 +186,20 @@ public class FmrPrestamo implements Serializable {
             } else {
                 diferenciadias = diferenciadias - 30;
                 if (!selectPrestamo.getCapitalizacion().equals("D")) {
-                    valormora = (((cuota.getValor() * tasa_mora) / 30) * diferenciadias);
+                    valormora = (((valor_cuota * tasa_mora) / 30) * diferenciadias);
                 } else {
-                    valormora = ((cuota.getValor()*(tasa_mora /(30 * selectPrestamo.getCantidad_cuotas()))) 
+                    valormora = ((valor_cuota*(tasa_mora /(30 * selectPrestamo.getCantidad_cuotas()))) 
                             *diferenciadias);
                 }
                 cuota.setMora(valormora);
                 cuota.setInteres(selectPrestamo.getMonto() * selectPrestamo.getTasa_interes());
-                cuota.setValor(cuota.getValor()+valormora);
+                cuota.setValor(valor_cuota+valormora);
+                System.out.println("BDHSJDGFHV "+valor_cuota);
             }
 
         }
-
-        cuota.setCapital(cuota.getValor() - cuota.getInteres());
+        System.out.println("VALOR2 "+valor_cuota);
+        cuota.setCapital(valor_cuota - cuota.getInteres());
         cuota.setSaldo_actualizado(cuota.getSaldo_anterior() - cuota.getCapital());
 
     }

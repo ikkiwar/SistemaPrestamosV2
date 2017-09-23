@@ -25,6 +25,7 @@ public class ControladorPrestamo implements Serializable {
         String fecha1 = formato.format(prestamo.getFecha_inicio());
         String fecha11 = formato.format(prestamo.getFecha_inicio());
         String fecha2 = formato.format(prestamo.getFecha_fin());
+        prestamo.setTasa_interes(prestamo.getTasa_interes()/100);
         prestamo.setFecha_ultimo_pago(null);
 
         try {
