@@ -133,8 +133,11 @@ public class ControladorCuota {
             Conexion conexion = new Conexion();
             resultado = conexion.getValores("SELECT MAX(num_cuota) From cuota "
                     + "WHERE id_prestamo='" + idprestamo + "'");
-            resultado.next();
-            id = resultado.getInt(1);
+            while(resultado.next()){
+             id = resultado.getInt(1);
+            }
+            
+            
 
         } catch (SQLException ex) {
             Logger.getLogger(ControladorPrestamo.class.getName()).log(Level.SEVERE, null, ex);

@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -42,16 +43,21 @@
                                        style="width: 25% "/>
                        
                        <h:panelGrid columns="2" style="padding-top: 2% ;padding-bottom:1%; font-size: 16px">
-                           <p:outputLabel value="Usuario" style="color: white;background-color:  transparent"/>
-                           <p:inputText  />
-                           <p:outputLabel value="Contraseña" style="color: white;background-color:  transparent"/>
-                            <p:password />
+                           <p:outputLabel style="color: white;background-color:  transparent"/>
+                           <p:inputText id="user"  value="#{login.user}" >
+                               <f:attribute value="user" name="user"/>
+                           </p:inputText>
+                           <p:outputLabel style="color: white;background-color:  transparent"/>
+                           <p:password  id="password" value="#{login.pass}">
+                               <f:attribute value="pass" name="pass"/>
+                           </p:password>
                             
                        </h:panelGrid>
                        
-                       <p:commandButton value="Ingresar" action="/pages/home" 
+                       <p:commandButton value="Ingresar"
                                         style="font-size: 14px"/>
                        
+                       <p><a href="pages/home.jsf">try to go to secret</a></p>
                      
                     </div>
                  

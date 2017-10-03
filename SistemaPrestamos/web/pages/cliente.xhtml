@@ -24,6 +24,9 @@
 
 
                     <h:form>
+                        
+                        
+                        
                         <p:outputLabel style="margin-left: 1%; color: white; font-size: small" value="Buscar por Nombre"/>           
                         <p:inputText style="margin-left: 1%"   value="#{clientes.filtro}">
                             <p:ajax event="keyup" listener="#{clientes.filtrar()}" update=":form:tablaCliente"   />
