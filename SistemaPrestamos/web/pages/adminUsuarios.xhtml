@@ -6,7 +6,7 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <body>
+    <body onload="#{usuario.inicio()}">
 
         <ui:composition template="./../plantilla/plantilla.xhtml">
 
@@ -21,8 +21,8 @@
 
                     <h:form>
                         <p:outputLabel style="margin-left: 1%; color: white; font-size: small" value="Buscar por Nombre"/>           
-                        <p:inputText style="margin-left: 1%"   value="#{prestamos.filtro}">
-
+                        <p:inputText style="margin-left: 1%"   value="#{usuario.filtro}">
+                            <p:ajax event="keyup" listener="#{usuario.filtrar()}" update=":form:tablaUsuarios"   />
                         </p:inputText>
                         <p:commandButton style="margin-left: 10px" icon="ui-icon-circle-plus" value="Nuevo usuario"
                                          onclick="PF('agregarUsuario').show();"/>
@@ -34,7 +34,7 @@
                     <p:separator/>
 
 
-                    <p:dataTable id="tablaUsuarios"  value="#{clientes}"  var="cliente" 
+                    <p:dataTable id="tablaUsuarios"  value="#{usuario.lista}"  var="Usuario" 
 
                                  paginator="true" rows="10" rowsPerPageTemplate="5,10,15"  editable="false" style="margin:20px">
 
@@ -43,15 +43,15 @@
                         </f:facet>
 
                         <p:column headerText="USUARIO"  style="width:130px" >
-                            <h:outputText value=""  />
+                            <h:outputText value="#{Usuario.id_usuario}"  />
                         </p:column>
 
                         <p:column headerText="NOMBRE" style="width:100px" >
-                            <h:outputText style="text-transform: uppercase" value=""  />
+                            <h:outputText style="text-transform: uppercase" value="#{Usuario.nombres}"  />
                         </p:column>
 
                         <p:column headerText="ROL" style="width:110px">
-                            <h:outputText style="text-transform: uppercase" value=""  />
+                            <h:outputText style="text-transform: uppercase" value="#{Usuario.rol}"  />
                         </p:column>
 
 
@@ -76,10 +76,10 @@
                            header="Agregar Usuario"  draggable="false" closeOnEscape="true" 
                            resizable="false">
 
-                    <p:ajax event="close" listener="#{clientes.inicio()}" update=":form:tablaUsuarios" 
+                    <p:ajax event="close" listener="#{usuario.inicio()}" update=":form:tablaUsuarios" 
                             immediate="true" global="true" />
 
-                    <h:form id="formulario" style="text-align: center" >
+                    <h:form id="formulario" style="text-align: center">
 
                         <p:messages id="messages" showDetail="true"  autoUpdate="true" closable="true" />
 
@@ -90,43 +90,43 @@
 
                         <h:panelGrid id="grid" columns="2"  style="text-align: left">
 
-                            
+
                             <p:outputLabel  for="nombre" value="Nombre:"/>
                             <p:inputText  style="text-transform: uppercase" id="nombre" 
-                                          required="true" size="30" value=""/>
+                                          required="true" size="30" value="#{usuario.usuario.nombres}"/>
 
 
 
                             <p:outputLabel  for="apellido" value="Apellido:"/>
                             <p:inputText style="text-transform: uppercase" id="apellido" 
-                                         required="true"   size="30" value=""/>
+                                         required="true"   size="30" value="#{usuario.usuario.apellidos}"/>
 
 
 
                             <p:outputLabel for="usuario" value="Usuario: "/>
                             <p:inputText style="text-transform: uppercase" id="usuario" 
-                                         required="true"   size="30" value=""/>
+                                         required="true"   size="30" value="#{usuario.usuario.login}"/>
 
                             <p:outputLabel for="contra1" value="Ingrese Contraseña: " />
-                            <p:password id="contra1" value="" 
-                                        feedback="true" match="contra2" size="30" required="true"/>
-                            
+                            <p:password id="contra1" value="#{usuario.usuario.clave}" 
+                                        feedback="true" match="contra2" size="30" required="true" />
+
                             <p:outputLabel for="contra2" value="Repita Contraseña: " />
-                            <p:password id="contra2" value="" size="30" required="true" />
-                       
+                            <p:password id="contra2" value="#{usuario.repetirContraseña}" size="30" required="true" />
+
                             <p:outputLabel for="rol" value="Rol:" />
-                            <p:selectOneMenu id="rol" required="true">
-                                <f:selectItem itemLabel="Estandar" itemValue="Estandar"/>
-                                <f:selectItem itemLabel="Administrador" itemValue="Admin"/>
+                            <p:selectOneMenu id="rol" required="true" value="#{usuario.usuario.rol}">
+                                <f:selectItem itemLabel="Estandar" itemValue="E"/>
+                                <f:selectItem itemLabel="Administrador" itemValue="A"/>
                             </p:selectOneMenu>
-                                              
+
 
 
 
                             <div class="center">
                                 <h:panelGrid columns="2"  >
                                     <p:commandButton  value="Registrar"  icon="ui-icon-disk"  
-                                                      update="grid"
+                                                      update="grid"  action="#{usuario.agregar()}"
                                                       oncomplete="PF('agregarCliente').hide();"/>
 
 
