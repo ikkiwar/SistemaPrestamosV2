@@ -44,20 +44,21 @@
                        
                        <h:panelGrid columns="2" style="padding-top: 2% ;padding-bottom:1%; font-size: 16px">
                            <p:outputLabel style="color: white;background-color:  transparent"/>
-                           <p:inputText id="user"  value="#{login.user}" >
+                           <p:inputText id="user"   >
                                <f:attribute value="user" name="user"/>
                            </p:inputText>
                            <p:outputLabel style="color: white;background-color:  transparent"/>
-                           <p:password  id="password" value="#{login.pass}">
+                           <p:password  id="password" >
                                <f:attribute value="pass" name="pass"/>
                            </p:password>
                             
                        </h:panelGrid>
                        
-                       <p:commandButton value="Ingresar"
-                                        style="font-size: 14px"/>
-                       
-                       <p><a href="pages/home.jsf">try to go to secret</a></p>
+                       <h:commandButton  style="background-color: #00a0df ;
+                                         border-style: none ;color: white; padding: 0.5%"  
+                                         value="INGRESAR" action="/pages/home.jsf" />
+                      
+               
                      
                     </div>
                  
