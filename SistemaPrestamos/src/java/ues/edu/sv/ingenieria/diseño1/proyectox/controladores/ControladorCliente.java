@@ -12,6 +12,8 @@ import ues.edu.sv.ingenieria.diseño1.proyectox.definiciones.Conexion;
  *
  * @author estuardo
  */
+
+//Este es un comentario puuu
 public class ControladorCliente {
 
     public void agregar(Cliente cliente) throws ErrorPrestamo {
