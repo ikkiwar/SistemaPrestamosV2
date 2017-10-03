@@ -42,11 +42,6 @@
                             Usuarios
                         </f:facet>
 
-
-                        <p:column headerText="DUI" style="width:80px"  >
-                            <h:outputText value=""  />
-                        </p:column>
-
                         <p:column headerText="USUARIO"  style="width:130px" >
                             <h:outputText value=""  />
                         </p:column>
@@ -55,14 +50,14 @@
                             <h:outputText style="text-transform: uppercase" value=""  />
                         </p:column>
 
-                        <p:column headerText="CARGO" style="width:110px">
+                        <p:column headerText="ROL" style="width:110px">
                             <h:outputText style="text-transform: uppercase" value=""  />
                         </p:column>
 
 
 
                         <p:column style="width:42px">
-                            <p:commandButton icon="ui-icon-config" style="width: 25px;height: 25px;
+                            <p:commandButton icon="ui-icon-gear" style="width: 25px;height: 25px;
                                              font-size: 5px;background-color: #00a0df"
                                              title="Cambiar contraseña">
 
@@ -95,56 +90,36 @@
 
                         <h:panelGrid id="grid" columns="2"  style="text-align: left">
 
-
-                            <p:outputLabel  for="dui" value="Dui: "/>
-                            <p:inputMask mask="99999999-9"  id="dui" size="40" 
-                                         required="true" value=""/>
-
-
-                            <p:outputLabel  for="nit" value="nit: "/>
-                            <p:inputMask mask="9999-999999-999-9"  id="nit" size="40" 
-                                         required="true" value=""/>
-
-
+                            
                             <p:outputLabel  for="nombre" value="Nombre:"/>
                             <p:inputText  style="text-transform: uppercase" id="nombre" 
-                                          required="true" size="40" value=""/>
+                                          required="true" size="30" value=""/>
 
 
 
                             <p:outputLabel  for="apellido" value="Apellido:"/>
                             <p:inputText style="text-transform: uppercase" id="apellido" 
-                                         required="true"   size="40" value=""/>
+                                         required="true"   size="30" value=""/>
 
 
-                            <p:outputLabel  for="sexo" value="Sexo:"/>
-                            <h:selectOneRadio id="sexo" value="" required="true">
-                                <f:selectItem  itemLabel="Masculino" itemValue="M"/>
-                                <f:selectItem itemLabel="Femenino" itemValue="F"/>  
-                            </h:selectOneRadio>
 
                             <p:outputLabel for="usuario" value="Usuario: "/>
                             <p:inputText style="text-transform: uppercase" id="usuario" 
-                                         required="true"   size="40" value=""/>
+                                         required="true"   size="30" value=""/>
 
                             <p:outputLabel for="contra1" value="Ingrese Contraseña: " />
                             <p:password id="contra1" value="" 
-                                        feedback="true" match="contra2" required="true"/>
+                                        feedback="true" match="contra2" size="30" required="true"/>
                             
                             <p:outputLabel for="contra2" value="Repita Contraseña: " />
-                            <p:password id="contra2" value="" required="true" />
-                            
-                            <p:outputLabel  for="telefono" value="teléfono: "/>
-                            <p:inputMask mask="9999-9999"  id="telefono" size="40" 
-                                         value=""/>
-
-
-
-
-                            <p:outputLabel for="cargo" value="Cargo: "/>
-                            <p:inputText style="text-transform: uppercase" id="cargo" 
-                                         required="true"   size="40" value=""/>
-
+                            <p:password id="contra2" value="" size="30" required="true" />
+                       
+                            <p:outputLabel for="rol" value="Rol:" />
+                            <p:selectOneMenu id="rol" required="true">
+                                <f:selectItem itemLabel="Estandar" itemValue="Estandar"/>
+                                <f:selectItem itemLabel="Administrador" itemValue="Admin"/>
+                            </p:selectOneMenu>
+                                              
 
 
 
