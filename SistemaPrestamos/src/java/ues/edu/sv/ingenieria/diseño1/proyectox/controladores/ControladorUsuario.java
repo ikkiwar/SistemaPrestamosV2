@@ -97,7 +97,7 @@ public class ControladorUsuario {
         Conexion conexion = new Conexion();
 
         if (conexion != null) {
-            conexion.UID("DELETE FROM usuario WHERE dui='" + usuario.getId_usuario() + "'");
+            conexion.UID("DELETE FROM usuario WHERE id_usuario='" + usuario.getId_usuario() + "'");
         } else {
 
             throw new ErrorPrestamo("Error al Eliminar", "ControladorUsuario.eliminar", "Error al Eliminar Usuario");
