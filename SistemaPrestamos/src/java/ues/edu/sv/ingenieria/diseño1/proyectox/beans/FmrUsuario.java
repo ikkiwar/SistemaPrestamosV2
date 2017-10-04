@@ -66,7 +66,7 @@ public class FmrUsuario implements Serializable {
     }
     
     public void editar(){
-        
+        //System.out.println(SelectUsuario.getId_usuario());
         try{
          controlUsuario.editar(SelectUsuario);   
         }catch (ErrorPrestamo ex){
