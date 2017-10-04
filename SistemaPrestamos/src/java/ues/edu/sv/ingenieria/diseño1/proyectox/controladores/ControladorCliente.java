@@ -12,7 +12,6 @@ import ues.edu.sv.ingenieria.diseño1.proyectox.definiciones.Conexion;
  *
  * @author estuardo
  */
-
 //Este es un comentario puuu
 public class ControladorCliente {
 
@@ -31,8 +30,7 @@ public class ControladorCliente {
                     + cliente.getTelefono() + "','" + fecha + "','"
                     + cliente.getObservaciones() + "')");
 
-        }
-        else {
+        } else {
             throw new ErrorPrestamo("Error al Insertar Datos", "ControladorCliente.agregar", "Error al Agregar Cliente");
         }
 
@@ -47,17 +45,16 @@ public class ControladorCliente {
 
         try {
             Conexion conexion = new Conexion();
-            conexion.UID("UPDATE cliente SET nit='" + cliente.getNit() 
-                    +"',nombres='" + cliente.getNombres() + "',apellidos='" 
-                    +cliente.getApellidos() + "',sexo='" + cliente.getSexo() 
-                    +"',direccion='" + cliente.getDireccion() + "',telefonos='" 
-                    +cliente.getTelefono() + "',fecha_nacimiento='" + fecha 
-                    + "',observaciones='" + cliente.getObservaciones() 
-                    +"' WHERE dui='" + cliente.getDui() + "'");
-            
-        } 
-        catch (Exception e) {
-            throw new ErrorPrestamo("Error al ActualizarSaldo", 
+            conexion.UID("UPDATE cliente SET nit='" + cliente.getNit()
+                    + "',nombres='" + cliente.getNombres() + "',apellidos='"
+                    + cliente.getApellidos() + "',sexo='" + cliente.getSexo()
+                    + "',direccion='" + cliente.getDireccion() + "',telefonos='"
+                    + cliente.getTelefono() + "',fecha_nacimiento='" + fecha
+                    + "',observaciones='" + cliente.getObservaciones()
+                    + "' WHERE dui='" + cliente.getDui() + "'");
+
+        } catch (Exception e) {
+            throw new ErrorPrestamo("Error al ActualizarSaldo",
                     "ControladorPrestamo.atualizarSaldo", "Error al actualiar el saldo");
         }
 
@@ -79,7 +76,7 @@ public class ControladorCliente {
                 clientes.add(new Cliente(resultado.getString("dui"), resultado.getString("nit"),
                         resultado.getString("nombres"), resultado.getString("apellidos"),
                         resultado.getString("sexo").charAt(0), resultado.getString("direccion"),
-                        resultado.getString("telefonos"), resultado.getDate("fecha_nacimiento"), 
+                        resultado.getString("telefonos"), resultado.getDate("fecha_nacimiento"),
                         resultado.getString("observaciones")));
                 // System.out.println("Estoy en el While");
 
@@ -100,9 +97,9 @@ public class ControladorCliente {
         ResultSet resultado;
         try {
 
-            resultado = conexion.getValores("SELECT * FROM cliente  WHERE  nombres LIKE '" 
+            resultado = conexion.getValores("SELECT * FROM cliente  WHERE  nombres LIKE '"
                     + filtro + "%' OR apellidos LIKE '" + filtro + "%'");
-            
+
             while (resultado.next()) {
                 clientes.add(new Cliente(resultado.getString("dui"), resultado.getString("nit"),
                         resultado.getString("nombres"), resultado.getString("apellidos"),
