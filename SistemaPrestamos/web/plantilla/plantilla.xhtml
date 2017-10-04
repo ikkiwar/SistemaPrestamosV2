@@ -21,16 +21,53 @@
         <div id="top" class="top" >
 
             <ui:insert name="top">
-                <h:panelGrid columns="2">
-                    <h:graphicImage  id="iconoHome" class="icon"  name="/img/service.png"  height="20" width="20"/> 
-                    <h1 style="color: white;">
-                        SISTEMA DE PRESTAMOS
-                        
-                    </h1>
+
+                <!-- <h:panelGrid columns="3">
+                     <h:graphicImage  id="iconoHome" class="icon"  name="/img/service.png"  height="20" width="20"/> 
+                     <h1 style="color: white;">
+                         SISTEMA DE PRESTAMOS
+                         
+                     </h1>
+                     <div id="derecha">
+                      <p:commandButton value="lol"/>
+                     </div>
+                     
+                 </h:panelGrid>-->
+
+                <div id="center">
+
+                    <div id="izquierda">
+                        <h:graphicImage  id="iconoHome" class="icon"  name="/img/service.png"  height="20" width="20"/> 
 
 
-                </h:panelGrid>
-               
+                    </div> 
+
+                    <div id="izquierda" style="text-align: center; margin-top: 1.5px ">
+                        <h1 style="color: white">
+                            SISTEMA DE PRESTAMOS
+
+                        </h1>
+                    </div>
+
+
+                    <div id="derecha">
+
+
+                   
+                   <!--<a href="/SistemaPrestamos/index.jsf" >LOOOL</a>-->
+                   <h:form>
+                       <h:commandButton value="Salir" style="background-color: #00a0df ;
+                                         border-style: none ;color: white; padding: 0.5%;width: 60px"
+                                         action="#{prestamos.reditect()}"></h:commandButton>
+                   </h:form>
+                    </div>
+
+
+                </div>
+
+
+
+
             </ui:insert>
         </div>
         <div>

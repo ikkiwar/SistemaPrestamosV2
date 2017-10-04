@@ -73,3 +73,11 @@
     margin: 0 auto;
 }
 
+#izquierda{
+    float: left;
+}
+
+#derecha{
+    float: right;
+}
+

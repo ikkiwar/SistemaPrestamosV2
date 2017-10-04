@@ -256,6 +256,10 @@ public class FmrPrestamo implements Serializable {
             Logger.getLogger(FmrPrestamo.class.getName()).log(Level.SEVERE, null, ex);
         }*/
     }
+    
+    public String reditect(){
+        return "/index.xhtml?faces-redirect=true";
+    }
 
     public int getCantidadCuotas() {
         return cantidadCuotas;
