@@ -109,12 +109,13 @@ public class ControladorUsuario {
     }
 
     public void editar(Usuario Usuario) throws ErrorPrestamo {
-
+Encriptador encrip = new Encriptador();
+        String claveEncriptada= encrip.encriptar(Usuario.getClave());
         ResultSet resultado;
 
         try {
             Conexion conexion = new Conexion();
-            conexion.UID("UPDATE usuario SET clave='" + Usuario.getClave()
+            conexion.UID("UPDATE usuario SET clave='" +claveEncriptada
                     + "',rol='" + Usuario.getRol() + "'WHERE id_usuario='" + Usuario.getId_usuario() + "'");
 
         } catch (Exception e) {

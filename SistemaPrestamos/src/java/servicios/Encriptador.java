@@ -15,7 +15,7 @@ public class Encriptador {
 
     public Encriptador() {
     }
-
+// metodo encargago del encritamiento de la clave en MD5  el cual recibe por parametro y retorna la clave encriptada
     public String encriptar(String clave) {
 
         String claveEncriptada = DigestUtils.md5Hex(clave);
