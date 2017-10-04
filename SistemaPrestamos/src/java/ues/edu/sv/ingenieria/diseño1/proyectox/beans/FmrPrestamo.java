@@ -257,6 +257,7 @@ public class FmrPrestamo implements Serializable {
         }*/
     }
     
+    //metodos para redireccion
     public String reditect(){
         return "/index.xhtml?faces-redirect=true";
     }
