@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import servicios.Encriptador;
 import ues.edu.sv.ingenieria.diseño1.proyectox.definiciones.Conexion;
 import ues.edu.sv.ingenieria.diseño1.proyectox.definiciones.Usuario;
 
@@ -52,6 +53,8 @@ public class ControladorUsuario {
     }
 
     public void agregar(Usuario usuario) throws ErrorPrestamo {
+        Encriptador encrip = new Encriptador();
+        String claveEncriptada= encrip.encriptar(usuario.getClave());
 
         Conexion conexion = new Conexion();
 
@@ -60,7 +63,7 @@ public class ControladorUsuario {
                     + "rol) "
                     + "VALUES('" + usuario.getId_usuario() + "','" + usuario.getLogin()
                     + "','" + usuario.getNombres() + "', '" + usuario.getApellidos()
-                    + "','" + usuario.getClave() + "','" + usuario.getRol() + "')");
+                    + "','" + claveEncriptada + "','" + usuario.getRol() + "')");
 
         } else {
             throw new ErrorPrestamo("Error al Insertar Datos", "ControladorCliente.agregar", "Error al Agregar Cliente");
