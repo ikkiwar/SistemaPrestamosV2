@@ -43,7 +43,7 @@
                         </f:facet>
 
                         <p:column headerText="USUARIO"  style="width:130px" >
-                            <h:outputText value="#{Usuario.id_usuario}"  />
+                            <h:outputText value="#{Usuario.login}"  />
                         </p:column>
 
                         <p:column headerText="NOMBRE" style="width:100px" >
@@ -127,7 +127,7 @@
                                 <h:panelGrid columns="2"  >
                                     <p:commandButton  value="Registrar"  icon="ui-icon-disk"  
                                                       update="grid"  action="#{usuario.agregar()}"
-                                                      oncomplete="PF('agregarCliente').hide();"/>
+                                                      oncomplete="PF('agregarUsuario').hide();"/>
 
 
 
