@@ -17,7 +17,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
-import org.primefaces.component.fileupload.FileUpload;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 import ues.edu.sv.ingenieria.diseño1.proyectox.controladores.ControladorCliente;
