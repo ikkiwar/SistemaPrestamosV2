@@ -3,96 +3,35 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:p="http://primefaces.org/ui">
+      
 
     <body>
 
         <ui:composition template="./../plantilla/plantilla.xhtml">
 
             <ui:define name="content">
-                <br/>
-                <br/>
-                <h1 ><p:outputLabel value="ADMINISTRACION FINANCIERA" style="color: white"/></h1>
-                <p:separator />
-                <br/>
+                <h:panelGrid columns="2" style="background-color:  transparent; padding-top: 10px;padding-left: 24px">
+                    <h:graphicImage id="finanzas"  style="background-color:  transparent" class="icon" 
+                                    name="/img/presentation.png"  height="50" width="50"/>
 
-                <p:tabView>
-                    <p:tab title="Catalogo de Cuentas">
-                        <div class="center">
+                    <p:outputLabel for="finanzas" value="FINANZAS" style="color: white;background-color:  transparent"/>            
+                </h:panelGrid>
 
+                <p:separator/>
+                
+                <p:tabView style="padding-left: 20px; width:1175px;margin-left: 10px ">
+                    <p:tab title="Reportes">
 
-
-                            <h:form>
-                                <p:outputLabel style="margin-left: 1%; color: blue; font-size: small" value="Buscar Cuenta"/>           
-                                <p:inputText style="margin-left: 1%; border-color: blue"   value="#{clientes.filtro}">
-                                    <p:ajax event="keyup" listener="#{clientes.filtrar()}"    />
-                                </p:inputText>
-
-                                <p:commandButton style="margin-left: 10px" value="Nueva Cuenta"
-                                                 icon="ui-icon-circle-plus" onclick="PF('agregarCuenta').show();"/>
-
-                            </h:form>
-                        </div>
-
-                        <h:form id="form" style="text-align: center">
-
-                            <p:separator/>
-
-
-                            <p:dataTable id="tablaCuentas"   var="cuenta" 
-
-                                         paginator="true" rows="5" rowsPerPageTemplate="5,10,15"  editable="false" style="margin:20px">
-
-                                <f:facet name="header">
-                                    Catalogo de Cuentas
-                                </f:facet>
-
-
-                                <p:column headerText="ID" style="width:80px"  >
-                                    <h:outputText value="Codigo de la cuenta"  />
-                                </p:column>
-
-                                <p:column headerText="NOMBRE"  style="width:130px" >
-                                    <h:outputText value="Nombre de La Cuenta"  />
-                                </p:column>
-
-                                <p:column headerText="CATEGORIA" style="width:100px" >
-                                    <h:outputText style="text-transform: uppercase"  value="Categoria de la cuenta" />
-                                </p:column>
-
-                                <p:column headerText="SALDO" style="width:110px">
-                                    <h:outputText style="text-transform: uppercase" value="Saldo inicial de la cuenta"  />
-                                </p:column>
-
-                                
-                                <p:column style="width:42px">
-                                    <p:commandButton icon="ui-icon-info" style="width: 25px;height: 25px;
-                                                     font-size: 5px;background-color: #00a0df"
-                                                     title="Editar" >
-
-                                        
-                                    </p:commandButton>
-
-
-                                    <p:commandButton icon="ui-icon-close" update=":form:tablaCliente" 
-                                                     style="width: 25px;height: 25px;font-size: 5px; 
-                                                     background-color: orange" title="Eliminar" 
-                                                     onclick="PF('confirmar').show();">
-
-                                    </p:commandButton>
-
-                                </p:column>
-                            </p:dataTable>
-
-                        </h:form>
                     </p:tab>
+
+
                     <p:tab title="Estados Financieros">
                         <h:form>
                             <p:accordionPanel style="width: 100%" >
                                 <p:tab title="BALANCE GENERAL" >
                                     <p:commandButton  value="Generar Reporte" style="margin-left: 90%"/>
-                                    <h:panelGrid columns="3" >
+                                    <h:panelGrid columns="2" >
 
                                         <h:panelGrid >
                                             <p:outputLabel value="ACTIVOS" />
@@ -112,22 +51,6 @@
 
                                         </h:panelGrid>   
 
-                                        <h:panelGrid >
-                                            <p:outputLabel value="PASIVOS" />
-                                            <p:dataTable>
-                                                <p:column headerText="Cuenta">
-
-                                                </p:column>
-                                                <p:column headerText="Saldo">
-
-                                                </p:column>
-                                            </p:dataTable>
-                                            <h:panelGrid columns="2">
-                                                <p:outputLabel value="Total Pasivos"  />
-                                                <h:outputText  value="Total" style="border-color: blue; width: 2%"  />
-
-                                            </h:panelGrid>
-                                        </h:panelGrid> 
                                         <h:panelGrid >
                                             <p:outputLabel value="CAPITAL" />
                                             <p:dataTable>
@@ -165,57 +88,6 @@
 
                 </p:tabView>
 
-                <p:dialog  id="dialog" modal="true" appendTo="@(body)" height="100%" 
-                           style="background-color:#EFEDEF; text-align: center" 
-                           showEffect="blind" hideEffect="blind" widgetVar="agregarCuenta"  
-                           header="Agregar Cuentas"  draggable="false" closeOnEscape="true" 
-                           resizable="false">
-
-
-
-                    <h:form id="formulario" style="text-align: center" >
-
-                        <h:panelGrid id="grid" columns="2"  style="text-align: left">
-
-
-                            <p:outputLabel  for="nombre" value="Nombre:"/>
-                            <p:inputText  style="text-transform: uppercase" id="nombre" 
-                                          required="true" size="40" />
-
-
-
-                            <p:outputLabel for="categoria" value="Categoria:"/>
-                            <h:selectOneMenu id="categoria" value="#{clientes.client.sexo}" required="true" style="width: 100%" >
-                                <f:selectItem  itemLabel="Activo" itemValue="activo"/>
-                                <f:selectItem itemLabel="Pasivo" itemValue="pasivo"/>  
-                                <f:selectItem itemLabel="Capital" itemValue="capital"/> 
-                                <f:selectItem itemLabel="Ingresos" itemValue="ingresos"/>
-                                <f:selectItem itemLabel="Gastos" itemValue="gastos"/>
-                            </h:selectOneMenu>
-
-
-                            <p:outputLabel  for="saldo" value="Saldo: "/>
-                            <p:inputMask mask="9999-9999"  id="saldo" size="40"/>
-
-
-
-                            <div class="center">
-                                <h:panelGrid columns="2"  >
-                                    <p:commandButton  value="Registrar"  icon="ui-icon-disk"  
-                                                      action="#{clientes.submit()}" update="grid"
-                                                      onclick="PF('documentos').show()" 
-                                                      oncomplete="PF('agregarCliente').hide();" />
-
-                                    <p:commandButton value="Cancelar" icon="ui-icon-cancel"
-                                                     onclick="PF('agregarCuenta').hide();" type="button"/>
-
-                                </h:panelGrid>
-                            </div>
-
-                        </h:panelGrid>
-                    </h:form>
-
-                </p:dialog>
 
             </ui:define>
 
