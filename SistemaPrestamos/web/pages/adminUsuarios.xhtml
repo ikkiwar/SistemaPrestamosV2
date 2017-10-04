@@ -59,7 +59,8 @@
                         <p:column style="width:42px">
                             <p:commandButton icon="ui-icon-gear" style="width: 25px;height: 25px;
                                              font-size: 5px;background-color: #00a0df"
-                                             title="Cambiar contraseña">
+                                             title="Cambiar contraseña" onclick="PF('editarUsuario').show();" update="formularioEditar" >
+                                <f:setPropertyActionListener value="#{Usuario}" target="#{usuario.selectUsuario}" /> 
 
                             </p:commandButton>
 
@@ -142,7 +143,85 @@
 
                 </p:dialog>
 
+
+                <p:dialog  id="dialogEditar" modal="true" appendTo="@(body)" height="100%" 
+                           style="background-color:#EFEDEF; text-align: center" 
+                           showEffect="blind" hideEffect="blind" widgetVar="editarUsuario"  
+                           header="Editar Usuario"  draggable="false" closeOnEscape="true" 
+                           resizable="false">
+
+                    <p:ajax event="close" listener="#{usuario.inicio()}" update=":form:tablaUsuarios" 
+                            immediate="true" global="true" />
+
+                    <h:form id="formularioEditar" style="text-align: center">
+
+                        <p:messages id="messages" showDetail="true"  autoUpdate="true" closable="true" />
+
+                        <h:panelGrid columns="2">
+
+                        </h:panelGrid>
+
+
+                        <h:panelGrid id="gridEditar" columns="2"  style="text-align: left">
+
+
+                            <p:outputLabel  for="nombreEditar" value="Nombre:"/>
+                            <p:inputText  style="text-transform: uppercase" id="nombreEditar" 
+                                          required="true" size="30" value="#{usuario.selectUsuario.id_usuario}"/>
+
+
+
+                            <p:outputLabel  for="apellidoEditar" value="Apellido:"/>
+                            <p:inputText style="text-transform: uppercase" id="apellidoEditar" 
+                                         required="true"   size="30" value="#{usuario.selectUsuario.login}"/>
+
+
+
+                          
+
+                            <p:outputLabel for="contra1Editar" value="Ingrese Contraseña: " />
+                            <p:password id="contra1Editar" value="#{usuario.selectUsuario.clave}" 
+                                        feedback="true" match="contra2Editar" size="30" required="true" />
+
+                            <p:outputLabel for="contra2Editar" value="Repita Contraseña: " />
+                            <p:password id="contra2Editar" value="#{usuario.repetirContraseña}" size="30" required="true" />
+
+                            <p:outputLabel for="rolEditar" value="Rol:" />
+                            <p:selectOneMenu id="rolEditar" required="true" value="#{usuario.selectUsuario.rol}">
+                                <f:selectItem itemLabel="Estandar" itemValue="E"/>
+                                <f:selectItem itemLabel="Administrador" itemValue="A"/>
+                            </p:selectOneMenu>
+
+
+
+
+                            <div class="center">
+                                <h:panelGrid columns="2"  >
+                                    <p:commandButton  value="Registrar"  icon="ui-icon-disk"  
+                                                      update="gridEditar"  action="#{usuario.editar()}"
+                                                      oncomplete="PF('editarUsuario').hide();"/>
+
+
+
+                                    <p:commandButton value="Cancelar" icon="ui-icon-cancel"
+                                                     onclick="PF('editarUsuario').hide();" type="button"/>
+
+                                </h:panelGrid>
+                            </div>
+
+                        </h:panelGrid>
+                    </h:form>
+
+                </p:dialog>
+
             </ui:define>
+
+
+
+
+
+
+            
 
         </ui:composition>
 

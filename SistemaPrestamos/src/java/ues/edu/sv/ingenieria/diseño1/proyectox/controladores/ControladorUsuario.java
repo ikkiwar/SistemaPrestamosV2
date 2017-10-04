@@ -111,10 +111,8 @@ public class ControladorUsuario {
 
         try {
             Conexion conexion = new Conexion();
-            conexion.UID("UPDATE usuario SET id_usuario='" + Usuario.getId_usuario()
-                    + "',nombre='" + Usuario.getNombres() + "',apellidos='"
-                    + Usuario.getApellidos()
-                    + "',clave='" + Usuario.getClave() + "',rol'" + Usuario.getRol() + "'");
+            conexion.UID("UPDATE usuario SET clave='" + Usuario.getClave()
+                    + "',rol='" + Usuario.getRol() + "'WHERE id_usuario='" + Usuario.getId_usuario() + "'");
 
         } catch (Exception e) {
             throw new ErrorPrestamo("Error al ActualizarUsuario",
@@ -163,7 +161,7 @@ public class ControladorUsuario {
         } catch (SQLException ex) {
             Logger.getLogger(ControladorPrestamo.class.getName()).log(Level.SEVERE, null, ex);
         }
-        id=id+1;
+        id = id + 1;
 
         return id;
     }
