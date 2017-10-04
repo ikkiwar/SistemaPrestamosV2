@@ -11,6 +11,8 @@ if (navigator.userAgent.toLowerCase().indexOf('chrome') >= 0 && navigator.userAg
 setTimeout(function () {
         document.getElementById('formulario').setAttribute('autocomplete', 'off'); 
 }, 100);
+        print("nalga");
+
 }
 }
 

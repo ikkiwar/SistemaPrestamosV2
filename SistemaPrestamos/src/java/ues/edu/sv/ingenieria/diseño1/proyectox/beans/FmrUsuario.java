@@ -26,6 +26,7 @@ public class FmrUsuario implements Serializable {
 
     private ControladorUsuario controlUsuario = new ControladorUsuario();
     private List<Usuario> lista;
+    private Usuario SelectUsuario;
     private String repetirContraseña;
     private Usuario usuario = new Usuario();
     private String filtro;
@@ -63,7 +64,25 @@ public class FmrUsuario implements Serializable {
         }
 
     }
+    
+    public void editar(){
+        //System.out.println(SelectUsuario.getId_usuario());
+        try{
+         controlUsuario.editar(SelectUsuario);   
+        }catch (ErrorPrestamo ex){
+            Logger.getLogger(FmrCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
 
+    public Usuario getSelectUsuario() {
+        return SelectUsuario;
+    }
+
+    public void setSelectUsuario(Usuario SelectUsuario) {
+        this.SelectUsuario = SelectUsuario;
+    }
+    
     public List<Usuario> getLista() {
         return lista;
     }
