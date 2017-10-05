@@ -28,7 +28,7 @@ public class Direccionamientos {
     }
     
     public String redirectHome(){
-        return "/pages/home.jsf?faces-redirect=true";
+        return "/pages/home.xhtml?faces-redirect=true";
     }
     
     public void verificarLog() throws IOException {
