@@ -43,11 +43,11 @@
                                        style="width: 25% "/>
                        
                        <h:panelGrid columns="2" style="padding-top: 2% ;padding-bottom:1%; font-size: 16px">
-                           <p:outputLabel style="color: white;background-color:  transparent"/>
+                  <p:outputLabel value="Usuario:" style="color: white;background-color:  transparent"/>
                            <p:inputText id="user" value="#{sesion.sesion.user}"  >
                                <f:attribute value="user" name="user"/>
                            </p:inputText>
-                           <p:outputLabel style="color: white;background-color:  transparent"/>
+                  <p:outputLabel value="Contraseña:" style="color: white;background-color:  transparent"/>
                            <p:password  id="password" value="#{sesion.sesion.contraseña}" >
                                <f:attribute value="pass" name="pass"/>
                            </p:password>
