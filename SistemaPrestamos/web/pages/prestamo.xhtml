@@ -28,8 +28,15 @@
                                          onclick="PF('Nprestamo').show();"/>
                     </h:form>
                 </div>
+                
+                
+                
 
-
+                <h:form style="display: none">
+                    <p:remoteCommand action="#{prestamos.inicio()}" autoRun="true" update="formTable"/>
+                </h:form>
+                
+                
 
                 <h:form id="formTable" style="text-align: center" >
 

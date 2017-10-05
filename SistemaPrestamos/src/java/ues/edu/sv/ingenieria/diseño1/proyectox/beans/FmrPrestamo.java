@@ -41,6 +41,7 @@ public class FmrPrestamo implements Serializable {
     private Cuota cuota = new Cuota();
     private Prestamo selectPrestamo;
     private Parametro parametro = new Parametro();
+    
     private String filtro;
     private int cantidadCuotas;
     private int cuotasPorcentaje = 0;
@@ -51,6 +52,7 @@ public class FmrPrestamo implements Serializable {
 
     @PostConstruct
     public void inicio() {
+        
         try {
             listaP = pControl.obtenerActivos();
             listaH = pControl.obtenerHistorial();
