@@ -39,10 +39,10 @@ public class FiltroSesion implements Filter{
         // Para las siguientes peticiones se tiene que verificar si el usuario esta loggeado
         if (loginBean == null || !loginBean.isLogin()) {
             String contextPath = ((HttpServletRequest)request).getContextPath();
-            ((HttpServletResponse)response).sendRedirect(contextPath + "/login.xhtml");
+            ((HttpServletResponse)response).sendRedirect(contextPath + "/index.jsf");
         } 
          chain.doFilter(request, response);
-         System.out.println("LOGEADOOOOOOOOOOOOOOOOOOOOOOOO");
+     
        
     }
     
