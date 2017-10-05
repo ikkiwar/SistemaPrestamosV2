@@ -11,8 +11,10 @@ import java.util.logging.Logger;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.xml.rpc.encoding.Serializer;
+import servicios.Direccionamientos;
 import ues.edu.sv.ingenieria.diseño1.proyectox.controladores.ControladorSesion;
 import ues.edu.sv.ingenieria.diseño1.proyectox.controladores.ErrorPrestamo;
+import ues.edu.sv.ingenieria.diseño1.proyectox.definiciones.Sesion;
 
 /**
  *
@@ -22,35 +24,39 @@ import ues.edu.sv.ingenieria.diseño1.proyectox.controladores.ErrorPrestamo;
 @ApplicationScoped
 public class FmrSesion implements Serializable {
     
-    private String user;
-    private String contraseña;
-    private ControladorSesion sesion = new ControladorSesion();
+    private Sesion sesion = new Sesion();
+    private ControladorSesion sesionControlador = new ControladorSesion();
+    private Direccionamientos direccionamiento = new Direccionamientos();
 
     public void comprobarDatos() {
         try {
-            boolean autorizado= sesion.verificar(user, contraseña);
+            sesion.setSesion(sesionControlador.verificar(sesion));
+           // sesionCheck=sesion.verificar(user, contraseña);
+            //boolean autorizado= sesion.verificar(user, contraseña);
             
           
         } catch (ErrorPrestamo ex) {
             Logger.getLogger(FmrSesion.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        if(sesion.isSesion()){
+            direccionamiento.redirectHome();
+        }else{
+           
+        }
+        
     }
 
-    public String getUser() {
-        return user;
+    public Sesion getSesion() {
+        return sesion;
     }
 
-    public void setUser(String user) {
-        this.user = user;
+    public void setSesion(Sesion sesion) {
+        this.sesion = sesion;
     }
 
-    public String getContraseña() {
-        return contraseña;
-    }
-
-    public void setContraseña(String contraseña) {
-        this.contraseña = contraseña;
-    }
+    
+    
     
     
 }

@@ -6,8 +6,12 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <body onload="#{prestamos.inicio()}">
+  
 
+    
+    <body onload="#{prestamos.inicio()}">
+        
+     
         <ui:composition template="/plantilla/plantilla.xhtml">
 
             <ui:define name="content">
@@ -25,6 +29,9 @@
                 
                 <!--Tabla-->
                 
+                <h:form style="display: none">
+                    <p:remoteCommand action="#{prestamos.inicio()}" autoRun="true" update="prestamosPendientes"/>
+                </h:form>
                 
                  <h:form id="prestamosPendientes">
 
