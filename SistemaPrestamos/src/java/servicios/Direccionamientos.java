@@ -28,18 +28,17 @@ public class Direccionamientos {
     }
     
     public String redirectHome(){
-        System.out.println("LOEODADASDASDDDDDDDDDDDZDDQWDQWD");
         return "/pages/home.jsf?faces-redirect=true";
     }
     
     public void verificarLog() throws IOException {
-        System.out.println("ANTES DEL LOG");
+      
     if (!sesion.isSesion()) {
-           System.out.println("LOGGEAD0");
+      
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         externalContext.redirect(externalContext.getRequestContextPath());
     }else{
-           System.out.println("NO LOGGEADO");
+          
     }
     
     
