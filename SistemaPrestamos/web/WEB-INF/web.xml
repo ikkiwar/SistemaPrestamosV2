@@ -24,6 +24,17 @@
         <welcome-file>index.jsf</welcome-file>
     </welcome-file-list>
     
+     <!-- Login filter -->
+    <filter>
+        <filter-name>LoginFilter</filter-name>
+        <filter-class>servicios.FiltroSesion</filter-class>
+    </filter>
+    
+    <!-- Asegurar todos lo archivos dentro de pages  -->
+    <filter-mapping>
+        <filter-name>LoginFilter</filter-name>
+        <url-pattern>/pages/*</url-pattern>
+    </filter-mapping>
     
   
 </web-app>
