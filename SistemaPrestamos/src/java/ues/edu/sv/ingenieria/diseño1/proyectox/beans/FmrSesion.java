@@ -32,7 +32,7 @@ public class FmrSesion implements Serializable {
     private ControladorSesion sesionControlador = new ControladorSesion();
     private Direccionamientos direccionamiento = new Direccionamientos();
 
-    public String comprobarDatos() {
+    public String comprobarDatos() throws ErrorPrestamo{
         try {
             sesion.setSesion(sesionControlador.verificar(sesion));
            // sesionCheck=sesion.verificar(user, contraseña);

@@ -5,6 +5,10 @@
  */
 package ues.edu.sv.ingenieria.diseño1.proyectox.definiciones;
 
+import java.util.ArrayList;
+import ues.edu.sv.ingenieria.diseño1.proyectox.controladores.ControladorSesion;
+import ues.edu.sv.ingenieria.diseño1.proyectox.controladores.ErrorPrestamo;
+
 /**
  *
  * @author estuardo
@@ -13,6 +17,7 @@ public class Sesion {
 
     private String user;
     private String contraseña;
+    private String rol;
     private boolean sesion;
 
     public Sesion() {
@@ -34,8 +39,14 @@ public class Sesion {
     public void setContraseña(String contraseña) {
         this.contraseña = contraseña;
     }
-    
-    
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
 
     public boolean isSesion() {
         return sesion;
