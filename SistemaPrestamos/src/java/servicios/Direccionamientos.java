@@ -31,6 +31,8 @@ public class Direccionamientos {
         return "/pages/home.xhtml?faces-redirect=true";
     }
     
+  
+    
     public void verificarLog() throws IOException {
       
     if (!sesion.isSesion()) {
