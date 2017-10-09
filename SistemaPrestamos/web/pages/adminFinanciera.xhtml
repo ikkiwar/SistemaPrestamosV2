@@ -21,40 +21,60 @@
                 <p:separator/>
 
                 <p:tabView style="padding-left: 20px; width:1175px;margin-left: 10px ">
-                    
-                        <p:tab title="Balance General">
-                            <p:commandButton  value="Generar Reporte" style="margin-left: 90%"/>
-                            <h:panelGrid columns="1" >
 
-                                <h:panelGrid >
-                                    <p:outputLabel value="CUENTAS" />
-                                    <p:dataTable id="tablaCuentas" value="#{cuentas.cuentasBalance}" var="cuenta" >
-                                        <p:column headerText="Id_cuenta" style="text-align: center">
+                    <p:tab title="Balance General">
+                        <p:commandButton  value="Generar Reporte" style="margin-left: 90%"/>
+                        <h:panelGrid columns="1" >
 
-                                            <h:outputText value="#{cuenta.id_cuenta}"   />
+                            <h:panelGrid >
+                                <p:outputLabel value="CUENTAS" />
+                                <p:dataTable id="tablaCuentas" value="#{cuentas.cuentasBalance}" var="cuenta" >
+                                    <p:column headerText="Id_cuenta" style="text-align: center">
 
-                                        </p:column>
-                                        <p:column headerText="Cuenta" style="text-align: center">
-                                            <h:outputText value="#{cuenta.nombre_cuenta}"   />
-                                        </p:column>
-                                        <p:column headerText="Monto" style="text-align: center" >
-                                            <h:outputText value="#{cuenta.monto}"   />
-                                        </p:column>
-                                    </p:dataTable>
+                                        <h:outputText value="#{cuenta.id_cuenta}"   />
 
-
-                                </h:panelGrid>   
-
-                            </h:panelGrid>  
-                        </p:tab>
+                                    </p:column>
+                                    <p:column headerText="Cuenta" style="text-align: center">
+                                        <h:outputText value="#{cuenta.nombre_cuenta}"   />
+                                    </p:column>
+                                    <p:column headerText="Monto" style="text-align: center" >
+                                        <h:outputText value="#{cuenta.monto}"   />
+                                    </p:column>
+                                </p:dataTable>
 
 
-                        <p:tab title="Estado de Resultados">
+                            </h:panelGrid>   
+
+                        </h:panelGrid>  
+                    </p:tab>
 
 
-                        </p:tab>
+                    <p:tab title="Estado de Resultados">
+                        <p:commandButton  value="Generar Reporte" style="margin-left: 90%"/>
+                        <h:panelGrid columns="1" >
 
-                    
+                            <h:panelGrid >
+                                <p:outputLabel value="CUENTAS" />
+                                <p:dataTable id="tablaResultados" value="#{cuentaResultados.listaResultados}" var="resultado" >
+                                    <p:column headerText="Id_cuenta" style="text-align: center">
+
+                                        <h:outputText value="#{resultado.id_cuenta}"   />
+
+                                    </p:column>
+                                    <p:column headerText="Cuenta" style="text-align: center">
+                                        <h:outputText value="#{resultado.nombre_cuenta}"   />
+                                    </p:column>
+
+                                </p:dataTable>
+
+
+                            </h:panelGrid>   
+
+                        </h:panelGrid>
+
+                    </p:tab>
+
+
                 </p:tabView>
 
 
