@@ -17,7 +17,7 @@ public class Sesion {
 
     private String user;
     private String contraseña;
-    private String rol;
+    private char rol;
     private boolean sesion;
 
     public Sesion() {
@@ -40,11 +40,11 @@ public class Sesion {
         this.contraseña = contraseña;
     }
 
-    public String getRol() {
+    public char getRol() {
         return rol;
     }
 
-    public void setRol(String rol) {
+    public void setRol(char rol) {
         this.rol = rol;
     }
 
