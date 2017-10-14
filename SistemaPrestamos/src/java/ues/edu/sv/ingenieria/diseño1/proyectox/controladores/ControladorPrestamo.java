@@ -21,30 +21,101 @@ public class ControladorPrestamo implements Serializable {
 
     public void agregar(Prestamo prestamo) throws ErrorPrestamo {
 
+        Conexion conexion = new Conexion();
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String fecha1 = formato.format(prestamo.getFecha_inicio());
-        String fecha11 = formato.format(prestamo.getFecha_inicio());
         String fecha2 = formato.format(prestamo.getFecha_fin());
-        prestamo.setTasa_interes(prestamo.getTasa_interes()/100);
+        prestamo.setTasa_interes(prestamo.getTasa_interes() / 100);
         prestamo.setFecha_ultimo_pago(null);
 
-        try {
+      
 
-            Conexion conexion = new Conexion();
-            conexion.UID("INSERT INTO prestamo (id_prestamo,dui,monto,valor_cuota,"
-                    + "tasa_interes,cantidad_cuotas,fecha_inicio,fecha_fin,"
-                    + "fecha_ultimo_pago,saldo,estado,observaciones,capitalizacion) "
-                    + "VALUES ('" + prestamo.getId_prestamo() + "','" + prestamo.getDui()
-                    + "','" + prestamo.getMonto() + "','" + prestamo.getValor_cuota()
-                    + "','" + prestamo.getTasa_interes() + "','" + prestamo.getCantidad_cuotas()
-                    + "','" + fecha1 + "','" + fecha2 + "'," + prestamo.getFecha_ultimo_pago()
-                    + ",'" + prestamo.getSaldo() + "','" + prestamo.getEstado() + "','"
-                    + prestamo.getObservaciones() + "','" + prestamo.getCapitalizacion() + "')");
+        if (prestamoBalance(prestamo) == true) {
 
-        } catch (Exception e) {
-            throw new ErrorPrestamo("Error al Agregar", "ControladorPrestamo.Agregar", "Error al Agregar Prestamo");
+            try {
+
+                conexion.UID("INSERT INTO prestamo (id_prestamo,dui,monto,valor_cuota,"
+                        + "tasa_interes,cantidad_cuotas,fecha_inicio,fecha_fin,"
+                        + "fecha_ultimo_pago,saldo,estado,observaciones,capitalizacion) "
+                        + "VALUES ('" + prestamo.getId_prestamo() + "','" + prestamo.getDui()
+                        + "','" + prestamo.getMonto() + "','" + prestamo.getValor_cuota()
+                        + "','" + prestamo.getTasa_interes() + "','" + prestamo.getCantidad_cuotas()
+                        + "','" + fecha1 + "','" + fecha2 + "'," + prestamo.getFecha_ultimo_pago()
+                        + ",'" + prestamo.getSaldo() + "','" + prestamo.getEstado() + "','"
+                        + prestamo.getObservaciones() + "','" + prestamo.getCapitalizacion() + "')");
+
+            } catch (Exception e) {
+                throw new ErrorPrestamo("Error al Agregar", "ControladorPrestamo.Agregar", "Error al Agregar Prestamo");
+            }
+
+        } else {
+
+            System.out.println("NO SE HA PODIDO REALIZAR LA OPERACION");
         }
 
+    }
+
+    //METODO QUE HACE LA COMPARACION ENTRE MONTO DE PRESTAMO Y EFECTIVO Y DISMINUYE EFECTIVO Y AUMENTA LAS CUENTAS POR COBRAR EN UN PRESTAMO, AUMENTA CAPITAL
+    public boolean prestamoBalance(Prestamo prestamo) {
+        boolean comprobar = false;
+        Conexion conexion = new Conexion();
+        ResultSet resultado, resultado1;
+
+        double efectivoDisponible = 0;
+        double cuentaPorCobrar = 0;
+        double efectivoNuevo;
+        double cuentaPorCobrarNuevo;
+        double capitalNuevo;
+        
+        //TENGO QUE USAR DOS VARIABLES RESULSET PORQUE POR QUE SOLO QUIERO EN SI EL MONTO DE UNA CUENTA ESPECIFICA 
+        resultado = conexion.getValores("SELECT monto FROM balance WHERE id_cuenta=11");
+        resultado1 = conexion.getValores("SELECT monto FROM balance WHERE id_cuenta=12");
+        
+       
+        try {
+              
+            while (resultado.next()) {
+                efectivoDisponible = resultado.getDouble("monto");
+
+            }
+            while (resultado1.next()) {
+                cuentaPorCobrar = resultado1.getDouble("monto");
+            }
+
+           
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ControladorPrestamo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        System.out.println("EFECTIVO DISPONIBLE " + efectivoDisponible);
+        System.out.println("SALDO CUENTAS POR COBRAR " + cuentaPorCobrar);
+        
+        if (prestamo.getMonto() <= efectivoDisponible) {
+            
+            comprobar = true;
+           
+            System.out.println("Monto del prestamo : "+ prestamo.getMonto());
+                    
+            //disminuimos efectivo
+            efectivoNuevo = efectivoDisponible - prestamo.getMonto();
+            //aumentamos cuentas por cobrar
+            cuentaPorCobrarNuevo= cuentaPorCobrar + prestamo.getMonto();
+            //calculamos el capital nuevo el cual sera la suma de el nuevo efectivo y el nuevo saldo de cuentas por cobrar
+            capitalNuevo = efectivoNuevo + cuentaPorCobrarNuevo;
+            
+            //setiamos a la base los valores nuevos de las cuentas: efectivo, cuentas por cobrar y capital social
+            conexion.UID("UPDATE balance SET monto='" + efectivoNuevo + "' WHERE id_cuenta=11");
+            conexion.UID("UPDATE balance SET monto='" + cuentaPorCobrarNuevo + "' WHERE id_cuenta=12");
+            conexion.UID("UPDATE balance SET monto='" + capitalNuevo + "' WHERE id_cuenta=31");
+            
+            
+            
+        } else {
+            System.out.println("No Puede Realizarse el prestamo Pues el Monto ha prestar es mayor que el efectivo Disponible");
+        }
+
+        return comprobar;
     }
 
 //(ikki) en este metodo lleno la lista para llenar la tabla
@@ -158,37 +229,6 @@ public class ControladorPrestamo implements Serializable {
         }
 
     }
-  
-   /* public int validar(String Dui) {
-        int cuotasPagadas = 0;
-
-        ResultSet resultado;
-        System.out.println("id del prestamo suministrado: " + Dui);
-        System.out.println("Estoy en cantidadCuotas del Controlador");
-
-        try {
-            Conexion conexion = new Conexion();
-            resultado = conexion.getValores("SELECT COUNT(id_prestamo) "
-                    + "FROM prestamo where dui='" + Dui + "'");
-
-            resultado.next();
-            cuotasPagadas = resultado.getInt(1);
-
-            System.out.println("El total de Cuotas pagadas son: " + cuotasPagadas);
-
-        } catch (SQLException ex) {
-            Logger.getLogger(ControladorCuota.class.getName()).log(Level.SEVERE, null, ex);
-
-        }
-
-        return cuotasPagadas;
-
-    }*/
-    
-    
-    
-    
-    
 
     public List<Prestamo> obtenerPorCliente(Cliente cliente) throws ErrorPrestamo {
         List<Prestamo> seleccionado = new ArrayList<>();

@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package ues.edu.sv.ingenieria.diseño1.proyectox.controladores;
 
 import java.sql.ResultSet;
@@ -20,6 +16,7 @@ import ues.edu.sv.ingenieria.diseño1.proyectox.definiciones.Cuota;
  *
  * @author estuardo
  */
+
 public class ControladorCuota {
 
     public void agregar(Cuota cuota) throws ErrorPrestamo {
@@ -28,6 +25,8 @@ public class ControladorCuota {
 
         Conexion conexion = new Conexion();
 
+        cuotaBalance(cuota);
+        
         if (conexion != null) {
             conexion.UID("INSERT INTO cuota (id_prestamo,num_cuota,valor,interes,fecha"
                     + ",capital,saldo_anterior,saldo_actualizado,mora) "
@@ -41,6 +40,52 @@ public class ControladorCuota {
 
     }
 
+    public void cuotaBalance(Cuota cuota){
+        Conexion conexion = new Conexion();
+        ResultSet resultado1,resultado2;
+        double saldoEfectivo=0.0;
+        double saldoCuentaPorCobrar=0.0;
+        double efectivoNuevo;
+        double cuentasPorCobrarNuevo;
+        double capitalNuevo;
+                  
+        //OBTENIENDO LOS VALORES DE LAS CUENTAS DEL BALANCE GENERAL
+        resultado1 = conexion.getValores("SELECT monto FROM balance WHERE id_cuenta=11");
+        resultado2 = conexion.getValores("SELECT monto FROM balance WHERE id_cuenta=12");
+        
+        try {
+              
+            while (resultado1.next()) {
+                saldoEfectivo= resultado1.getDouble("monto");
+
+            }
+            while (resultado2.next()) {
+                saldoCuentaPorCobrar = resultado2.getDouble("monto");
+            }
+
+           
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ControladorPrestamo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        System.out.println("SALDO EFECTIVO " + saldoEfectivo);
+        System.out.println("SALDO CUENTAS POR COBRAR " + saldoCuentaPorCobrar);
+        
+        efectivoNuevo= saldoEfectivo + cuota.getValor();
+        cuentasPorCobrarNuevo = saldoCuentaPorCobrar - cuota.getValor();
+        capitalNuevo = efectivoNuevo + cuentasPorCobrarNuevo;        
+        
+        //setiamos a la base los valores nuevos de las cuentas: efectivo, cuentas por cobrar y capital social
+            conexion.UID("UPDATE balance SET monto='" + efectivoNuevo + "' WHERE id_cuenta=11");
+            conexion.UID("UPDATE balance SET monto='" + cuentasPorCobrarNuevo + "' WHERE id_cuenta=12");
+            conexion.UID("UPDATE balance SET monto='" + capitalNuevo + "' WHERE id_cuenta=31");
+        
+        
+        
+    }
+    
+    
     public List<Cuota> obtener() throws ErrorPrestamo {
 
         List<Cuota> cuotas = new ArrayList<>();
@@ -133,11 +178,9 @@ public class ControladorCuota {
             Conexion conexion = new Conexion();
             resultado = conexion.getValores("SELECT MAX(num_cuota) From cuota "
                     + "WHERE id_prestamo='" + idprestamo + "'");
-            while(resultado.next()){
-             id = resultado.getInt(1);
+            while (resultado.next()) {
+                id = resultado.getInt(1);
             }
-            
-            
 
         } catch (SQLException ex) {
             Logger.getLogger(ControladorPrestamo.class.getName()).log(Level.SEVERE, null, ex);
