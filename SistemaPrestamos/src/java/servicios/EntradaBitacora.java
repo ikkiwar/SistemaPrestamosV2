@@ -3,36 +3,39 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ues.edu.sv.ingenieria.diseño1.proyectox.definiciones;
+package servicios;
 
-import java.util.ArrayList;
-import javax.ejb.Stateful;
-import ues.edu.sv.ingenieria.diseño1.proyectox.controladores.ControladorSesion;
+import ues.edu.sv.ingenieria.diseño1.proyectox.controladores.ControladorBitacora;
 import ues.edu.sv.ingenieria.diseño1.proyectox.controladores.ErrorPrestamo;
 
 /**
  *
  * @author estuardo
  */
-
-public class Sesion {
-
-    private int id;
-    private String user;
-    private String contraseña;
-    private char rol;
-    private boolean sesion;
-
-    public Sesion() {
-
+public class EntradaBitacora {
+    
+    private static int id;
+    private static String user;
+    private static String contraseña;
+    private static char rol;
+    private static boolean sesion;
+    
+    public EntradaBitacora(){
+        
     }
     
-    public Sesion(int id,String user,String contraseña,char rol){
+     public EntradaBitacora(int id,String user,String contraseña,char rol){
             this.id=id;
             this.user=user;
             this.contraseña=contraseña;
             this.rol=rol;
     }
+     
+    public void agregar(String accion) throws ErrorPrestamo{
+       ControladorBitacora bitacora= new ControladorBitacora();
+       System.out.println(this.id);
+       bitacora.agregar(this.id, accion);
+       }
 
     public int getId() {
         return id;
@@ -41,8 +44,7 @@ public class Sesion {
     public void setId(int id) {
         this.id = id;
     }
-    
-    
+
     public String getUser() {
         return user;
     }
@@ -74,5 +76,11 @@ public class Sesion {
     public void setSesion(boolean sesion) {
         this.sesion = sesion;
     }
-
+     
+     
+     
+     
+    
+    
+    
 }

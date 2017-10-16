@@ -27,6 +27,7 @@ import ues.edu.sv.ingenieria.diseño1.proyectox.definiciones.Sesion;
 @SessionScoped
 public class FmrSesion implements Serializable {
     
+    
     private Sesion sesion = new Sesion();
     private boolean login=false;
     private ControladorSesion sesionControlador = new ControladorSesion();
