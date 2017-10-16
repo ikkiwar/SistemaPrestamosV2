@@ -163,7 +163,7 @@ Encriptador encrip = new Encriptador();
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(ControladorPrestamo.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ControladorUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
         id = id + 1;
 
