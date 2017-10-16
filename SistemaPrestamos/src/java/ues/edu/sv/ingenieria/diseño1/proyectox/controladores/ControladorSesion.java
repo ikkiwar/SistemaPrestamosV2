@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import servicios.Direccionamientos;
 import servicios.Encriptador;
+import servicios.EntradaBitacora;
 import ues.edu.sv.ingenieria.diseño1.proyectox.definiciones.Conexion;
 import ues.edu.sv.ingenieria.diseño1.proyectox.definiciones.Sesion;
 
@@ -20,11 +21,15 @@ import ues.edu.sv.ingenieria.diseño1.proyectox.definiciones.Sesion;
 public class ControladorSesion {
 
     Direccionamientos direccionamineto = new Direccionamientos();
+    ControladorBitacora bitacora = new ControladorBitacora();
+    
+   
 
     // metodo para comprar contraseñas la que se esta ingresando y la almacenda en la base de datos
     public boolean verificar(Sesion sesion) throws ErrorPrestamo {
         boolean verificar = false;
-        ArrayList<String> datos = datosBD(sesion);
+       
+        ArrayList<Sesion> datos = datosBD(sesion);
 
         // encripta la contraseña ingresada en login para comparar con la contraseña ya encriptada en la bd
         Encriptador encrip = new Encriptador();
@@ -33,23 +38,30 @@ public class ControladorSesion {
 
         if (!datos.isEmpty()) {
 
-            String clave = datos.get(0);
+            String clave = datos.get(0).getContraseña();
             System.out.println(claveComprobador + " comparando con" + clave);
             // compara que las contraseñas sean iguales y pone la flag en true si es asi de lo contrario permance en false
             if (claveComprobador.equals(clave)) {
                 verificar = true;
-                sesion.setRol(datos.get(2).charAt(0));
+               
+              /*  sesionverificada.setId(datos.get(0).getId());
+                sesionverificada.setUser(datos.get(0).getUser());
+                sesionverificada.setRol(datos.get(0).getRol());*/
+                EntradaBitacora sesionverificada = new EntradaBitacora(datos.get(0).getId(),datos.get(0).getUser(),
+                datos.get(0).getContraseña(),datos.get(0).getRol());
+                System.out.println(sesionverificada.getUser());
+                bitacora.agregar(sesionverificada.getId(), "Inicio sesion");
             }
 
         }
 
-        System.out.print(verificar + "----" + sesion.getRol());
+        
         return verificar;
     }
 
     // metodo que devuelve la contraseña en bd
     public ArrayList datosBD(Sesion sesion) throws ErrorPrestamo {
-        ArrayList<String> datos = new ArrayList();
+        ArrayList<Sesion> datos = new ArrayList();
         ResultSet resultado;
         try {
 
@@ -57,9 +69,10 @@ public class ControladorSesion {
             resultado = conexion.getValores("SELECT * FROM usuario WHERE login='" + sesion.getUser() + "';");
 
             while (resultado.next()) {
-                datos.add(0, resultado.getString("clave"));
-                datos.add(1, resultado.getString("nombre"));
-                datos.add(2, resultado.getString("rol"));
+                datos.add(new Sesion(resultado.getInt("id_usuario"),resultado.getString("login"),
+                        resultado.getString("clave"),resultado.getString("rol").charAt(0)));
+                
+                
 
             }
 

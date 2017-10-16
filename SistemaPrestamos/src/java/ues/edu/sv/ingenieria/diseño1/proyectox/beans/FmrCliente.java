@@ -19,12 +19,15 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
+import servicios.EntradaBitacora;
+import ues.edu.sv.ingenieria.diseño1.proyectox.controladores.ControladorBitacora;
 import ues.edu.sv.ingenieria.diseño1.proyectox.controladores.ControladorCliente;
 import ues.edu.sv.ingenieria.diseño1.proyectox.controladores.ControladorPrestamo;
 import ues.edu.sv.ingenieria.diseño1.proyectox.controladores.ErrorPrestamo;
 import ues.edu.sv.ingenieria.diseño1.proyectox.definiciones.Cliente;
 import ues.edu.sv.ingenieria.diseño1.proyectox.definiciones.Conexion;
 import ues.edu.sv.ingenieria.diseño1.proyectox.definiciones.Documento;
+import ues.edu.sv.ingenieria.diseño1.proyectox.definiciones.Sesion;
 
 /**
  *
@@ -35,6 +38,7 @@ import ues.edu.sv.ingenieria.diseño1.proyectox.definiciones.Documento;
 public class FmrCliente implements Serializable {
 
     private ControladorCliente Control = new ControladorCliente();
+    private EntradaBitacora bitacora= new EntradaBitacora();
     private List<Cliente> lista;
     private Cliente Client = new Cliente();
     private Cliente SelectedClient;
@@ -42,6 +46,7 @@ public class FmrCliente implements Serializable {
     private String filtro;
     private Documento doc = new Documento();
     private UploadedFile img;
+    private Sesion sesion;
     private ControladorPrestamo ControlPrestamo = new ControladorPrestamo();
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -91,20 +96,24 @@ public class FmrCliente implements Serializable {
     }
 
     public void submit() {
-        System.out.print(Client.getDui());
+      /*  System.out.print(Client.getDui());
         System.out.print(Client.getNit());
         System.out.print(Client.getNombres());
         System.out.print(Client.getApellidos());
-        System.out.print(Client.getSexo());
+        System.out.print(Client.getSexo());*/
         //System.out.print(Client.getFecha_nacimiento());
         fecha = simpleDateFormat.format(Client.getFecha_nacimiento());
-        System.out.print(fecha);
+       /* System.out.print(fecha);
         System.out.print(Client.getTelefono());
         System.out.print(Client.getDireccion());
-        System.out.print(Client.getObservaciones());
+        System.out.print(Client.getObservaciones());*/
 
         try {
             Control.agregar(Client);
+          //  System.out.println(sesion.getUser());
+            bitacora.agregar("Agrego nuevo usuario");
+          
+            
         } catch (ErrorPrestamo ex) {
             Logger.getLogger(FmrCliente.class.getName()).log(Level.SEVERE, null, ex);
         }

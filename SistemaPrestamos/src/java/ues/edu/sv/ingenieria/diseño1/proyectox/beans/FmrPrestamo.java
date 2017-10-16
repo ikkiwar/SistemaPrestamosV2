@@ -16,6 +16,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import ues.edu.sv.ingenieria.diseño1.proyectox.controladores.ControladorBitacora;
 import ues.edu.sv.ingenieria.diseño1.proyectox.controladores.ControladorCuota;
 import ues.edu.sv.ingenieria.diseño1.proyectox.controladores.ControladorPrestamo;
 import ues.edu.sv.ingenieria.diseño1.proyectox.controladores.ErrorPrestamo;
@@ -23,6 +24,7 @@ import ues.edu.sv.ingenieria.diseño1.proyectox.definiciones.Cliente;
 import ues.edu.sv.ingenieria.diseño1.proyectox.definiciones.Cuota;
 import ues.edu.sv.ingenieria.diseño1.proyectox.definiciones.Parametro;
 import ues.edu.sv.ingenieria.diseño1.proyectox.definiciones.Prestamo;
+import ues.edu.sv.ingenieria.diseño1.proyectox.definiciones.Sesion;
 
 /**
  *
@@ -34,12 +36,14 @@ public class FmrPrestamo implements Serializable {
 
     private ControladorPrestamo pControl = new ControladorPrestamo();
     private ControladorCuota cControl = new ControladorCuota();
+    private ControladorBitacora cbitacora = new ControladorBitacora();
     private List<Prestamo> listaP;
     private List<Prestamo> listaH;
     private List<Cuota> listaC;
     private Prestamo prestamo = new Prestamo();
     private Cuota cuota = new Cuota();
     private Prestamo selectPrestamo;
+    private Sesion sesion;
     private Parametro parametro = new Parametro();
     
     private String filtro;
@@ -220,6 +224,7 @@ public class FmrPrestamo implements Serializable {
 
         }
 
+        
         prestamo = new Prestamo();
     }
 
@@ -242,6 +247,7 @@ public class FmrPrestamo implements Serializable {
 
         try {
             pControl.agregar(prestamo);
+          
         } catch (ErrorPrestamo ex) {
             Logger.getLogger(FmrPrestamo.class.getName()).log(Level.SEVERE, null, ex);
         }
