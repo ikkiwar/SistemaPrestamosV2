@@ -6,12 +6,15 @@
 package ues.edu.sv.ingenieria.diseño1.proyectox.controladores;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import ues.edu.sv.ingenieria.diseño1.proyectox.definiciones.Conexion;
 import ues.edu.sv.ingenieria.diseño1.proyectox.definiciones.Sesion;
 
@@ -31,8 +34,8 @@ public class ControladorBitacora {
         Conexion conexion = new Conexion();
 
         if (conexion != null) {
-            conexion.UID("INSERT INTO bitacora(id_usuario,fecha,accion)"
-                    + "VALUES('" +id + "','" + fechaSave+"','"+ accion + "')");
+            conexion.UID("INSERT INTO bitacora(id_bitacora,id_usuario,fecha,accion)"
+                    + "VALUES('"+obtenerMaxIdBitacora() +"','" +id + "','" + fechaSave+"','"+ accion + "')");
 
         } else {
             throw new ErrorPrestamo("Error al Insertar Datos", "ControladorBitacora.agregar", "Error al Agregar Nuevo Registro");
@@ -41,7 +44,26 @@ public class ControladorBitacora {
     }
         
         
-    
+    public int obtenerMaxIdBitacora() {
+        int id = 0;
+
+        ResultSet resultado;
+
+        try {
+
+            Conexion conexion = new Conexion();
+            resultado = conexion.getValores("SELECT MAX(id_bitacora) From bitacora");
+            while (resultado.next()) {
+                id = resultado.getInt(1);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ControladorPrestamo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        id = id + 1;
+
+        return id;
+    }
     
     
     public void mostrar(){
