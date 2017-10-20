@@ -37,19 +37,19 @@
                         <!--<p:commandButton value="Nuevo Cliente" icon="ui-icon-circle-plus" action="nuevoCliente.jsf?faces-redirect=true"/>-->
                     </h:form>
                 </div>
-                
-                
-                  <h:form style="display: none">
-                        <p:remoteCommand action="#{clientes.inicio()}" autoRun="true" update="form"/>
-                    </h:form>
-                
-                
-                
+
+
+                <h:form style="display: none">
+                    <p:remoteCommand action="#{clientes.inicio()}" autoRun="true" update="form"/>
+                </h:form>
+
+
+
 
                 <h:form id="form" style="text-align: center">
 
                     <p:separator/>  
-                    
+
 
                     <p:dataTable id="tablaCliente"  value="#{clientes.lista}"  var="cliente" 
 

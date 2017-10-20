@@ -59,8 +59,6 @@ public class Prestamo {
 
     public double calcularCuota() {
         
-        
-
         double cuota = 0.0;
         this.saldo = this.monto;
 

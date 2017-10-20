@@ -1,4 +1,3 @@
-
 package ues.edu.sv.ingenieria.diseño1.proyectox.controladores;
 
 import java.sql.ResultSet;
@@ -16,7 +15,6 @@ import ues.edu.sv.ingenieria.diseño1.proyectox.definiciones.Cuota;
  *
  * @author estuardo
  */
-
 public class ControladorCuota {
 
     public void agregar(Cuota cuota) throws ErrorPrestamo {
@@ -26,7 +24,8 @@ public class ControladorCuota {
         Conexion conexion = new Conexion();
 
         cuotaBalance(cuota);
-        
+        cuotaResultado(cuota);
+
         if (conexion != null) {
             conexion.UID("INSERT INTO cuota (id_prestamo,num_cuota,valor,interes,fecha"
                     + ",capital,saldo_anterior,saldo_actualizado,mora) "
@@ -40,30 +39,28 @@ public class ControladorCuota {
 
     }
 
-    public void cuotaBalance(Cuota cuota){
+    public void cuotaBalance(Cuota cuota) {
         Conexion conexion = new Conexion();
-        ResultSet resultado1,resultado2;
-        double saldoEfectivo=0.0;
-        double saldoCuentaPorCobrar=0.0;
+        ResultSet resultado1, resultado2;
+        double saldoEfectivo = 0.0;
+        double saldoCuentaPorCobrar = 0.0;
         double efectivoNuevo;
         double cuentasPorCobrarNuevo;
         double capitalNuevo;
-                  
+
         //OBTENIENDO LOS VALORES DE LAS CUENTAS DEL BALANCE GENERAL
         resultado1 = conexion.getValores("SELECT monto FROM balance WHERE id_cuenta=11");
         resultado2 = conexion.getValores("SELECT monto FROM balance WHERE id_cuenta=12");
-        
+
         try {
-              
+
             while (resultado1.next()) {
-                saldoEfectivo= resultado1.getDouble("monto");
+                saldoEfectivo = resultado1.getDouble("monto");
 
             }
             while (resultado2.next()) {
                 saldoCuentaPorCobrar = resultado2.getDouble("monto");
             }
-
-           
 
         } catch (SQLException ex) {
             Logger.getLogger(ControladorPrestamo.class.getName()).log(Level.SEVERE, null, ex);
@@ -71,21 +68,93 @@ public class ControladorCuota {
 
         System.out.println("SALDO EFECTIVO " + saldoEfectivo);
         System.out.println("SALDO CUENTAS POR COBRAR " + saldoCuentaPorCobrar);
-        
-        efectivoNuevo= saldoEfectivo + cuota.getValor();
-        cuentasPorCobrarNuevo = saldoCuentaPorCobrar - cuota.getValor();
-        capitalNuevo = efectivoNuevo + cuentasPorCobrarNuevo;        
-        
+
+        efectivoNuevo = saldoEfectivo + cuota.getCapital();
+        cuentasPorCobrarNuevo = saldoCuentaPorCobrar - cuota.getCapital();
+        capitalNuevo = efectivoNuevo + cuentasPorCobrarNuevo;
+
         //setiamos a la base los valores nuevos de las cuentas: efectivo, cuentas por cobrar y capital social
-            conexion.UID("UPDATE balance SET monto='" + efectivoNuevo + "' WHERE id_cuenta=11");
-            conexion.UID("UPDATE balance SET monto='" + cuentasPorCobrarNuevo + "' WHERE id_cuenta=12");
-            conexion.UID("UPDATE balance SET monto='" + capitalNuevo + "' WHERE id_cuenta=31");
+        conexion.UID("UPDATE balance SET monto='" + efectivoNuevo + "' WHERE id_cuenta=11");
+        conexion.UID("UPDATE balance SET monto='" + cuentasPorCobrarNuevo + "' WHERE id_cuenta=12");
+        conexion.UID("UPDATE balance SET monto='" + capitalNuevo + "' WHERE id_cuenta=31");
+
+    }
+
+    //METODO PARA TRABAJAR CON LOS MOVIMIENTOS DE LOS ESTADOS DE RESULTADOS
+    public void cuotaResultado(Cuota cuota) {
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String fecha = formato.format(cuota.getFecha());
+        Conexion conexion = new Conexion();
         
+        int id_cuenta_Ingresos = 50;
         
+
+        if (cuota.getMora() > 0) {
+            conexion.UID("INSERT INTO movimientos_ER(id_cuenta,fecha,monto) VALUES('" + id_cuenta_Ingresos + "','" + fecha + "','" + cuota.getMora() + "')");
+            calcularUtilidad(cuota);
+        
+        }
+        
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(ControladorCuota.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        if (cuota.getInteres() > 0) {
+            conexion.UID("INSERT INTO movimientos_ER(id_cuenta,fecha,monto) VALUES('" + id_cuenta_Ingresos + "','" + fecha + "','" + cuota.getInteres() + "')");
+            calcularUtilidad(cuota);
+        }
+
+    }
+
+    public void calcularUtilidad(Cuota cuota) {
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String fecha = formato.format(cuota.getFecha());
+        Conexion conexion = new Conexion();
+        ResultSet resultado, resultado1;
+        int id_cuenta_Ingresos = 50;
+        int id_cuenta_Gastos = 60;
+        int id_cuenta_utilidad = 70;
+        double montoIngresos = 0;
+        double montoGastos = 0;
+        double utilidad= 0;
+        
+        //OBTENIENDO SUMA DE INGRESOS
+        resultado = conexion.getValores("SELECT  SUM(monto) FROM movimientos_ER WHERE id_cuenta ='" + id_cuenta_Ingresos + "'");
+
+        try {
+            while (resultado.next()) {
+                montoIngresos = resultado.getDouble(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ControladorCuota.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        System.out.println("Monto Ingresos:" + montoIngresos);
+
+        //OBTENIENDO SUMA DE GASTOS
+        resultado1 = conexion.getValores("SELECT  SUM(monto) FROM movimientos_ER WHERE id_cuenta ='" + id_cuenta_Gastos + "'");
+
+        try {
+            while (resultado1.next()) {
+
+                montoGastos = resultado1.getDouble(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ControladorCuota.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        System.out.println("Monto Gastos:" + montoGastos);
+        
+        //CALCULANDO UTILIDAD
+        utilidad = montoIngresos - montoGastos;
+        
+        //INSERTANDO UTILIDAD EN LA BASE DE DATOS
+       conexion.UID("INSERT INTO movimientos_ER(id_cuenta,fecha,monto) VALUES('" + id_cuenta_utilidad+ "','" + fecha + "','" + utilidad + "')");
         
     }
-    
-    
+
     public List<Cuota> obtener() throws ErrorPrestamo {
 
         List<Cuota> cuotas = new ArrayList<>();
@@ -104,7 +173,6 @@ public class ControladorCuota {
                         resultado.getDouble("capital"), resultado.getDate("fecha"),
                         resultado.getDouble("saldo_anterior"), resultado.getDouble("saldo_actualizado"),
                         resultado.getDouble("mora")));
-                // System.out.println("Estoy en el While");
 
             }
 
@@ -122,7 +190,6 @@ public class ControladorCuota {
         Conexion conexion = new Conexion();
         ResultSet resultado;
 
-        // System.out.println("Estoy al Inicio del metodo obtener Clientes !");
         try {
 
             resultado = conexion.getValores("SELECT * FROM cuota WHERE id_prestamo='" + id + "'");
@@ -133,7 +200,6 @@ public class ControladorCuota {
                         resultado.getDouble("capital"), resultado.getDate("fecha"),
                         resultado.getDouble("saldo_anterior"), resultado.getDouble("saldo_actualizado"),
                         resultado.getDouble("mora")));
-                // System.out.println("Estoy en el While");
 
             }
 
@@ -151,13 +217,12 @@ public class ControladorCuota {
         Conexion conexion = new Conexion();
         ResultSet resultado;
 
-        // System.out.println("Estoy al Inicio del metodo obtener Clientes !");
         try {
 
             resultado = conexion.getValores("select MAX(fecha) FROM cuota WHERE id_prestamo='" + id + "'");
 
             while (resultado.next()) {
-                reciente = resultado.getDate(1);              // System.out.println("Estoy en el While");
+                reciente = resultado.getDate(1);
 
             }
 
