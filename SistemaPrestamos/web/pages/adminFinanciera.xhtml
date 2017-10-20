@@ -4,6 +4,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui">
+     
 
 
     <body>
@@ -20,7 +21,7 @@
 
                 <p:separator/>
 
-                <p:tabView style="padding-left: 20px; width:1175px;margin-left: 10px ">
+                <p:tabView style="padding-left: 20px; width:1175px;margin-left: 10px " id="tabview">
 
                     <p:tab title="Balance General">
                         <p:commandButton  value="Generar Reporte" style="margin-left: 90%"/>
@@ -29,15 +30,15 @@
                             <h:panelGrid >
                                 <p:outputLabel value="CUENTAS" />
                                 <p:dataTable id="tablaCuentas" value="#{cuentas.cuentasBalance}" var="cuenta" >
-                                    <p:column headerText="Id_cuenta" style="text-align: center">
+                                    <p:column headerText="ID_CUENTA" style="text-align: center">
 
                                         <h:outputText value="#{cuenta.id_cuenta}"   />
 
                                     </p:column>
-                                    <p:column headerText="Cuenta" style="text-align: center">
+                                    <p:column headerText="CUENTA" style="text-align: center">
                                         <h:outputText value="#{cuenta.nombre_cuenta}"   />
                                     </p:column>
-                                    <p:column headerText="Monto" style="text-align: center" >
+                                    <p:column headerText="MONTO($)" style="text-align: center" >
                                         <h:outputText value="#{cuenta.monto}"   />
                                     </p:column>
                                 </p:dataTable>
@@ -55,20 +56,54 @@
 
                             <h:panelGrid >
                                 <p:outputLabel value="CUENTAS" />
-                                <p:dataTable id="tablaResultados" value="#{cuentaResultados.listaResultados}" var="resultado" >
-                                    <p:column headerText="Id_cuenta" style="text-align: center">
+                                <p:dataTable id="tablaResultados" 
+                                             value="#{cuentaResultados.listaResultados}" 
+                                             var="resultado" 
+
+                                             >
+                                    <p:column headerText="ID_CUENTA" style="text-align: center">
 
                                         <h:outputText value="#{resultado.id_cuenta}"   />
 
                                     </p:column>
-                                    <p:column headerText="Cuenta" style="text-align: center">
+                                    <p:column headerText="CUENTA" style="text-align: center">
                                         <h:outputText value="#{resultado.nombre_cuenta}"   />
+                                    </p:column>
+
+                                    <p:column style="width:32px;text-align: center">
+                                        <p:commandButton   icon="ui-icon-search" title="View"
+                                                           update=":tabview:movimientosER:tablaCuentasMovimientos :tabview:movimientosER:"
+                                                           actionListener="#{movimientos.llenar(resultado)}">
+                                        </p:commandButton>
                                     </p:column>
 
                                 </p:dataTable>
 
 
                             </h:panelGrid>   
+
+                            <br/>
+                            <br/>
+                            <p:accordionPanel id="movimientosER">
+                                <p:tab title="MOVIMIENTOS ESTADO DE RESULTADOS">
+                                    <p:outputLabel value="MOVIMIENTOS" />
+                                    <p:dataTable id="tablaCuentasMovimientos" value="#{movimientos.listaMovimientos}" var="resultadosMov">
+                                        <p:column headerText="ID_CUENTA" style="text-align: center">
+
+                                            <h:outputText value="#{resultadosMov.id_cuenta}"   />
+
+                                        </p:column>
+                                        <p:column headerText="FECHA" style="text-align: center">
+                                            <h:outputText value="#{resultadosMov.fecha}"   />
+                                        </p:column>
+                                        <p:column headerText="MONTO($)" style="text-align: center" >
+                                            <h:outputText value="#{resultadosMov.monto}" />
+                                        </p:column>
+                                    </p:dataTable>
+
+                                </p:tab>
+
+                            </p:accordionPanel>
 
                         </h:panelGrid>
 

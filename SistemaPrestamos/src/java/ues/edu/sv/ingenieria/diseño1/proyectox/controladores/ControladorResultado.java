@@ -30,8 +30,8 @@ public class ControladorResultado {
 
             while (resultado.next()) {
 
-                cuentasResultados.add(new EstadoResultados(resultado.getInt("id_cuenta"),resultado.getString("nombre_cuenta")));
-                
+                cuentasResultados.add(new EstadoResultados(resultado.getInt("id_cuenta"), resultado.getString("nombre_cuenta")));
+
             }
         } catch (SQLException ex) {
             Logger.getLogger(ControladorBalance.class.getName()).log(Level.SEVERE, null, ex);
