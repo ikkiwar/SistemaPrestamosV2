@@ -36,7 +36,7 @@
 
                     <p:dataTable id="tablaUsuarios"  value="#{usuario.lista}"  var="Usuario" 
 
-                                 paginator="true" rows="10" rowsPerPageTemplate="5,10,15"  editable="false" style="margin:20px">
+                                 paginator="true" rows="10" rowsPerPageTemplate="5"  editable="false" style="margin:20px">
 
                         <f:facet name="header">
                             Usuarios
@@ -77,6 +77,8 @@
                            header="Agregar Usuario"  draggable="false" closeOnEscape="true" 
                            resizable="false">
 
+                    <p:growl id="growl" life="4000"  showDetail="true" />
+                    
                     <p:ajax event="close" listener="#{usuario.inicio()}" update=":form:tablaUsuarios" 
                             immediate="true" global="true" />
 
@@ -127,7 +129,7 @@
                             <div class="center">
                                 <h:panelGrid columns="2"  >
                                     <p:commandButton  value="Registrar"  icon="ui-icon-disk"  
-                                                      update="grid"  action="#{usuario.agregar()}"
+                                                      update="grid growl"  action="#{usuario.agregar()}"
                                                       oncomplete="PF('agregarUsuario').hide();"/>
 
 

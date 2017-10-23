@@ -25,8 +25,6 @@
 
                     <h:form>
 
-
-
                         <p:outputLabel style="margin-left: 1%; color: white; font-size: small" value="Buscar por Nombre"/>           
                         <p:inputText style="margin-left: 1%"   value="#{clientes.filtro}">
                             <p:ajax event="keyup" listener="#{clientes.filtrar()}" update=":form:tablaCliente"   />
@@ -121,13 +119,13 @@
                            showEffect="blind" hideEffect="blind" widgetVar="agregarCliente"  
                            header="Agregar Clientes"  draggable="false" closeOnEscape="true" 
                            resizable="false">
-
+                         
                     <p:ajax event="close" listener="#{clientes.inicio()}" update=":form:tablaCliente" 
                             immediate="true" global="true" />
 
                     <h:form id="formulario" style="text-align: center" >
 
-                        <p:messages id="messages" showDetail="true"  autoUpdate="true" closable="true" />
+                        <p:growl id="growl" life="4000"  showDetail="true" />
 
                         <h:panelGrid columns="2">
 
@@ -178,18 +176,18 @@
 
 
                             <p:outputLabel for="direccion" value="Direccion: "/>
-                            <p:inputTextarea id="direccion" rows="6" cols="35" autoResize="true"
+                            <p:inputTextarea id="direccion" rows="4" cols="35" autoResize="true"
                                              value="#{clientes.client.direccion}"/>
 
                             <p:outputLabel for="observaciones"   value="Observaciones:  " />
-                            <p:inputTextarea id="observaciones"   rows="6" cols="35" autoResize="true" 
+                            <p:inputTextarea id="observaciones"   rows="4" cols="35" autoResize="true" 
                                              value="#{clientes.client.observaciones}"/>
 
 
                             <div class="center">
                                 <h:panelGrid columns="2"  >
                                     <p:commandButton  value="Registrar"  icon="ui-icon-disk"  
-                                                      action="#{clientes.submit()}" update="grid"
+                                                      action="#{clientes.submit()}" update="grid growl"
                                                       onclick="PF('documentos').show()" 
                                                       oncomplete="PF('agregarCliente').hide();" />
 

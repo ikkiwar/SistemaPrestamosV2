@@ -28,15 +28,11 @@
                                          onclick="PF('Nprestamo').show();"/>
                     </h:form>
                 </div>
-                
-                
-                
-
                 <h:form style="display: none">
                     <p:remoteCommand action="#{prestamos.inicio()}" autoRun="true" update="formTable"/>
                 </h:form>
-                
-                
+
+
 
                 <h:form id="formTable" style="text-align: center" >
 
@@ -45,7 +41,7 @@
 
 
                     <p:dataTable id="prestamos1" var="Phistorial" value="#{prestamos.listaH}" 
-                                 paginator="true" rows="10" rowsPerPageTemplate="5,10,15" editable="true" style="margin:20px" >
+                                 paginator="true" rows="10" rowsPerPageTemplate="5" editable="true" style="margin:20px" >
 
                         <f:facet name="header">
                             Historial de Prestamos
@@ -99,9 +95,16 @@
                     <p:ajax event="close" listener="#{prestamos.inicio()}" update=":formTable:prestamos1" immediate="true" global="false" />
                     <h:form id="nform" style="text-align: left">
 
+                        
+                          <p:outputLabel for="efectivoDisponible" value="EFECTIVO DISPONIBLE PARA PRESTAMO: "  style="color: #D20005"/>
+                            <p:inputText  id="efectivoDisponible" readonly="true"  value="$ #{cuentas.efectivoDisponible}"/>
+                            <p:separator style="width: 100%;color: #00a0df"/>
+                            <br/>
+                            <br/>
+                            
                         <h:panelGrid id="grid" columns="2" cellpadding="1">
 
-
+                          
                             <p:outputLabel  for="cliente" value="Cliente: "/>
                             <p:selectOneMenu style="text-transform: uppercase"  id="cliente" value="#{prestamos.prestamo.dui}">
                                 <f:selectItems  var="lista" value="#{clientes.lista}" itemLabel="#{lista.nombres} #{lista.apellidos}" itemValue="#{lista.dui}"/>
@@ -140,11 +143,11 @@
                             <p:outputLabel  for="fin" value="Fecha de Fin: "  />
                             <p:calendar  pattern="yyyy-MM-dd" id="fin" readonly="true" size="40"  value="#{prestamos.prestamo.fecha_fin}"/>
 
-                            <p:growl id="growl"  life="3000" showDetail="true" sticky="true" />
+                            <p:growl id="growl"  life="4000"  showDetail="true"  />
 
                             <div class="center">
                                 <h:panelGrid  columns="2">
-                                    <p:commandButton  value="Registrar"  icon="ui-icon-disk" action="#{prestamos.submit()}"  update="growl" oncomplete="PF('Nprestamo').hide();"/>
+                                    <p:commandButton  value="Registrar"  icon="ui-icon-disk" action="#{prestamos.submit()}"  update="growl efectivoDisponible" oncomplete="PF('Nprestamo').hide();"/>
                                     <p:commandButton value="Cancelar" icon="ui-icon-cancel" onclick="PF('Nprestamo').hide();" type="button"/>
                                 </h:panelGrid>
                             </div>
@@ -182,13 +185,6 @@
 
                     </h:form>
                 </p:dialog>
-
-
-
-
-
-
-
             </ui:define>
 
         </ui:composition>
