@@ -243,7 +243,7 @@ public class FmrPrestamo implements Serializable {
 
         try {
             pControl.agregar(prestamo);
-          
+            elementosTicketPrestamo();
         } catch (ErrorPrestamo ex) {
             Logger.getLogger(FmrPrestamo.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -264,7 +264,7 @@ public class FmrPrestamo implements Serializable {
     /*-----Aqui se cargan los elementos de la tiquetera------*/
     
     public void elemetosTicket(Cuota cuota){
-        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
         String fecha = formato.format(cuota.getFecha());
         String NumCuota= String.valueOf(cuota.getNum_cuota());
         String Monto= String.valueOf(selectPrestamo.getMonto());
@@ -294,6 +294,41 @@ public class FmrPrestamo implements Serializable {
      
         Ticket ticket = new Ticket();
         ticket.comprobantePago(elementos);
+    }
+    
+    
+    public void elementosTicketPrestamo(){
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String idPresamo= String.valueOf(prestamo.getId_prestamo());
+        String dui = prestamo.getDui();
+        String nombre = prestamo.getNombres();
+        String apellidos = prestamo.getApellidos();
+        String monto = String.valueOf(prestamo.getMonto());
+        String interes = String.valueOf(prestamo.getTasa_interes());
+        String cuotas = String.valueOf(prestamo.getCantidad_cuotas());
+        String valorcuota = String.valueOf(prestamo.getValor_cuota());
+        String fechainicio = formato.format(prestamo.getFecha_inicio());
+        String fechafin = formato.format(prestamo.getFecha_fin());
+       
+        
+        
+        String[] Lista={
+          idPresamo,
+          dui,
+          nombre,
+          apellidos,
+          monto,
+          interes,
+          cuotas,
+          valorcuota,
+          fechainicio,
+          fechafin
+            
+        };
+        
+        Ticket ticket = new Ticket();
+        ticket.comprobantePrestamo(Lista);
+        
     }
     
     //metodos para redireccion
