@@ -83,11 +83,13 @@ public class ControladorBalance {
 
             //disminuimos efectivo
             efectivoNuevo = efectivoDisponible - prestamo.getMonto();
+            efectivoNuevo= Math.round(efectivoNuevo*100.0)/100.0;
             //aumentamos cuentas por cobrar
             cuentaPorCobrarNuevo = cuentaPorCobrar + prestamo.getMonto();
+            cuentaPorCobrar= Math.round(cuentaPorCobrar*100.0)/100.0;
             //calculamos el capital nuevo el cual sera la suma de el nuevo efectivo y el nuevo saldo de cuentas por cobrar
             capitalNuevo = efectivoNuevo + cuentaPorCobrarNuevo;
-
+            capitalNuevo= Math.round(capitalNuevo*100.0)/100.0;
             //setiamos a la base los valores nuevos de las cuentas: efectivo, cuentas por cobrar y capital social
             conexion.UID("UPDATE balance SET monto='" + efectivoNuevo + "' WHERE id_cuenta=11");
             conexion.UID("UPDATE balance SET monto='" + cuentaPorCobrarNuevo + "' WHERE id_cuenta=12");
@@ -126,14 +128,19 @@ public class ControladorBalance {
         } catch (SQLException ex) {
             Logger.getLogger(ControladorPrestamo.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
+        
         System.out.println("SALDO EFECTIVO " + saldoEfectivo);
         System.out.println("SALDO CUENTAS POR COBRAR " + saldoCuentaPorCobrar);
 
         efectivoNuevo = saldoEfectivo + cuota.getCapital();
         cuentasPorCobrarNuevo = saldoCuentaPorCobrar - cuota.getCapital();
         capitalNuevo = efectivoNuevo + cuentasPorCobrarNuevo;
-
+        
+        //Redondear Valores
+        efectivoNuevo=Math.round(efectivoNuevo*100.0)/100.0;
+        cuentasPorCobrarNuevo=Math.round(cuentasPorCobrarNuevo*100.0)/100.0;
+        capitalNuevo=Math.round(capitalNuevo*100.0)/100.0;
         //setiamos a la base los valores nuevos de las cuentas: efectivo, cuentas por cobrar y capital social
         conexion.UID("UPDATE balance SET monto='" + efectivoNuevo + "' WHERE id_cuenta=11");
         conexion.UID("UPDATE balance SET monto='" + cuentasPorCobrarNuevo + "' WHERE id_cuenta=12");
@@ -158,7 +165,8 @@ public class ControladorBalance {
         } catch (SQLException ex) {
             Logger.getLogger(ControladorBalance.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
+        efectivo = Math.round(efectivo*100.0)/100.0;
         System.out.println("Efectivo Disponible: " + efectivo);
 
         return efectivo;

@@ -16,6 +16,7 @@ import javax.faces.bean.ManagedBean;
 import ues.edu.sv.ingenieria.diseño.proyectox.controladores.ControladorParametro;
 import ues.edu.sv.ingenieria.diseño.proyectox.controladores.ErrorPrestamo;
 import ues.edu.sv.ingenieria.diseño.proyectox.definiciones.Parametro;
+import ues.edu.sv.ingenieria.diseño.proyectox.servicios.EntradaBitacora;
 
 /**
  *
@@ -30,7 +31,7 @@ public class FmrParametro implements Serializable {
     private Parametro parametro = new Parametro();
     private Parametro selectedParametro;
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-   
+   private EntradaBitacora bitacora = new EntradaBitacora();
     public FmrParametro() {
 
     }
@@ -52,6 +53,8 @@ public class FmrParametro implements Serializable {
 
         try {
             Control.actualizar(selectedParametro);
+            bitacora.agregar("se modifico el parametro: "+selectedParametro.getNombre());
+            
         } catch (ErrorPrestamo ex) {
             Logger.getLogger(FmrCliente.class.getName()).log(Level.SEVERE, null, ex);
         }

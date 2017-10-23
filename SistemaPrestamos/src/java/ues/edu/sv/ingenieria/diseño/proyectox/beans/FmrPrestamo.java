@@ -19,6 +19,7 @@ import ues.edu.sv.ingenieria.diseño.proyectox.definiciones.Cuota;
 import ues.edu.sv.ingenieria.diseño.proyectox.definiciones.Parametro;
 import ues.edu.sv.ingenieria.diseño.proyectox.definiciones.Prestamo;
 import ues.edu.sv.ingenieria.diseño.proyectox.definiciones.Sesion;
+import ues.edu.sv.ingenieria.diseño.proyectox.servicios.EntradaBitacora;
 import ues.edu.sv.ingenieria.diseño.proyectox.servicios.Ticket;
 
 /**
@@ -40,7 +41,7 @@ public class FmrPrestamo implements Serializable {
     private Prestamo selectPrestamo;
     private Sesion sesion;
     private Parametro parametro = new Parametro();
-    
+    private EntradaBitacora bitacora = new EntradaBitacora();
     private String filtro;
     private int cantidadCuotas;
     private int cuotasPorcentaje = 0;
@@ -220,7 +221,8 @@ public class FmrPrestamo implements Serializable {
 
             cControl.agregar(cuota);
             pControl.actualizar(cuota.getSaldo_actualizado(), selectPrestamo.getId_prestamo(), cuota.getFecha());
-
+            bitacora.agregar("se pago cuota del prestamo: "+cuota.getId_prestamo());
+            elementosTicketPrestamo();
         }
 
         
@@ -297,7 +299,7 @@ public class FmrPrestamo implements Serializable {
     }
     
     
-    /*----Aqui se ponene los elementos del PUTO ticket de prestamo----*/
+    /*----Aqui se ponene los elementos del PUTO ticket de comprobacion prestamo----*/
     public void elementosTicketPrestamo(){
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String idPresamo= String.valueOf(prestamo.getId_prestamo());

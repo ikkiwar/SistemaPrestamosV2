@@ -142,8 +142,8 @@ public class ControladorMovimientosER {
             conexion.UID("INSERT INTO movimientos_ER(id_cuenta,fecha,monto) VALUES('" + id_cuenta_utilidad + "','" + fecha + "','" + utilidad + "')");
 
         } catch (Exception e) {
-            mensaje1="Error en la Transaccion!!";
-            mensaje2="No se ha podido Registrar el Pago!";
+            mensaje1 = "Error en la Transaccion!!";
+            mensaje2 = "No se ha podido Registrar el Pago!";
             mensajes.fatal(mensaje1, mensaje2);
         }
 
