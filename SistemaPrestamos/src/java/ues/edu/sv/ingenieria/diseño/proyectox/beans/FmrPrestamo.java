@@ -1,6 +1,7 @@
 package ues.edu.sv.ingenieria.diseño.proyectox.beans;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -18,6 +19,7 @@ import ues.edu.sv.ingenieria.diseño.proyectox.definiciones.Cuota;
 import ues.edu.sv.ingenieria.diseño.proyectox.definiciones.Parametro;
 import ues.edu.sv.ingenieria.diseño.proyectox.definiciones.Prestamo;
 import ues.edu.sv.ingenieria.diseño.proyectox.definiciones.Sesion;
+import ues.edu.sv.ingenieria.diseño.proyectox.servicios.Ticket;
 
 /**
  *
@@ -149,6 +151,7 @@ public class FmrPrestamo implements Serializable {
     public void calcular() throws ErrorPrestamo {
         long diferencia;
         long diferenciadias;
+        double SaldoAc;
         double tasa_mora = 0;
         double valormora = 0;
         double valor_cuota = cuota.getValor();
@@ -168,7 +171,7 @@ public class FmrPrestamo implements Serializable {
         if (anterior == null) {
             cuota.setInteres(selectPrestamo.getMonto() * selectPrestamo.getTasa_interes());
             
-           System.out.print("TASA MORA"+ tasa_mora);
+            System.out.print("TASA MORA"+ tasa_mora);
             System.out.println("valor"+ cuota.getValor());
             System.out.println("Interes"+ selectPrestamo.getTasa_interes());
 
@@ -190,6 +193,7 @@ public class FmrPrestamo implements Serializable {
                     valormora = ((valor_cuota*(tasa_mora /(30 * selectPrestamo.getCantidad_cuotas()))) 
                             *diferenciadias);
                 }
+                valormora=Math.round(valormora*100.0)/100.0;
                 cuota.setMora(valormora);
                 cuota.setInteres(selectPrestamo.getMonto() * selectPrestamo.getTasa_interes());
                 cuota.setValor(valor_cuota+valormora);
@@ -199,7 +203,9 @@ public class FmrPrestamo implements Serializable {
         }
         System.out.println("VALOR2 "+valor_cuota);
         cuota.setCapital(valor_cuota - cuota.getInteres());
-        cuota.setSaldo_actualizado(cuota.getSaldo_anterior() - cuota.getCapital());
+        SaldoAc =cuota.getSaldo_anterior() - cuota.getCapital();
+        SaldoAc = Math.round(SaldoAc*100.0)/100.0;
+        cuota.setSaldo_actualizado(SaldoAc);
 
     }
 
@@ -253,6 +259,41 @@ public class FmrPrestamo implements Serializable {
         } catch (ErrorPrestamo ex) {
             Logger.getLogger(FmrPrestamo.class.getName()).log(Level.SEVERE, null, ex);
         }*/
+    }
+    
+    /*-----Aqui se cargan los elementos de la tiquetera------*/
+    
+    public void elemetosTicket(Cuota cuota){
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String fecha = formato.format(cuota.getFecha());
+        String NumCuota= String.valueOf(cuota.getNum_cuota());
+        String Monto= String.valueOf(selectPrestamo.getMonto());
+        String SaldoAn = String.valueOf(cuota.getSaldo_anterior());
+        String SaldoAc = String.valueOf(cuota.getSaldo_actualizado());
+        String mora = String.valueOf(cuota.getMora());
+        String interes = String.valueOf(cuota.getInteres());
+        String capital = String.valueOf(cuota.getCapital());
+        String idPrestamo = String.valueOf(cuota.getId_prestamo());
+        
+        
+        String[] elementos={
+        idPrestamo,    
+        selectPrestamo.getNombres(),
+        selectPrestamo.getApellidos(),
+        NumCuota,
+        Monto,
+        SaldoAn,
+        mora,
+        interes,
+        capital,
+        SaldoAc,
+        fecha
+           
+        };
+        
+     
+        Ticket ticket = new Ticket();
+        ticket.comprobantePago(elementos);
     }
     
     //metodos para redireccion
