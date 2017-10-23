@@ -13,7 +13,7 @@
         <h:outputStylesheet name="/css/sidenav.css"/>
         <h:outputStylesheet name="/css/form.css"/>
 
-         <title>Sistema Prestamo</title>
+        <title>Sistema Prestamo</title>
     </h:head>
 
     <h:body style="background-color:  #253A47">
@@ -37,31 +37,31 @@
         <div>
             <div id="content" class="left_content" style="background-color: #253A47" >
                 <ui:insert name="content">
+
                     <h:form>
-                    <div align="center" style="padding-right: 10%; padding-top:4% ">
-                       <h:graphicImage id="logoempresa" class="icon" name="/img/logo.gif" 
-                                       style="width: 25% "/>
-                       
-                       <h:panelGrid columns="2" style="padding-top: 2% ;padding-bottom:1%; font-size: 16px">
-                          <!-- <p:outputLabel value="Usuario" style="color: white;background-color:  transparent"/>-->
-                           <p:inputText id="user" placeholder="Usuario" value="#{fmrSesion.sesion.user}"  >
-                               <f:attribute value="user" name="user"/>
-                           </p:inputText>
-                          <!-- <p:outputLabel  value="Contraseña" style="color: white;background-color:  transparent"/>-->
-                           <p:password  id="password" placeholder="Contraseña" value="#{fmrSesion.sesion.contraseña}" >
-                               <f:attribute value="pass" name="pass"/>
-                           </p:password>
-                            
-                       </h:panelGrid>
-                       
-                       <h:commandLink style="background-color: #00a0df ;
-                                         border-style: none ;color: white; padding: 0.5%"  
-                                         value="INGRESAR" action="#{fmrSesion.comprobarDatos()}"  />
-                      
-               
-                     
-                    </div>
-                 
+
+                        <div align="center" style="padding-right: 10%; padding-top:4% ">
+                            <h:graphicImage id="logoempresa" class="icon" name="/img/logo.gif" 
+                                            style="width: 25% "/>
+
+                            <h:panelGrid columns="2" style="padding-top: 2% ;padding-bottom:1%; font-size: 16px">
+                                <!-- <p:outputLabel value="Usuario" style="color: white;background-color:  transparent"/>-->
+                                <p:growl id="login" life="5000" showDetail="true"/>
+                                <p:inputText id="user" placeholder="Usuario" value="#{fmrSesion.sesion.user}"  >
+                                    <f:attribute value="user" name="user"/>
+                                </p:inputText>
+                                <!-- <p:outputLabel  value="Contraseña" style="color: white;background-color:  transparent"/>-->
+                                <p:password  id="password" placeholder="Contraseña" value="#{fmrSesion.sesion.contraseña}" >
+                                    <f:attribute value="pass" name="pass"/>
+                                </p:password>
+
+                            </h:panelGrid>
+
+                            <p:commandButton style="background-color: #00a0df; border-style: none ;color: white; padding: 0.5%"  
+                                             value="INGRESAR" action="#{fmrSesion.comprobarDatos()}" update="login" />
+
+                        </div>
+
                     </h:form>
                 </ui:insert>
             </div>
@@ -70,4 +70,4 @@
 
 </html>
 
-     
+

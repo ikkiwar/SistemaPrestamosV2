@@ -9,12 +9,10 @@
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
-   
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>*.jsf</url-pattern>
     </servlet-mapping>
-   
     <session-config>
         <session-timeout>
             30
@@ -23,18 +21,14 @@
     <welcome-file-list>
         <welcome-file>index.jsf</welcome-file>
     </welcome-file-list>
-    
-     <!-- Login filter -->
+    <!-- Login filter -->
     <filter>
         <filter-name>LoginFilter</filter-name>
-        <filter-class>servicios.FiltroSesion</filter-class>
+        <filter-class>ues.edu.sv.ingenieria.diseño.proyectox.servicios.FiltroSesion</filter-class>
     </filter>
-    
     <!-- Asegurar todos lo archivos dentro de pages  -->
     <filter-mapping>
         <filter-name>LoginFilter</filter-name>
         <url-pattern>/pages/*</url-pattern>
     </filter-mapping>
-    
-  
 </web-app>

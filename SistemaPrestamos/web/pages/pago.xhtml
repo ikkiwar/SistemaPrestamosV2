@@ -19,7 +19,7 @@
                 <h:form style="display: none">
                     <p:remoteCommand action="#{prestamos.obtenerCantidadCuotas(prestamos.selectPrestamo.id_prestamo)}" autoRun="true" update="barraProgreso cuotas" />
                 </h:form>
-                
+
                 <h:panelGrid columns="2">
                     <h:panelGrid columns="2" style="padding-top: 10px;padding-left: 15px ">
                         <h:graphicImage  id="Home" class="icon" name="/img/archivo.png"  height="60" width="60"/>
@@ -66,12 +66,12 @@
                                 <h:outputLabel value="PROGRESO EN PROPORCION: " />
                                 <h:outputLabel value="#{prestamos.cantidadCuotas} / 12 CUOTAS " id="cuotas" style="font-family: sans-serif" />
                             </h:panelGrid>
-                            
+
                             <h:panelGrid columns="2">
                                 <p:outputLabel value="PROGRESO DEL PAGO: " style="color: #000000;font-family: sans-serif" />    
                                 <p:progressBar id="barraProgreso"  value="#{prestamos.cuotasPorcentaje}"  labelTemplate="{value}%"  style="height: 20px; width: 500px"  displayOnly="true"/>
                             </h:panelGrid>
- 
+
 
                         </p:panel>
 
@@ -80,53 +80,49 @@
                 </h:panelGrid>
                 <p:separator/>
                 <br/> 
-                
+
                 <!--<h:form style="display: none">
                     <p:remoteCommand name="llenar" action="#{prestamos.inciocalculo()}" autoRun="true" update="formp"/>
                 </h:form>-->
 
                 <div style="width: 300px; margin-left:  400px"> 
                     <h:form id="formp">
-                        <p:panel id="panel" header="Pagos" style="margin-bottom:10px;">
-                            <p:messages id="messages" />
-                            <h:panelGrid columns="2" cellpadding="5">
-                                <p:outputLabel for="monto" value="Monto:" />
-                                <p:inputNumber id="monto" value="#{prestamos.cuota.valor}" />
+                        <h:panelGrid columns="1">
+                            <p:panel id="panel" header="Pagos" style="margin-bottom:10px;">
 
-                                <p:outputLabel for="saldoA" value="Saldo Anterior:" />
-                                <p:inputNumber id="saldoA" value="#{prestamos.cuota.saldo_anterior}" readonly="true"/>
-                                
-                                <p:outputLabel for="moraA" value="Mora:" />
-                                <p:inputNumber id="moraA" value="#{prestamos.cuota.mora}" readonly="true"/>
+                                <h:panelGrid columns="2" cellpadding="5">
+                                    <p:outputLabel for="monto" value="Monto:" />
+                                    <p:inputNumber id="monto" value="#{prestamos.cuota.valor}" />
 
-                                <p:outputLabel for="interes" value="interes:" />
-                                <p:inputNumber id="interes"  value="#{prestamos.cuota.interes}" readonly="true"/>
+                                    <p:outputLabel for="saldoA" value="Saldo Anterior:" />
+                                    <p:inputNumber id="saldoA" value="#{prestamos.cuota.saldo_anterior}" readonly="true"/>
 
-                                <p:outputLabel for="capital" value="Capital:" />
-                                <p:inputNumber id="capital" value="#{prestamos.cuota.capital}" readonly="true"/>
+                                    <p:outputLabel for="moraA" value="Mora:" />
+                                    <p:inputNumber id="moraA" value="#{prestamos.cuota.mora}" readonly="true"/>
+
+                                    <p:outputLabel for="interes" value="interes:" />
+                                    <p:inputNumber id="interes"  value="#{prestamos.cuota.interes}" readonly="true"/>
+
+                                    <p:outputLabel for="capital" value="Capital:" />
+                                    <p:inputNumber id="capital" value="#{prestamos.cuota.capital}" readonly="true"/>
 
 
-                                <p:outputLabel for="saldoAc" value="Saldo Actualizado" />
-                                <p:inputNumber id="saldoAc" value="#{prestamos.cuota.saldo_actualizado}" readonly="true"/>
+                                    <p:outputLabel for="saldoAc" value="Saldo Actualizado" />
+                                    <p:inputNumber id="saldoAc" value="#{prestamos.cuota.saldo_actualizado}" readonly="true"/>
 
-                            </h:panelGrid>
-                        </p:panel>
-
-                        <p:toolbar >
-
-                            <f:facet name="left">
-                                <p:commandButton value="calcular" update="panel" actionListener="#{prestamos.calcular()}" style="margin-right:20px;" />
-                            </f:facet>
+                                    <p:growl id="growl" life="4000" showDetail="true" />
 
 
 
-                            <f:facet name="right">
-                                <p:commandButton value="Resgistrar" onclick="PF('dialogInforme').show();" actionListener="#{prestamos.submitCuota()}"/>
-                            </f:facet>
+                                    <h:panelGrid columns="2" >
+                                        <p:commandButton value="calcular" update="panel" actionListener="#{prestamos.calcular()}" style="margin-right:20px;" />
+                                        <p:commandButton value="Resgistrar" update="growl" onclick="PF('dialogInforme').show();" actionListener="#{prestamos.submitCuota()}"/>
+                                    </h:panelGrid>
 
 
-
-                        </p:toolbar>
+                                </h:panelGrid>
+                            </p:panel>
+                        </h:panelGrid>
                     </h:form>
 
 
