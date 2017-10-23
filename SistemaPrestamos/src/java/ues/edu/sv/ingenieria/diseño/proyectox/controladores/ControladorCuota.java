@@ -31,28 +31,30 @@ public class ControladorCuota {
 
         Conexion conexion = new Conexion();
 
-        
-            controladorBalance.cuotaBalance(cuota);
-            controladorMovimientos.cuotaMovimientosIngresosPorInteres(cuota);
-            mensaje1 = "Transaccion Exitosa!!";
-            mensaje2 = "Pago Agregado Correctamente!!";
-            try {
+        controladorBalance.cuotaBalance(cuota);
+        controladorMovimientos.cuotaMovimientosIngresosPorInteres(cuota);
+        mensaje1 = "Transaccion Exitosa!!";
+        mensaje2 = "Pago Agregado Correctamente!!";
+        try {
 
-                conexion.UID("INSERT INTO cuota (id_prestamo,num_cuota,valor,interes,fecha"
-                        + ",capital,saldo_anterior,saldo_actualizado,mora) "
-                        + "VALUES ('" + cuota.getId_prestamo() + "','" + cuota.getNum_cuota()
-                        + "','" + cuota.getValor() + "','" + cuota.getInteres() + "','"
-                        + fecha + "','" + cuota.getCapital() + "','" + cuota.getSaldo_anterior()
-                        + "','" + cuota.getSaldo_actualizado() + "','" + cuota.getMora() + "')");
+            conexion.UID("INSERT INTO cuota (id_prestamo,num_cuota,valor,interes,fecha"
+                    + ",capital,saldo_anterior,saldo_actualizado,mora) "
+                    + "VALUES ('" + cuota.getId_prestamo() + "','" + cuota.getNum_cuota()
+                    + "','" + cuota.getValor() + "','" + cuota.getInteres() + "','"
+                    + fecha + "','" + cuota.getCapital() + "','" + cuota.getSaldo_anterior()
+                    + "','" + cuota.getSaldo_actualizado() + "','" + cuota.getMora() + "')");
 
-                controladorMovimientos.cuotaMovimientosIngresosPorMora(cuota);
+            controladorMovimientos.cuotaMovimientosIngresosPorMora(cuota);
 
-                mensajes.info(mensaje1, mensaje2);
-            } catch (Exception e) {
-                throw new ErrorPrestamo("Error al Insertar Datos", "ControladorCuota.agregar", "Error al Agregar Cuota");
+            mensajes.info(mensaje1, mensaje2);
+        } catch (Exception e) {
 
-            }
-        
+            mensaje1 = "No se ha realiado la Transaccion!!";
+            mensaje2 = "Ha fallado el ingreso de la Cuota";
+            mensajes.fatal(mensaje1, mensaje2);
+            throw new ErrorPrestamo("Error al Insertar Datos", "ControladorCuota.agregar", "Error al Agregar Cuota");
+        }
+
     }
 
     public List<Cuota> obtener() throws ErrorPrestamo {

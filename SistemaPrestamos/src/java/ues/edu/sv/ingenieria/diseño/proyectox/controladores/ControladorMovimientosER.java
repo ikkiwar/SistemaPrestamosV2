@@ -54,12 +54,18 @@ public class ControladorMovimientosER {
         java.util.Date fechaFormato = new Date();
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String fecha = formato.format(fechaFormato);
+        System.out.println("Fecha Mora: " + fecha);
         Conexion conexion = new Conexion();
 
         int id_cuenta_Ingresos = 50;
 
         if (cuota.getMora() > 0) {
             conexion.UID("INSERT INTO movimientos_ER(id_cuenta,fecha,monto) VALUES('" + id_cuenta_Ingresos + "','" + fecha + "','" + cuota.getMora() + "')");
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(ControladorMovimientosER.class.getName()).log(Level.SEVERE, null, ex);
+            }
             calcularUtilidad();
         }
 
@@ -70,11 +76,17 @@ public class ControladorMovimientosER {
         java.util.Date fechaFormato = new Date();
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String fecha = formato.format(fechaFormato);
+        System.out.println("Fecha Interes: " + fecha);
         Conexion conexion = new Conexion();
 
         int id_cuenta_Ingresos = 50;
         if (cuota.getInteres() > 0) {
             conexion.UID("INSERT INTO movimientos_ER(id_cuenta,fecha,monto) VALUES('" + id_cuenta_Ingresos + "','" + fecha + "','" + cuota.getInteres() + "')");
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(ControladorMovimientosER.class.getName()).log(Level.SEVERE, null, ex);
+            }
             calcularUtilidad();
         }
 
@@ -126,7 +138,14 @@ public class ControladorMovimientosER {
         utilidad = montoIngresos - montoGastos;
 
         //INSERTANDO UTILIDAD EN LA BASE DE DATOS
-        conexion.UID("INSERT INTO movimientos_ER(id_cuenta,fecha,monto) VALUES('" + id_cuenta_utilidad + "','" + fecha + "','" + utilidad + "')");
+        try {
+            conexion.UID("INSERT INTO movimientos_ER(id_cuenta,fecha,monto) VALUES('" + id_cuenta_utilidad + "','" + fecha + "','" + utilidad + "')");
+
+        } catch (Exception e) {
+            mensaje1="Error en la Transaccion!!";
+            mensaje2="No se ha podido Registrar el Pago!";
+            mensajes.fatal(mensaje1, mensaje2);
+        }
 
     }
 
