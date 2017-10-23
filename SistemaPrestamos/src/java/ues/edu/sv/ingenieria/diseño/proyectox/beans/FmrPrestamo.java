@@ -297,6 +297,7 @@ public class FmrPrestamo implements Serializable {
     }
     
     
+    /*---Aqui se ponene los elementos del PUTO ticket de prestamo---*/
     public void elementosTicketPrestamo(){
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String idPresamo= String.valueOf(prestamo.getId_prestamo());
