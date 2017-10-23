@@ -221,7 +221,8 @@ public class FmrPrestamo implements Serializable {
 
             cControl.agregar(cuota);
             pControl.actualizar(cuota.getSaldo_actualizado(), selectPrestamo.getId_prestamo(), cuota.getFecha());
-bitacora.agregar("se pago cuota del prestamo: "+cuota.getId_prestamo());
+            bitacora.agregar("se pago cuota del prestamo: "+cuota.getId_prestamo());
+            elementosTicketPrestamo();
         }
 
         
@@ -244,9 +245,7 @@ bitacora.agregar("se pago cuota del prestamo: "+cuota.getId_prestamo());
 
         try {
             pControl.agregar(prestamo);
-            bitacora.agregar("Se agrego el prestamos: "+prestamo.getId_prestamo()
-                    +"del cliente: "+prestamo.getDui());
-          
+            elementosTicketPrestamo();
         } catch (ErrorPrestamo ex) {
             Logger.getLogger(FmrPrestamo.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -267,7 +266,7 @@ bitacora.agregar("se pago cuota del prestamo: "+cuota.getId_prestamo());
     /*-----Aqui se cargan los elementos de la tiquetera------*/
     
     public void elemetosTicket(Cuota cuota){
-        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
         String fecha = formato.format(cuota.getFecha());
         String NumCuota= String.valueOf(cuota.getNum_cuota());
         String Monto= String.valueOf(selectPrestamo.getMonto());
@@ -297,6 +296,42 @@ bitacora.agregar("se pago cuota del prestamo: "+cuota.getId_prestamo());
      
         Ticket ticket = new Ticket();
         ticket.comprobantePago(elementos);
+    }
+    
+    
+    /*----Aqui se ponene los elementos del PUTO ticket de comprobacion prestamo----*/
+    public void elementosTicketPrestamo(){
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+        String idPresamo= String.valueOf(prestamo.getId_prestamo());
+        String dui = prestamo.getDui();
+        String nombre = prestamo.getNombres();
+        String apellidos = prestamo.getApellidos();
+        String monto = String.valueOf(prestamo.getMonto());
+        String interes = String.valueOf(prestamo.getTasa_interes());
+        String cuotas = String.valueOf(prestamo.getCantidad_cuotas());
+        String valorcuota = String.valueOf(prestamo.getValor_cuota());
+        String fechainicio = formato.format(prestamo.getFecha_inicio());
+        String fechafin = formato.format(prestamo.getFecha_fin());
+       
+        
+        
+        String[] Lista={
+          idPresamo,
+          dui,
+          nombre,
+          apellidos,
+          monto,
+          interes,
+          cuotas,
+          valorcuota,
+          fechainicio,
+          fechafin
+            
+        };
+        
+        Ticket ticket = new Ticket();
+        ticket.comprobantePrestamo(Lista);
+        
     }
     
     //metodos para redireccion
