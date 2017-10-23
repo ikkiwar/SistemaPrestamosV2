@@ -19,6 +19,7 @@ import ues.edu.sv.ingenieria.diseño.proyectox.definiciones.Cuota;
 import ues.edu.sv.ingenieria.diseño.proyectox.definiciones.Parametro;
 import ues.edu.sv.ingenieria.diseño.proyectox.definiciones.Prestamo;
 import ues.edu.sv.ingenieria.diseño.proyectox.definiciones.Sesion;
+import ues.edu.sv.ingenieria.diseño.proyectox.servicios.EntradaBitacora;
 import ues.edu.sv.ingenieria.diseño.proyectox.servicios.Ticket;
 
 /**
@@ -40,7 +41,7 @@ public class FmrPrestamo implements Serializable {
     private Prestamo selectPrestamo;
     private Sesion sesion;
     private Parametro parametro = new Parametro();
-    
+    private EntradaBitacora bitacora = new EntradaBitacora();
     private String filtro;
     private int cantidadCuotas;
     private int cuotasPorcentaje = 0;
@@ -220,7 +221,7 @@ public class FmrPrestamo implements Serializable {
 
             cControl.agregar(cuota);
             pControl.actualizar(cuota.getSaldo_actualizado(), selectPrestamo.getId_prestamo(), cuota.getFecha());
-
+bitacora.agregar("se pago cuota del prestamo: "+cuota.getId_prestamo());
         }
 
         
@@ -243,6 +244,8 @@ public class FmrPrestamo implements Serializable {
 
         try {
             pControl.agregar(prestamo);
+            bitacora.agregar("Se agrego el prestamos: "+prestamo.getId_prestamo()
+                    +"del cliente: "+prestamo.getDui());
           
         } catch (ErrorPrestamo ex) {
             Logger.getLogger(FmrPrestamo.class.getName()).log(Level.SEVERE, null, ex);
