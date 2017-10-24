@@ -6,53 +6,57 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
-    <body>
+    <body onload="#{Bitacora.inicioBitacora()}">
 
         <ui:composition template="./../plantilla/plantilla.xhtml">
 
             <ui:define name="content">
-                
-                
+
+
                 <h:panelGrid columns="2" style="padding-top: 10px;padding-left: 24px ">
                     <h:graphicImage  id="icono" class="icon" name="/img/clipboard.png"  height="50" width="50"/>
                     <p:outputLabel for="icono" value="BITÁCORA" style="color: white; "/>
                 </h:panelGrid>
                 <p:separator/>
                 <br/>
-                
-                
 
+
+                <h:form style="display: none">
+                    <p:remoteCommand action="#{Bitacora.inicioBitacora()}" autoRun="true" update="bitacora"/>
+                </h:form>
+                
                 <h:form id="bitacora">
-                    
-                    <p:dataTable id="tblBitacora"  value="#{clientes}"  var="cliente" paginator="true" 
+
+                    <p:dataTable id="tblBitacora"  value="#{Bitacora.listBitacora}"  var="lbitacora" paginator="true" 
                                  rows="10" rowsPerPageTemplate="5,10,15"  editable="false" style="margin:20px">
 
                         <f:facet name="header">
                             BITÁCORA GLOBAL
                         </f:facet>
 
-                        <p:column filterBy="#{tblBitacora.fecha}" headerText="FECHA" footerText="contains" filterMatchMode="contains">
-                            <h:outputText value=""  />
-                        </p:column>
- 
 
-                        <p:column filterBy="#{tblBitacora.hora}"  headerText="HORA"  footerText="contains" filterMatchMode="contains">
-                            <h:outputText value=""  />
+
+                        <p:column  headerText="FECHA"  >
+                            <h:outputText value="#{lbitacora.fecha}"  />
+                        </p:column>
+                        
+                         <p:column  headerText="HORA"  >
+                             <h:outputText value="#{lbitacora.hora}"  />
                         </p:column>
 
-                        <p:column  filterBy="#{tblBitacora.usuario}" headerText="USUARIO"  footerText="contains" filterMatchMode="contains">
-                            <h:outputText value=""  />
+                        <p:column  headerText="USUARIO"  >
+                            <h:outputText value="#{lbitacora.usuario}"  />
                         </p:column>
-                       
-                        <p:column  filterBy="#{tblBitacora.accion}" headerText="ACCIÓN"  footerText="contains" filterMatchMode="contains">
-                            <h:outputText value=""  />
+
+                        <p:column  headerText="ACCIÓN"  >
+                            <h:outputText value="#{lbitacora.accion}"  />
                         </p:column>    
                     </p:dataTable>
                 </h:form>
 
 
 
-                
+
             </ui:define>
 
         </ui:composition>

@@ -14,10 +14,12 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.xml.rpc.encoding.Serializer;
+import ues.edu.sv.ingenieria.diseño.proyectox.controladores.ControladorBitacora;
 import ues.edu.sv.ingenieria.diseño.proyectox.servicios.Direccionamientos;
 import ues.edu.sv.ingenieria.diseño.proyectox.controladores.ControladorSesion;
 import ues.edu.sv.ingenieria.diseño.proyectox.controladores.ErrorPrestamo;
 import ues.edu.sv.ingenieria.diseño.proyectox.definiciones.Sesion;
+import ues.edu.sv.ingenieria.diseño.proyectox.servicios.EntradaBitacora;
 import ues.edu.sv.ingenieria.diseño.proyectox.servicios.Mensajeria;
 
 /**
@@ -33,6 +35,7 @@ public class FmrSesion implements Serializable {
     private boolean login=false;
     private ControladorSesion sesionControlador = new ControladorSesion();
     private Direccionamientos direccionamiento = new Direccionamientos();
+    private EntradaBitacora bitacora = new EntradaBitacora();
     Mensajeria mensajes = new Mensajeria();
     String mensaje1;
     String mensaje2; 
@@ -53,7 +56,7 @@ public class FmrSesion implements Serializable {
             
             
             login = sesion.isSesion();
-            
+            bitacora.agregar("Inicio de Sesion");
            return direccionamiento.redirectHome();
            
            
@@ -65,7 +68,7 @@ public class FmrSesion implements Serializable {
         
     }
     
-    public String doLogout() {
+    public String doLogout() throws ErrorPrestamo {
         // false indica que ya no esta loggeado
         login = false;
          
@@ -73,7 +76,7 @@ public class FmrSesion implements Serializable {
         FacesMessage msg = new FacesMessage("Logout success!", "INFO MSG");
         msg.setSeverity(FacesMessage.SEVERITY_INFO);
         FacesContext.getCurrentInstance().addMessage(null, msg);
-         
+         bitacora.agregar("Termino sesion");
         return direccionamiento.reditectIndex();
     }
 
