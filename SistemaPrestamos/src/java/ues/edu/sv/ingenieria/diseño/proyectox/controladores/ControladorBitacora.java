@@ -15,6 +15,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import ues.edu.sv.ingenieria.diseño.proyectox.definiciones.Bitacora;
 import ues.edu.sv.ingenieria.diseño.proyectox.definiciones.Conexion;
 import ues.edu.sv.ingenieria.diseño.proyectox.definiciones.Sesion;
 
@@ -75,7 +76,33 @@ public class ControladorBitacora {
         
     }
     
-    
+      public List<Bitacora> obtenerBitacora() {
+        List<Bitacora> listAcciones = new ArrayList<>(); 
+           
+           Conexion conexion = new Conexion();
+        ResultSet resultado;
+
+        System.out.println("Estoy al Inicio del metodo obtener Bitacora !");
+
+        
+
+            resultado = conexion.getValores("SELECT * FROM bitacora ORDER BY fecha DESC");
+
+        try {
+            while (resultado.next()) {
+                
+                listAcciones.add(new Bitacora(resultado.getDate("fecha"),resultado.getTime("fecha"),
+                        resultado.getInt("id_usuario"),resultado.getString("accion")));
+         
+                // System.out.println("Estoy en el While");
+
+                
+            }  
+        } catch (SQLException ex) {
+            Logger.getLogger(ControladorBitacora.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return listAcciones;
+    }
     
     
 }

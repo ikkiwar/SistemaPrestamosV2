@@ -22,8 +22,7 @@ import ues.edu.sv.ingenieria.diseño.proyectox.servicios.Mensajeria;
 public class ControladorSesion {
 
     Direccionamientos direccionamineto = new Direccionamientos();
-    ControladorBitacora bitacora = new ControladorBitacora();
-    
+   
    
 
     // metodo para comprar contraseñas la que se esta ingresando y la almacenda en la base de datos
@@ -51,7 +50,7 @@ public class ControladorSesion {
                 EntradaBitacora sesionverificada = new EntradaBitacora(datos.get(0).getId(),datos.get(0).getUser(),
                 datos.get(0).getContraseña(),datos.get(0).getRol());
                 System.out.println(sesionverificada.getUser());
-                bitacora.agregar(sesionverificada.getId(), "Inicio sesion");
+              
             }
 
         }
