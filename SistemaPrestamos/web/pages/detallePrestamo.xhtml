@@ -15,7 +15,7 @@
             <ui:define name="content">
 
                 <h:form style="display: none">
-                    <p:remoteCommand action="#{prestamos.obtenerCantidadCuotas(prestamos.selectPrestamo.id_prestamo)}" autoRun="true" update="barraProgreso" />
+                    <p:remoteCommand action="#{prestamos.obtenerCantidadCuotas(prestamos.selectPrestamo.id_prestamo)}" autoRun="true" update="barraProgreso cuotas" />
                 </h:form>
 
                 <h:form style="display: none">
@@ -108,11 +108,10 @@
                     <h:graphicImage class="icon" name="/img/reportes.png"  height="50" width="50"/>
 
                 </a> 
-                <a href="prestamoReport.jsf" style="text-decoration: none;color: white;margin-left: 10px" title="Ir a Reporte" >
-                    <h:graphicImage class="icon" name="/img/reportes.png"  height="50" width="50"/>
-
-                </a> 
-                <p:commandLink 
+              
+                <p:commandLink title="Imprimir historial de pagos" action="#{prestamos.ticketHistorialPago()}" style="text-decoration: none;color: white;margin-left: 15px">
+                    <p:graphicImage id="iconprint" class="icon"  name="/img/receipt.png"  height="50" width="50"/>
+                </p:commandLink>
                 
                 
                 <br/>

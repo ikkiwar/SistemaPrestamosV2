@@ -5,6 +5,7 @@
  */
 package ues.edu.sv.ingenieria.diseño.proyectox.servicios;
 
+import java.util.ArrayList;
 import javax.print.Doc;
 import javax.print.DocFlavor;
 import javax.print.DocPrintJob;
@@ -76,7 +77,7 @@ public class Ticket {
         p.newLine();
         p.addLineSeperator();
         p.newLine();
-        p.setText("Esperanza x Guirola FOREVER :3");
+        p.setText("Tenga un buen dia");
         p.newLine();
         p.addLineSeperator();
         p.feed((byte) 3);
@@ -105,9 +106,9 @@ public class Ticket {
         p.alignLeft();
         p.setText("Id Prestamo:" + Lista[0]);
         p.newLine();
-        p.setText("DUI: "+Lista[1]);
+        p.setText("DUI: " + Lista[1]);
         p.newLine();
-        p.setText("Nombre: "+Lista[2]);
+        p.setText("Nombre: " + Lista[2]);
         p.newLine();
         p.addLineSeperator();
         p.newLine();
@@ -139,6 +140,70 @@ public class Ticket {
         p.addLineSeperator();
         p.newLine();
         p.setText("Tenga un buen dia!!!!!!");
+        p.newLine();
+        p.addLineSeperator();
+        p.feed((byte) 3);
+        p.finit();
+
+        feedPrinter(p.finalCommandSet().getBytes());
+
+    }
+
+    public void ticketHistorial(String[] Lista, ArrayList<String> ListaC) {
+        PrinterOptions p = new PrinterOptions();
+
+        String[] titles = {"Valor Cuota: $", "Saldo Actualizado: $", "Fecha de pago: "};
+        int contadortitle = 0;
+
+        p.resetAll();
+        p.initialize();
+        p.feedBack((byte) 2);
+        p.chooseFont(1);
+        p.color(0);
+        p.alignLeft();
+        p.setText("Prestamos ABC");
+        p.newLine();
+        p.setText("Resumen de pagos");
+        p.newLine();
+        p.addLineSeperator();
+        p.newLine();
+
+        p.alignLeft();
+        p.setText("Id Prestamo:" + Lista[0]);
+        p.newLine();
+        p.setText("DUI: " + Lista[1]);
+        p.newLine();
+        p.setText("Nombre: " + Lista[2]);
+        p.newLine();
+        p.setText("Apellidos: " + Lista[3]);
+        p.newLine();
+        p.setText("Monto: $" + Lista[4]);
+        p.newLine();
+        p.addLineSeperator();
+        p.newLine();
+
+        for (int x = 0; x < ListaC.size(); x++) {
+            p.setText(titles[contadortitle] + ListaC.get(x));
+            p.newLine();
+            ++contadortitle;
+            if (contadortitle == 3) {
+                p.addLineSeperator();
+                p.newLine();
+                contadortitle = 0;
+            }
+
+        }
+
+        p.alignLeft();
+        p.setText(" - Detalles - ");
+        p.newLine();
+        p.alignLeft();
+        p.addLineSeperator();
+
+        p.newLine();
+        p.addLineSeperator();
+        p.newLine();
+        p.setText("Guirochaca best husbando");
         p.newLine();
         p.addLineSeperator();
         p.feed((byte) 3);
