@@ -20,7 +20,7 @@
                     <p:remoteCommand action="#{prestamos.obtenerCantidadCuotas(prestamos.selectPrestamo.id_prestamo)}" autoRun="true" update="barraProgreso cuotas" />
                 </h:form>
 
-                <h:panelGrid columns="2">
+                <h:panelGrid columns="2" >
                     <h:panelGrid columns="2" style="padding-top: 10px;padding-left: 15px ">
                         <h:graphicImage  id="Home" class="icon" name="/img/archivo.png"  height="60" width="60"/>
                         <p:outputLabel for="Home" value="REGISTRAR PAGO" style="color: white; font-family: sans-serif"/>
@@ -28,7 +28,7 @@
 
                     </h:panelGrid>| 
                     <h:panelGrid  style=" padding-right: 0px; padding-left: 200px;padding-top: 0px">
-                        <p:panel  style="width: 690px; height: 158px;background-color: #FFFFFF" >
+                        <p:panel id="panel2" style="width: 690px; height: 158px;background-color: #FFFFFF" >
 
                             <h:panelGrid columns="2">
                                 <h:panelGrid columns="1">
@@ -115,7 +115,7 @@
 
 
                                     <h:panelGrid columns="2" >
-                                        <p:commandButton value="calcular" update="panel" actionListener="#{prestamos.calcular()}" style="margin-right:20px;" />
+                                        <p:commandButton value="calcular" update="panel panel2" actionListener="#{prestamos.calcular()}" style="margin-right:20px;" />
                                         <p:commandButton value="Resgistrar" update="growl" onclick="PF('dialogInforme').show();" actionListener="#{prestamos.submitCuota()}"/>
                                     </h:panelGrid>
 

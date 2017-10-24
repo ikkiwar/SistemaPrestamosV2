@@ -52,7 +52,7 @@ public class FmrPrestamo implements Serializable {
 
     @PostConstruct
     public void inicio() {
-        
+
         try {
             listaP = pControl.obtenerActivos();
             listaH = pControl.obtenerHistorial();
@@ -82,7 +82,7 @@ public class FmrPrestamo implements Serializable {
 
         switch (cantidadCuotas) {
             case 0:
-                cuotasPorcentaje=0;
+                cuotasPorcentaje = 0;
                 break;
             case 1:
                 cuotasPorcentaje = 8;
@@ -156,7 +156,7 @@ public class FmrPrestamo implements Serializable {
         double tasa_mora = 0;
         double valormora = 0;
         double valor_cuota = cuota.getValor();
-        
+
         String mora = null;
 
         if (cuota.getValor() < selectPrestamo.getValor_cuota()) {
@@ -171,17 +171,16 @@ public class FmrPrestamo implements Serializable {
 
         if (anterior == null) {
             cuota.setInteres(selectPrestamo.getMonto() * selectPrestamo.getTasa_interes());
-            
-            System.out.print("TASA MORA"+ tasa_mora);
-            System.out.println("valor"+ cuota.getValor());
-            System.out.println("Interes"+ selectPrestamo.getTasa_interes());
+
+            System.out.print("TASA MORA" + tasa_mora);
+            System.out.println("valor" + cuota.getValor());
+            System.out.println("Interes" + selectPrestamo.getTasa_interes());
 
         } else {
 
             diferencia = ahora.getTime() - anterior.getTime();
             diferenciadias = TimeUnit.MILLISECONDS.toDays(diferencia);
             tasa_mora = parametro.obtenerTasas("Mora");
-           
 
             if (diferenciadias <= 30) {
                 cuota.setInteres(0);
@@ -191,21 +190,21 @@ public class FmrPrestamo implements Serializable {
                 if (!selectPrestamo.getCapitalizacion().equals("D")) {
                     valormora = (((valor_cuota * tasa_mora) / 30) * diferenciadias);
                 } else {
-                    valormora = ((valor_cuota*(tasa_mora /(30 * selectPrestamo.getCantidad_cuotas()))) 
-                            *diferenciadias);
+                    valormora = ((valor_cuota * (tasa_mora / (30 * selectPrestamo.getCantidad_cuotas())))
+                            * diferenciadias);
                 }
-                valormora=Math.round(valormora*100.0)/100.0;
+                valormora = Math.round(valormora * 100.0) / 100.0;
                 cuota.setMora(valormora);
                 cuota.setInteres(selectPrestamo.getMonto() * selectPrestamo.getTasa_interes());
-                cuota.setValor(valor_cuota+valormora);
-                System.out.println("BDHSJDGFHV "+valor_cuota);
+                cuota.setValor(valor_cuota + valormora);
+                System.out.println("BDHSJDGFHV " + valor_cuota);
             }
 
         }
-        System.out.println("VALOR2 "+valor_cuota);
+        System.out.println("VALOR2 " + valor_cuota);
         cuota.setCapital(valor_cuota - cuota.getInteres());
-        SaldoAc =cuota.getSaldo_anterior() - cuota.getCapital();
-        SaldoAc = Math.round(SaldoAc*100.0)/100.0;
+        SaldoAc = cuota.getSaldo_anterior() - cuota.getCapital();
+        SaldoAc = Math.round(SaldoAc * 100.0) / 100.0;
         cuota.setSaldo_actualizado(SaldoAc);
 
     }
@@ -221,11 +220,10 @@ public class FmrPrestamo implements Serializable {
 
             cControl.agregar(cuota);
             pControl.actualizar(cuota.getSaldo_actualizado(), selectPrestamo.getId_prestamo(), cuota.getFecha());
-            bitacora.agregar("se pago cuota del prestamo: "+cuota.getId_prestamo());
-            elementosTicketPrestamo();
+            bitacora.agregar("se pago cuota del prestamo: " + cuota.getId_prestamo());
+            elemetosTicket(cuota);
         }
 
-        
         prestamo = new Prestamo();
     }
 
@@ -250,8 +248,6 @@ public class FmrPrestamo implements Serializable {
             Logger.getLogger(FmrPrestamo.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        
-
     }
 
     public void obtenerPorPrestamo(Cliente seleccionado) {
@@ -262,47 +258,43 @@ public class FmrPrestamo implements Serializable {
             Logger.getLogger(FmrPrestamo.class.getName()).log(Level.SEVERE, null, ex);
         }*/
     }
-    
+
     /*-----Aqui se cargan los elementos de la tiquetera------*/
-    
-    public void elemetosTicket(Cuota cuota){
+    public void elemetosTicket(Cuota cuota) {
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
         String fecha = formato.format(cuota.getFecha());
-        String NumCuota= String.valueOf(cuota.getNum_cuota());
-        String Monto= String.valueOf(selectPrestamo.getMonto());
+        String NumCuota = String.valueOf(cuota.getNum_cuota());
+        String Monto = String.valueOf(selectPrestamo.getMonto());
         String SaldoAn = String.valueOf(cuota.getSaldo_anterior());
         String SaldoAc = String.valueOf(cuota.getSaldo_actualizado());
         String mora = String.valueOf(cuota.getMora());
         String interes = String.valueOf(cuota.getInteres());
         String capital = String.valueOf(cuota.getCapital());
         String idPrestamo = String.valueOf(cuota.getId_prestamo());
-        
-        
-        String[] elementos={
-        idPrestamo,    
-        selectPrestamo.getNombres(),
-        selectPrestamo.getApellidos(),
-        NumCuota,
-        Monto,
-        SaldoAn,
-        mora,
-        interes,
-        capital,
-        SaldoAc,
-        fecha
-           
+
+        String[] elementos = {
+            idPrestamo,
+            selectPrestamo.getNombres(),
+            selectPrestamo.getApellidos(),
+            NumCuota,
+            Monto,
+            SaldoAn,
+            mora,
+            interes,
+            capital,
+            SaldoAc,
+            fecha
+
         };
-        
-     
+
         Ticket ticket = new Ticket();
         ticket.comprobantePago(elementos);
     }
-    
-    
+
     /*----Aqui se ponene los elementos del PUTO ticket de comprobacion prestamo----*/
-    public void elementosTicketPrestamo(){
+    public void elementosTicketPrestamo() {
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
-        String idPresamo= String.valueOf(prestamo.getId_prestamo());
+        String idPresamo = String.valueOf(prestamo.getId_prestamo());
         String dui = prestamo.getDui();
         String nombre = prestamo.getNombres();
         String apellidos = prestamo.getApellidos();
@@ -312,30 +304,28 @@ public class FmrPrestamo implements Serializable {
         String valorcuota = String.valueOf(prestamo.getValor_cuota());
         String fechainicio = formato.format(prestamo.getFecha_inicio());
         String fechafin = formato.format(prestamo.getFecha_fin());
-       
-        
-        
-        String[] Lista={
-          idPresamo,
-          dui,
-          nombre,
-          apellidos,
-          monto,
-          interes,
-          cuotas,
-          valorcuota,
-          fechainicio,
-          fechafin
-            
+
+        String[] Lista = {
+            idPresamo,
+            dui,
+            nombre,
+            apellidos,
+            monto,
+            interes,
+            cuotas,
+            valorcuota,
+            fechainicio,
+            fechafin
+
         };
-        
+
         Ticket ticket = new Ticket();
         ticket.comprobantePrestamo(Lista);
-        
+
     }
-    
+
     //metodos para redireccion
-    public String reditect(){
+    public String reditect() {
         return "/index.xhtml?faces-redirect=true";
     }
 
