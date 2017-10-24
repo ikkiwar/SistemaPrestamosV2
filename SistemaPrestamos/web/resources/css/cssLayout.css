@@ -1,12 +1,15 @@
 
 #top {
-    position: relative;
+    position: fixed;
+    vertical-align: top;
+    z-index:100;
+    width: 100%;
     background-color:#349886;
     color: white;
     height: 20px;
     padding: 5px;
     margin: 0px 0px 0px 0px;
-   
+
 
 }
 
@@ -25,6 +28,12 @@
     width: 150px;
     height: 100%;
     position: fixed;
+    top: 2em;
+}
+
+#content {
+    top: 3em;
+    position: relative;
 }
 
 #right {
@@ -41,7 +50,7 @@
 }
 
 .left_content {
-   
+
     background-color: #dddddd;
     padding: 0px;
     margin-left: 150px;
