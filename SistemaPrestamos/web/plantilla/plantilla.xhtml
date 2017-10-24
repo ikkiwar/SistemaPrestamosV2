@@ -22,6 +22,8 @@
 
             <ui:insert name="top">
 
+
+
                 <div id="center">
 
                     <div id="izquierda">
@@ -38,18 +40,20 @@
                     </div>
 
 
-                    <div id="derecha">
 
 
-
-                        <!--<a href="/SistemaPrestamos/index.jsf" >LOOOL</a>-->
-                        <h:form>
-                            <h:commandButton value="Salir" style="background-color: #00a0df ;
-                                             border-style: none ;color: white; padding: 0.5%;width: 60px;
-                                              margin-right: 5px; " action="#{fmrSesion.doLogout()}"/>
-                        </h:form>
+                    <div  style="text-align: right;margin-right:45px;"  >
+                        <p:outputLabel  for="ingreso" value="Has Ingresado Como: "  style="font-family:fantasy ;font-size: 15px;color: #000000" />
+                        <p:outputLabel id="ingreso" value="#{fmrSesion.sesion.user}" style="color: white;font-size: 15px;font-family: monospace" />
+                        <p:outputLabel value="   "/>
+                        
+                        <p:commandButton value="Salir"   title="Salir del Sistema" style="background-color: #00a0df ;
+                                         border-style: none ;color: white; margin-top: 0px; width: 70px;
+                                         margin-right: 3px;border-color: white" action="#{fmrSesion.doLogout()}"/>  
                     </div>
-
+           
+                        
+                    
 
                 </div>
 
@@ -88,11 +92,11 @@
                             Parametros
                         </a>
                         <p:separator/>
-                         <a href="/SistemaPrestamos/pages/adminFinanciera.jsf">
-                              <h:graphicImage class="icon" name="/img/presentation.png" height="25" width="25" />
-                              Finanzas
-                          </a> 
-                        
+                        <a href="/SistemaPrestamos/pages/adminFinanciera.jsf">
+                            <h:graphicImage class="icon" name="/img/presentation.png" height="25" width="25" />
+                            Finanzas
+                        </a> 
+
 
                         <p:separator/>
                         <a href="/SistemaPrestamos/pages/bitacora.jsf">

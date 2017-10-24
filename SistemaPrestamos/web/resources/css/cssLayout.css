@@ -6,10 +6,23 @@
     width: 100%;
     background-color:#349886;
     color: white;
-    height: 20px;
+    height: 25px;
     padding: 5px;
     margin: 0px 0px 0px 0px;
 
+
+}
+#top_index{
+    
+    position: relative;
+    vertical-align: top;
+    z-index:100;
+    width: 100%;
+    background-color:#349886;
+    color: white;
+    height: 25px;
+    padding: 5px;
+    margin: 0px 0px 0px 0px;
 
 }
 

@@ -9,12 +9,9 @@ import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.xml.rpc.encoding.Serializer;
-import ues.edu.sv.ingenieria.diseño.proyectox.controladores.ControladorBitacora;
 import ues.edu.sv.ingenieria.diseño.proyectox.servicios.Direccionamientos;
 import ues.edu.sv.ingenieria.diseño.proyectox.controladores.ControladorSesion;
 import ues.edu.sv.ingenieria.diseño.proyectox.controladores.ErrorPrestamo;
@@ -29,54 +26,56 @@ import ues.edu.sv.ingenieria.diseño.proyectox.servicios.Mensajeria;
 @ManagedBean
 @SessionScoped
 public class FmrSesion implements Serializable {
-    
-    
+
     private Sesion sesion = new Sesion();
-    private boolean login=false;
+    private boolean login = false;
     private ControladorSesion sesionControlador = new ControladorSesion();
     private Direccionamientos direccionamiento = new Direccionamientos();
     private EntradaBitacora bitacora = new EntradaBitacora();
     Mensajeria mensajes = new Mensajeria();
     String mensaje1;
-    String mensaje2; 
-    
-    
-    public String comprobarDatos() throws ErrorPrestamo{
+    String mensaje2;
+
+    public String comprobarDatos() throws ErrorPrestamo {
         try {
             sesion.setSesion(sesionControlador.verificar(sesion));
-           // sesionCheck=sesion.verificar(user, contraseña);
+            // sesionCheck=sesion.verificar(user, contraseña);
             //boolean autorizado= sesion.verificar(user, contraseña);
-            
-          
+
         } catch (ErrorPrestamo ex) {
             Logger.getLogger(FmrSesion.class.getName()).log(Level.SEVERE, null, ex);
         }
         // sesion true se procede a realizar la peticion de redireccion sesion false se devueve a login
-        if(sesion.isSesion()){
-            
-            
+        if (sesion.isSesion()) {
+
             login = sesion.isSesion();
             bitacora.agregar("Inicio de Sesion");
-           return direccionamiento.redirectHome();
-           
-           
-        }else{
-        
-         return direccionamiento.reditectIndex();
-           
+            return direccionamiento.redirectHome();
+
+        } else {
+
+            return direccionamiento.reditectIndex();
+
         }
+
+    }
+
+    public void bienvenida() {
+        mensaje1="BIENVENIDO AL SISTEMA!";
+        mensaje2=sesion.getUser();
+        mensajes.info(mensaje1, mensaje2);
         
     }
-    
+
     public String doLogout() throws ErrorPrestamo {
         // false indica que ya no esta loggeado
         login = false;
-         
+
         // Mensaje de desloggeo
         FacesMessage msg = new FacesMessage("Logout success!", "INFO MSG");
         msg.setSeverity(FacesMessage.SEVERITY_INFO);
         FacesContext.getCurrentInstance().addMessage(null, msg);
-         bitacora.agregar("Termino sesion");
+        bitacora.agregar("Termino sesion");
         return direccionamiento.reditectIndex();
     }
 
@@ -96,8 +95,4 @@ public class FmrSesion implements Serializable {
         this.login = login;
     }
 
-    
-    
-    
-    
 }

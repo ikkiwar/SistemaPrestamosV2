@@ -59,15 +59,16 @@ public class ControladorMovimientosER {
 
         int id_cuenta_Ingresos = 50;
 
-        if (cuota.getMora() > 0) {
+        
             conexion.UID("INSERT INTO movimientos_ER(id_cuenta,fecha,monto) VALUES('" + id_cuenta_Ingresos + "','" + fecha + "','" + cuota.getMora() + "')");
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException ex) {
                 Logger.getLogger(ControladorMovimientosER.class.getName()).log(Level.SEVERE, null, ex);
             }
+            
             calcularUtilidad();
-        }
+        
 
     }
 
@@ -80,7 +81,7 @@ public class ControladorMovimientosER {
         Conexion conexion = new Conexion();
 
         int id_cuenta_Ingresos = 50;
-        if (cuota.getInteres() > 0) {
+        
             conexion.UID("INSERT INTO movimientos_ER(id_cuenta,fecha,monto) VALUES('" + id_cuenta_Ingresos + "','" + fecha + "','" + cuota.getInteres() + "')");
             try {
                 Thread.sleep(1000);
@@ -88,7 +89,7 @@ public class ControladorMovimientosER {
                 Logger.getLogger(ControladorMovimientosER.class.getName()).log(Level.SEVERE, null, ex);
             }
             calcularUtilidad();
-        }
+        
 
     }
 

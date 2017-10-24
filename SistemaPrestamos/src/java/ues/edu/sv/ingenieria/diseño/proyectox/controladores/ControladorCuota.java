@@ -31,10 +31,9 @@ public class ControladorCuota {
 
         Conexion conexion = new Conexion();
 
-        controladorBalance.cuotaBalance(cuota);
-        controladorMovimientos.cuotaMovimientosIngresosPorInteres(cuota);
         mensaje1 = "Transaccion Exitosa!!";
         mensaje2 = "Pago Agregado Correctamente!!";
+
         try {
 
             conexion.UID("INSERT INTO cuota (id_prestamo,num_cuota,valor,interes,fecha"
@@ -44,7 +43,14 @@ public class ControladorCuota {
                     + fecha + "','" + cuota.getCapital() + "','" + cuota.getSaldo_anterior()
                     + "','" + cuota.getSaldo_actualizado() + "','" + cuota.getMora() + "')");
 
-            controladorMovimientos.cuotaMovimientosIngresosPorMora(cuota);
+            controladorBalance.cuotaBalance(cuota);
+            if (cuota.getInteres() > 0.0) {
+                controladorMovimientos.cuotaMovimientosIngresosPorInteres(cuota);
+
+            }
+            if (cuota.getMora() > 0.0) {
+                controladorMovimientos.cuotaMovimientosIngresosPorMora(cuota);
+            }
 
             mensajes.info(mensaje1, mensaje2);
         } catch (Exception e) {
