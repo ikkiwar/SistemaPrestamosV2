@@ -31,6 +31,33 @@ public class Direccionamientos {
         return "/pages/home.xhtml?faces-redirect=true";
     }
     
+    public String redirectClientes(){
+        return "/pages/cliente.xhtml?faces-redirect=true";
+    }
+    
+    public String redirectPrestamos(){
+        return "/pages/prestamo.xhtml?faces-redirect=true";
+    }
+    
+    public String redirectParametros(){
+        return "/pages/parametro.xhtml?faces-redirect=true";
+    }
+    
+    public String redirectFinanzas(){
+        return "/pages/adminFinanciera.xhtml?faces-redirect=true";
+    }
+    
+    public String redirectBitacora(){
+        return "/pages/bitacora.xhtml?faces-redirect=true";
+    }
+    
+    public String redirectAdministrarUsuario(){
+        return "/pages/adminUsuarios.xhtml?faces-redirect=true";
+    }
+    
+    public String redirectAcercade(){
+        return "/pages/home.xhtml?faces-redirect=true";
+    }
   
     
     public void verificarLog() throws IOException {
