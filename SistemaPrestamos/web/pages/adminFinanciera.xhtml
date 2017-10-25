@@ -29,8 +29,8 @@
 
                             <h:panelGrid >
                                 <p:outputLabel value="CUENTAS" />
-                                <p:dataTable id="tablaCuentas" value="#{cuentas.cuentasBalance}" var="cuenta" >
-                                    <p:column headerText="ID_CUENTA" style="text-align: center">
+                                <p:dataTable id="tablaCuentas" value="#{cuentas.cuentasBalance}" var="cuenta"  >
+                                    <p:column headerText="ID_CUENTA" style="text-align: center" >
 
                                         <h:outputText value="#{cuenta.id_cuenta}"   />
 
@@ -51,11 +51,12 @@
 
 
                     <p:tab title="Estado de Resultados">
-                        <p:commandButton  value="Generar Reporte" style="margin-left: 90%"/>
-                        <br/>
-                        <br/> 
-                        <p:commandButton  value="Ingresar Gastos" onclick="PF('ingresarGastos').show();" style="margin-left: 90%"/>
+                        <h:panelGrid columns="2" style="margin-left: 70%" >
+                            <p:commandButton  value="Generar Reporte" />
+                            <p:commandButton  value="Ingresar Gastos" onclick="PF('ingresarGastos').show();"  />
+                        </h:panelGrid>
                         <h:panelGrid columns="1" >
+
 
                             <h:panelGrid >
                                 <p:outputLabel value="CUENTAS" />
@@ -121,7 +122,7 @@
                            closeOnEscape="true" resizable="false">
 
                     <h:form style="text-align: left">
-                        <p:outputLabel  value="Este gasto sera insertado en la fecha actual del sistema!"/>
+                        <p:outputLabel  value="Este gasto sera insertado en la fecha actual!"/>
                         <p:separator/>
                         <br/>
                         <br/>
@@ -131,7 +132,7 @@
                         <p:growl id="growl" life="4000"  showDetail="true" />
                         <br/>
                         <br/>
-                        
+
                         <div class="center">
                             <h:panelGrid  columns="2">
                                 <p:commandButton  value="Registrar"  icon="ui-icon-disk" update="growl" action="#{movimientos.sumitGastos()}" oncomplete="PF('ingresarGastos').hide();"/>

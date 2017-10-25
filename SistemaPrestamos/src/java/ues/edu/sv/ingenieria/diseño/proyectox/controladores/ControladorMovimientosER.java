@@ -59,16 +59,14 @@ public class ControladorMovimientosER {
 
         int id_cuenta_Ingresos = 50;
 
-        
-            conexion.UID("INSERT INTO movimientos_ER(id_cuenta,fecha,monto) VALUES('" + id_cuenta_Ingresos + "','" + fecha + "','" + cuota.getMora() + "')");
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(ControladorMovimientosER.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
-            calcularUtilidad();
-        
+        conexion.UID("INSERT INTO movimientos_ER(id_cuenta,fecha,monto) VALUES('" + id_cuenta_Ingresos + "','" + fecha + "','" + cuota.getMora() + "')");
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(ControladorMovimientosER.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        calcularUtilidad();
 
     }
 
@@ -81,15 +79,14 @@ public class ControladorMovimientosER {
         Conexion conexion = new Conexion();
 
         int id_cuenta_Ingresos = 50;
-        
-            conexion.UID("INSERT INTO movimientos_ER(id_cuenta,fecha,monto) VALUES('" + id_cuenta_Ingresos + "','" + fecha + "','" + cuota.getInteres() + "')");
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(ControladorMovimientosER.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            calcularUtilidad();
-        
+
+        conexion.UID("INSERT INTO movimientos_ER(id_cuenta,fecha,monto) VALUES('" + id_cuenta_Ingresos + "','" + fecha + "','" + cuota.getInteres() + "')");
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(ControladorMovimientosER.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        calcularUtilidad();
 
     }
 
@@ -162,14 +159,17 @@ public class ControladorMovimientosER {
         if (movimientos.validar()) {
             mensaje1 = "Transaccion Exitosa!!";
             mensaje2 = "Gasto Agregado Correctamente!!";
+
+            conexion.UID("INSERT INTO movimientos_ER(id_cuenta,fecha,monto) VALUES('" + id_cuenta_gastos + "','" + fecha + "','" + movimientos.getMonto() + "')");
+
             try {
-
-                conexion.UID("INSERT INTO movimientos_ER(id_cuenta,fecha,monto) VALUES('" + id_cuenta_gastos + "','" + fecha + "','" + movimientos.getMonto() + "')");
-            } catch (Exception e) {
+                Thread.sleep(1000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(ControladorMovimientosER.class.getName()).log(Level.SEVERE, null, ex);
             }
-
-            //calcularUtilidad();
+            calcularUtilidad();
             mensajes.info(mensaje1, mensaje2);
+            
         } else {
 
             mensaje1 = "Error en la Transaccion!!";
