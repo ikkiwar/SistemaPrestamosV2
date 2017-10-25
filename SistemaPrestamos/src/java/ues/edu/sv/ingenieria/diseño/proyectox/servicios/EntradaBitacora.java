@@ -16,6 +16,7 @@ import ues.edu.sv.ingenieria.diseño.proyectox.controladores.ErrorPrestamo;
 @ManagedBean(name="entradaBitacora")
 public class EntradaBitacora {
     
+    /*--estaticos no cambiar--*/
     private static int id;
     private static String user;
     private static String contraseña;
