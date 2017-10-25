@@ -24,27 +24,26 @@ import ues.edu.sv.ingenieria.diseño.proyectox.definiciones.Sesion;
  * @author estuardo
  */
 public class ControladorBitacora {
-    
-    public void agregar(int id, String accion) throws ErrorPrestamo{
-        
-       // SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+    public void agregar(int id, String accion) throws ErrorPrestamo {
+
+        // SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         //Date fecha= new Date();
-        Calendar cal= Calendar.getInstance();
+        Calendar cal = Calendar.getInstance();
         Timestamp fechaSave = new Timestamp(cal.getTimeInMillis());
         //String fechaSave= formato.format(fecha);
         Conexion conexion = new Conexion();
 
         if (conexion != null) {
             conexion.UID("INSERT INTO bitacora(id_bitacora,id_usuario,fecha,accion)"
-                    + "VALUES('"+obtenerMaxIdBitacora() +"','" +id + "','" + fechaSave+"','"+ accion + "')");
+                    + "VALUES('" + obtenerMaxIdBitacora() + "','" + id + "','" + fechaSave + "','" + accion + "')");
 
         } else {
             throw new ErrorPrestamo("Error al Insertar Datos", "ControladorBitacora.agregar", "Error al Agregar Nuevo Registro");
         }
 
     }
-        
-        
+
     public int obtenerMaxIdBitacora() {
         int id = 0;
 
@@ -65,60 +64,57 @@ public class ControladorBitacora {
 
         return id;
     }
-    
-    
-    public void mostrar(){
-        
+
+    public void mostrar() {
+
         List<Sesion> sesion = new ArrayList<>();
         Conexion conexion = new Conexion();
         ResultSet resultado;
-        
-        
+
     }
-    
+
     // esta es el metodo que trae todos los datos en la BD para la tabla bitacora y los guarda en una lista del tipo bitacora
-      public List<Bitacora> obtenerBitacora() {
-        List<Bitacora> listAcciones = new ArrayList<>(); 
-           
-           Conexion conexion = new Conexion();
+    public List<Bitacora> obtenerBitacora() {
+        List<Bitacora> listAcciones = new ArrayList<>();
+
+        Conexion conexion = new Conexion();
         ResultSet resultado;
 
         System.out.println("Estoy al Inicio del metodo obtener Bitacora !");
 
-        
-
-            resultado = conexion.getValores("SELECT * FROM bitacora ORDER BY fecha DESC");
+        resultado = conexion.getValores("SELECT * FROM bitacora B left join usuario U "
+                + "on B.id_usuario=U.id_usuario ORDER BY fecha DESC");
 
         try {
             while (resultado.next()) {
-                
-                listAcciones.add(new Bitacora(resultado.getDate("fecha"),resultado.getTime("fecha"),
-                        resultado.getInt("id_usuario"),resultado.getString("accion")));
-         
-                // System.out.println("Estoy en el While");
 
-                
-            }  
+                listAcciones.add(new Bitacora(resultado.getDate("fecha"), resultado.getTime("fecha"),
+                        resultado.getString("login"), resultado.getString("accion")));
+
+                // System.out.println("Estoy en el While");
+            }
         } catch (SQLException ex) {
             Logger.getLogger(ControladorBitacora.class.getName()).log(Level.SEVERE, null, ex);
         }
         return listAcciones;
     }
-    
+
     // este metodo es el encargado de hace la consulta filtro y guarda los valores en una list para luego setiar en la tabla  
-      public List<Bitacora> buscar(String filtro) throws ErrorPrestamo {
+    public List<Bitacora> buscar(String filtro) throws ErrorPrestamo {
 
         List<Bitacora> lBitacora = new ArrayList<>();
         Conexion conexion = new Conexion();
         ResultSet resultado;
         try {
 
-            resultado = conexion.getValores("SELECT * FROM bitacora  WHERE  fecha LIKE '"
-                    + filtro + "%' OR id_usuario LIKE '" + filtro + "%' OR accion LIKE '" + filtro + "%'");
+            resultado = conexion.getValores("SELECT * FROM bitacora B left join usuario U "
+                    + "on B.id_usuario=U.id_usuario  WHERE  B.fecha LIKE '" + filtro + "%' "
+                    + "OR U.login LIKE '" + filtro + "%' OR B.accion LIKE '" + filtro + "%' "
+                    + "ORDER BY fecha DESC");
 
             while (resultado.next()) {
-                lBitacora.add(new Bitacora(resultado.getDate("fecha"),resultado.getTime("fecha"),
-                resultado.getInt("id_usuario"),resultado.getString("accion")));
+                lBitacora.add(new Bitacora(resultado.getDate("fecha"), resultado.getTime("fecha"),
+                        resultado.getString("login"), resultado.getString("accion")));
 
             }
 
@@ -129,5 +125,5 @@ public class ControladorBitacora {
         return lBitacora;
 
     }
-    
+
 }

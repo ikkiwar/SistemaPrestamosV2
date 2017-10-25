@@ -16,10 +16,10 @@ public class Bitacora {
 
     private Date fecha;
     private Time hora;
-    private int usuario;
+    private String usuario;
     private String accion;
 
-    public Bitacora(Date fecha,Time hora, int usuario, String accion) {
+    public Bitacora(Date fecha,Time hora, String usuario, String accion) {
         this.fecha = fecha;
         this.hora = hora;
         this.usuario = usuario;
@@ -44,11 +44,11 @@ public class Bitacora {
         this.hora = hora;
     }
 
-    public int getUsuario() {
+    public String getUsuario() {
         return usuario;
     }
 
-    public void setUsuario(int usuario) {
+    public void setUsuario(String usuario) {
         this.usuario = usuario;
     }
 

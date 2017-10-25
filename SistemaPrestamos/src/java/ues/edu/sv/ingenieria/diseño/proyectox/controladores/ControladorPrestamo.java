@@ -80,7 +80,8 @@ public class ControladorPrestamo implements Serializable {
         try {
 
             Conexion conexion = new Conexion();
-            resultado = conexion.getValores("Select * from cliente C left join prestamo P on C.dui=P.dui where estado=1 ");
+            resultado = conexion.getValores("Select * from cliente C left join prestamo P "
+                    + "on C.dui=P.dui where estado=1 ");
             while (resultado.next()) {
                 System.out.println("Estoy en el While");
                 activo.add(new Prestamo(resultado.getInt("id_prestamo"),
