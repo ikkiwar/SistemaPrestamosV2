@@ -76,6 +76,7 @@ public class ControladorBitacora {
         
     }
     
+    // esta es el metodo que trae todos los datos en la BD para la tabla bitacora y los guarda en una lista del tipo bitacora
       public List<Bitacora> obtenerBitacora() {
         List<Bitacora> listAcciones = new ArrayList<>(); 
            
@@ -104,5 +105,29 @@ public class ControladorBitacora {
         return listAcciones;
     }
     
+    // este metodo es el encargado de hace la consulta filtro y guarda los valores en una list para luego setiar en la tabla  
+      public List<Bitacora> buscar(String filtro) throws ErrorPrestamo {
+
+        List<Bitacora> lBitacora = new ArrayList<>();
+        Conexion conexion = new Conexion();
+        ResultSet resultado;
+        try {
+
+            resultado = conexion.getValores("SELECT * FROM bitacora  WHERE  fecha LIKE '"
+                    + filtro + "%' OR id_usuario LIKE '" + filtro + "%' OR accion LIKE '" + filtro + "%'");
+
+            while (resultado.next()) {
+                lBitacora.add(new Bitacora(resultado.getDate("fecha"),resultado.getTime("fecha"),
+                resultado.getInt("id_usuario"),resultado.getString("accion")));
+
+            }
+
+        } catch (SQLException ex) {
+            throw new ErrorPrestamo("Error al Obtener", "ControladorBitacora.Buscar", "Error al obtener bitacora");
+        }
+
+        return lBitacora;
+
+    }
     
 }

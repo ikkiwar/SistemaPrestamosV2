@@ -44,16 +44,16 @@
                             <h:graphicImage id="logoempresa" class="icon" name="/img/logo.gif" 
                                             style="width: 25% "/>
 
-                            <h:panelGrid columns="2" style="padding-top: 2% ;padding-bottom:1%; font-size: 16px">
+                            <h:panelGrid  style="padding-top: 2% ;padding-bottom:1%; font-size: 16px">
                                 
 
-                                <p:outputLabel for="user" value="Usuario: " style="color: white; font-family: sans-serif"  />
+                               
                                 <p:inputText id="user" placeholder="Usuario" value="#{fmrSesion.sesion.user}"  >
                                     <f:attribute value="user" name="user"/>
                                 </p:inputText>
 
 
-                                <p:outputLabel for="password" value="Contraseña: " style="color: white; font-family: sans-serif" />
+                             
                                 <p:password  id="password" placeholder="Contraseña" value="#{fmrSesion.sesion.contraseña}" >
                                     <f:attribute value="pass" name="pass"/>
                                 </p:password>
