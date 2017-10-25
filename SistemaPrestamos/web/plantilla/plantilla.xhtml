@@ -44,10 +44,10 @@
 
                     <div  style="text-align: right;margin-right:45px;"  >
                        <!-- <p:outputLabel  for="ingreso" value="Has Ingresado Como: "  style="font-family:fantasy ;font-size: 15px;color: #ffffff" />-->
-                        <p:outputLabel id="ingreso" value="#{fmrSesion.sesion.user}" style="color: white;font-size: 15px;font-family: monospace;font-weight: bold" />
+                        <p:outputLabel id="ingreso" value="#{fmrSesion.sesion.user}" style=" margin-right:1% ;color: white;font-size: 15px;font-family: monospace;font-weight: bold" />
                         <p:outputLabel value="   "/>
                         
-                        <p:commandButton value="Salir"   title="Salir del Sistema" style="background-color: #00a0df ;
+                        <p:commandButton value="Salir"  icon="ui-icon-power" title="Salir del Sistema" style="background-color: #00a0df ;
                                          border-style: none ;color: white; margin-top: 0px; width: 70px;
                                          margin-right: 3px;border-color: white" action="#{fmrSesion.doLogout()}"/>  
                     </div>
