@@ -5,6 +5,7 @@
  */
 package ues.edu.sv.ingenieria.diseño.proyectox.servicios;
 
+import javax.faces.bean.ManagedBean;
 import ues.edu.sv.ingenieria.diseño.proyectox.controladores.ControladorBitacora;
 import ues.edu.sv.ingenieria.diseño.proyectox.controladores.ErrorPrestamo;
 
@@ -12,8 +13,10 @@ import ues.edu.sv.ingenieria.diseño.proyectox.controladores.ErrorPrestamo;
  *
  * @author estuardo
  */
+@ManagedBean(name="entradaBitacora")
 public class EntradaBitacora {
     
+    /*--estaticos no cambiar--*/
     private static int id;
     private static String user;
     private static String contraseña;
@@ -29,6 +32,7 @@ public class EntradaBitacora {
             this.user=user;
             this.contraseña=contraseña;
             this.rol=rol;
+            
     }
      
     public void agregar(String accion) throws ErrorPrestamo{

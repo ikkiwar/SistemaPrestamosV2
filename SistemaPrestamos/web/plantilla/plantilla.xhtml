@@ -43,7 +43,7 @@
 
 
                     <div  style="text-align: right;margin-right:45px;"  >
-                        <p:outputLabel  for="ingreso" value="Has Ingresado Como: "  style="font-family:fantasy ;font-size: 15px;color: #ffffff" />
+                       <!-- <p:outputLabel  for="ingreso" value="Has Ingresado Como: "  style="font-family:fantasy ;font-size: 15px;color: #ffffff" />-->
                         <p:outputLabel id="ingreso" value="#{fmrSesion.sesion.user}" style="color: white;font-size: 15px;font-family: monospace;font-weight: bold" />
                         <p:outputLabel value="   "/>
                         
@@ -70,45 +70,45 @@
 
 
 
-                        <a  href="/SistemaPrestamos/pages/home.jsf">
+                        <p:commandLink action="#{direcciones.redirectHome()}">
 
                             <h:graphicImage class="icon" name="/img/house.png"  height="25" width="25"/>
                             <b/>
                             Home
-                        </a> 
+                        </p:commandLink> 
                         <p:separator/>
-                        <a href="/SistemaPrestamos/pages/cliente.jsf">
+                        <p:commandLink action="#{direcciones.redirectClientes()}">
                             <h:graphicImage class="icon" name="/img/people.png"  height="25" width="25"/>
                             Clientes
-                        </a> 
+                        </p:commandLink> 
                         <p:separator/>
-                        <a href="/SistemaPrestamos/pages/prestamo.jsf">
+                        <p:commandLink action="#{direcciones.redirectPrestamos()}">
                             <h:graphicImage class="icon" name="/img/notebook.png"  height="25" width="25"/>
                             Prestamos
-                        </a>
+                        </p:commandLink>
                         <p:separator/>
-                        <a href="/SistemaPrestamos/pages/parametro.jsf">
+                        <p:commandLink action="#{direcciones.redirectParametros()}" rendered="#{entradaBitacora.rol == 'A'}">
                             <h:graphicImage class="icon" name="/img/contract.png"  height="25" width="25"/>
                             Parametros
-                        </a>
-                        <p:separator/>
-                        <a href="/SistemaPrestamos/pages/adminFinanciera.jsf">
+                        </p:commandLink>
+                        <p:separator rendered="#{entradaBitacora.rol == 'A'}"/>
+                        <p:commandLink action="#{direcciones.redirectFinanzas()}" rendered="#{entradaBitacora.rol == 'A'}">
                             <h:graphicImage class="icon" name="/img/presentation.png" height="25" width="25" />
                             Finanzas
-                        </a> 
+                        </p:commandLink> 
 
 
-                        <p:separator/>
-                        <a href="/SistemaPrestamos/pages/bitacora.jsf">
+                        <p:separator rendered="#{entradaBitacora.rol == 'A'}" />
+                        <p:commandLink action="#{direcciones.redirectBitacora()}" rendered="#{entradaBitacora.rol == 'A'}">
                             <h:graphicImage class="icon" name="/img/agenda.png" height="25" width="25"/>
                             Bitacora
-                        </a> 
-                        <p:separator/>
-                        <a href="/SistemaPrestamos/pages/adminUsuarios.jsf">
+                        </p:commandLink> 
+                        <p:separator rendered="#{entradaBitacora.rol == 'A'}"/>
+                        <p:commandLink action="#{direcciones.redirectAdministrarUsuario()}" rendered="#{entradaBitacora.rol == 'A'}">
                             <h:graphicImage class="icon" name="/img/adjust.png" height="25" width="25"/>
                             Admin usuarios
-                        </a> 
-                        <p:separator/>
+                        </p:commandLink> 
+                        <p:separator rendered="#{entradaBitacora.rol == 'A'}"/>
                         <a href="#">
 
                             <h:graphicImage class="icon" name="/img/question.png"  height="25" width="25"/>
