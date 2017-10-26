@@ -144,7 +144,7 @@
                             <p:calendar  pattern="yyyy-MM-dd" id="fin" readonly="true" size="40"  value="#{prestamos.prestamo.fecha_fin}"/>
 
                             <p:growl id="growl"  life="4000"  showDetail="true"  />
-
+                                 
                             <div class="center">
                                 <h:panelGrid  columns="2">
                                     <p:commandButton  value="Registrar"  icon="ui-icon-disk" action="#{prestamos.submit()}"  update="growl efectivoDisponible" oncomplete="PF('Nprestamo').hide();"/>
