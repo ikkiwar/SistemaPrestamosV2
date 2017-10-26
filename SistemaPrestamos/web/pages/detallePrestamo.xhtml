@@ -99,20 +99,31 @@
                 </h:panelGrid>
 
                 <p:separator/>
-
-                <a href="pago.jsf" style="text-decoration: none;color: white;margin-left: 30px" title="Realizar Pago">
+                
+                <h:form style="margin-right:72%" >
+                <p:commandLink title="Generar-Contrato" ajax="false" action="#{fmrContrato.generarContrato(true,prestamos.selectPrestamo.id_prestamo)}" style=" text-decoration:none;color:white;margin-left:15%">
+                    <p:graphicImage  id="iconcontrato" class="icon"  name="/img/ggcontrato.png"  height="50" width="50"/>
+                   
+                 </p:commandLink>
+                
+                
+                <a href="pago.jsf" style="text-decoration: none;color: white;margin-left: 15px" title="Realizar Pago">
                     <h:graphicImage class="icon" name="/img/pagos.png"  height="50" width="50"/>
 
                 </a> 
-                <a href="prestamoReport.jsf" style="text-decoration: none;color: white;margin-left: 10px" title="Ir a Reporte" >
+
+                <a href="prestamoReport.jsf" style="text-decoration: none;color: white;margin-left: 15px" title="Ir a Reporte" >
                     <h:graphicImage class="icon" name="/img/reportes.png"  height="50" width="50"/>
 
                 </a> 
-              
+
+
                 <p:commandLink title="Imprimir historial de pagos" action="#{prestamos.ticketHistorialPago()}" style="text-decoration: none;color: white;margin-left: 15px">
                     <p:graphicImage id="iconprint" class="icon"  name="/img/receipt.png"  height="50" width="50"/>
                 </p:commandLink>
-                
+
+
+                </h:form>
                 
                 <br/>
                 <br/>
