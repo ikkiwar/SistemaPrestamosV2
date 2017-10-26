@@ -2,6 +2,7 @@ package ues.edu.sv.ingenieria.diseño.proyectox.beans;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -323,7 +324,46 @@ public class FmrPrestamo implements Serializable {
         ticket.comprobantePrestamo(Lista);
 
     }
+    
+    public void ticketHistorialPago() {
 
+        String idPresamo = String.valueOf(cuota.getId_prestamo());
+        String dui = selectPrestamo.getDui();
+        String nombre = selectPrestamo.getNombres();
+        String apellidos = selectPrestamo.getApellidos();
+        String monto = String.valueOf(selectPrestamo.getMonto());
+
+        ArrayList<String> listacuota = new ArrayList();
+
+        int x = 0;
+        int y = x;
+        System.out.println("ArraySize" + listaC.size());
+        System.out.println("CAPITAL ANTES LISTA  " + listaC.get(x).getCapital());
+
+        for (x = 0; x < listaC.size(); x++) {
+
+            listacuota.add(y, String.valueOf(listaC.get(x).getValor()));
+            ++y;
+            listacuota.add(y, String.valueOf(listaC.get(x).getSaldo_actualizado()));
+            ++y;
+            listacuota.add(y, String.valueOf(listaC.get(x).getFecha()));
+            ++y;
+        }
+
+        System.out.print("TAMAÑO DEL ARRAYLIST   " + listacuota.size());
+
+        String[] Lista = {
+            idPresamo,
+            dui,
+            nombre,
+            apellidos,
+            monto,};
+
+        Ticket ticket = new Ticket();
+        ticket.ticketHistorial(Lista, listacuota);
+
+    }
+    
     //metodos para redireccion
     public String reditect() {
         return "/index.xhtml?faces-redirect=true";
