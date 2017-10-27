@@ -34,7 +34,7 @@ public class FmrContrato extends FileGenerator implements Serializable {
     @PostConstruct
     public void inicializar() {
         try {
-            setConexion(DriverManager.getConnection("jdbc:mysql://localhost:3306/prestamo", "root", "admin"));
+            setConexion(DriverManager.getConnection("jdbc:mysql://localhost:3306/prestamos", "root", "admin"));
         } catch (SQLException ex) {
             Logger.getLogger(FmrContrato.class.getName()).log(Level.SEVERE, null, ex);
         }

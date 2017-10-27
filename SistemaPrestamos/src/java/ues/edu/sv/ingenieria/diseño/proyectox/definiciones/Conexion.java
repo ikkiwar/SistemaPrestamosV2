@@ -13,7 +13,7 @@ import java.sql.Statement;
  */
 public class Conexion {
     
-    private String url = "jdbc:mysql://localhost:3306/prestamo";
+    private String url = "jdbc:mysql://localhost:3306/prestamos";
     //private String url = "jdbc:mysql://localhost:3306/baseDeDatos"; algunas veces es necesario cambiar localhost por 127.0.0.1
     private String login = "root"; //Administrador de MySQL
     private String password = "admin";
