@@ -203,7 +203,7 @@ public class Ticket {
         p.newLine();
         p.addLineSeperator();
         p.newLine();
-        p.setText("Guirochaca best husbando");
+        p.setText("Tenga buen dia");
         p.newLine();
         p.addLineSeperator();
         p.feed((byte) 3);
