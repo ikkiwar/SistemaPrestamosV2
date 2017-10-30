@@ -18,6 +18,10 @@ public class Mensajeria {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, mensaje1, mensaje2));
     }
      
+     public void bienvenida(String mensaje1, String mensaje2,String mensaje3) {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, mensaje1, mensaje2));
+    }
+     
     public void warn(String mensaje1, String mensaje2) {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,  mensaje1, mensaje2));
     }

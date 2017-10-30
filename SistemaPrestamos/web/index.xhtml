@@ -18,6 +18,7 @@
 
     <h:body style="background-color:  #253A47">
 
+      
 
         <div id="top_index"  >
             <ui:insert name="top">
@@ -61,9 +62,11 @@
                             </h:panelGrid>
 
                             <p:commandButton style="background-color: #00a0df; border-style: none ;color: white; padding: 0.5%"  
-                                             value="INGRESAR" action="#{fmrSesion.comprobarDatos()}"  />
+                                             value="INGRESAR" action="#{fmrSesion.comprobarDatos()}" update="mensajes"  />
 
                         </div>
+
+                          <p:growl id="mensajes" life="5000"  showDetail="true" autoUpdate="true"/>
 
                     </h:form>
                 </ui:insert>

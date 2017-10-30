@@ -27,7 +27,7 @@
                     <h:form>
 
                         <p:outputLabel style="margin-left: 1%; color: white; font-size: small" value="Buscar: "/>           
-                        <p:inputText style="margin-left: 1%"  placeholder="id usuario /fecha /accion" value="#{Bitacora.filtro}">
+                        <p:inputText style="margin-left: 1%"  placeholder="usuario /fecha /accion" value="#{Bitacora.filtro}">
                             <p:ajax event="keyup" listener="#{Bitacora.filtrar()}" update=":bitacora:tblBitacora"   />
                         </p:inputText>
 

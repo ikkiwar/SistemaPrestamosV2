@@ -244,7 +244,7 @@ public class FmrPrestamo implements Serializable {
 
         try {
             pControl.agregar(prestamo);
-            elementosTicketPrestamo();
+           // elementosTicketPrestamo();
         } catch (ErrorPrestamo ex) {
             Logger.getLogger(FmrPrestamo.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -292,7 +292,7 @@ public class FmrPrestamo implements Serializable {
         ticket.comprobantePago(elementos);
     }
 
-    /*----Aqui se ponene los elementos del PUTO ticket de comprobacion prestamo----*/
+    /*----Aqui se ponene los elementos del ticket de comprobacion prestamo----*/
     public void elementosTicketPrestamo() {
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
         String idPresamo = String.valueOf(prestamo.getId_prestamo());

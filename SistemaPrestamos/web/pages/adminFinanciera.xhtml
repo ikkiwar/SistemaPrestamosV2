@@ -24,7 +24,7 @@
                 <p:tabView style="padding-left: 20px; width:1175px;margin-left: 10px " id="tabview">
 
                     <p:tab title="Balance General">
-                        <p:commandButton  value="Generar Reporte" style="margin-left: 90%"/>
+                        <p:commandButton  value="Generar Reporte"  action="reporteFinanzas.xhtml" style="margin-left: 90%"/>
                         <h:panelGrid columns="1" >
 
                             <h:panelGrid >
@@ -52,7 +52,7 @@
 
                     <p:tab title="Estado de Resultados">
                         <h:panelGrid columns="2" style="margin-left: 70%" >
-                            <p:commandButton  value="Generar Reporte" />
+                            <p:commandButton  value="Generar Reporte" action="reporteFinanzas.xhtml"/>
                             <p:commandButton  value="Ingresar Gastos" onclick="PF('ingresarGastos').show();"  />
                         </h:panelGrid>
                         <h:panelGrid columns="1" >

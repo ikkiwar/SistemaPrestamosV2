@@ -9,16 +9,19 @@
 
 
 
-    <body onload="#{prestamos.inicio()} #{fmrSesion.bienvenida()}"  >
-        
+
+    <body onload="#{prestamos.inicio()}">
+
 
 
         <ui:composition template="/plantilla/plantilla.xhtml">
 
             <ui:define name="content">
-                <p:growl id="mensajes" life="5000"  showDetail="true" autoUpdate="true"/>
 
-
+                <h:form style="display: none">
+                    <p:remoteCommand action="#{fmrSesion.bienvenida()}" autoRun="true" update="mensajes" />
+                </h:form>
+                <p:growl id="mensajes" life="3000"  showDetail="true" />
                 <h:panelGrid columns="2" style="padding-top: 10px;padding-left: 24px ">
                     <h:graphicImage  id="icono" class="icon" name="/img/home.png"  height="50" width="50"/>
                     <p:outputLabel for="icono" value="INICIO" style="color: white; "/>
@@ -85,6 +88,7 @@
             </ui:define>
 
         </ui:composition>
+
 
     </body>
 </html>
