@@ -33,7 +33,7 @@ public class FmrSesion implements Serializable {
     private Direccionamientos direccionamiento = new Direccionamientos();
     private EntradaBitacora bitacora = new EntradaBitacora();
     Mensajeria mensajes = new Mensajeria();
-    int contador=0;
+    boolean contador=true;
     String mensaje1;
     String mensaje2;
 
@@ -63,12 +63,12 @@ public class FmrSesion implements Serializable {
 
     public void bienvenida() {
       
-        if(contador == 0){
+        if(contador){
         mensaje1="BIENVENIDO AL SISTEMA! ";
         mensaje2="Se ha loggeado como: "+sesion.getUser();
         mensajes.info(mensaje1, mensaje2);
         }
-        contador++;
+        contador=false;
         
     }
 
@@ -81,6 +81,7 @@ public class FmrSesion implements Serializable {
         msg.setSeverity(FacesMessage.SEVERITY_INFO);
         FacesContext.getCurrentInstance().addMessage(null, msg);
         bitacora.agregar("Termino sesion");
+        contador=true;
         return direccionamiento.reditectIndex();
     }
 
