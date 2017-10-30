@@ -7,6 +7,7 @@ package ues.edu.sv.ingenieria.diseño.proyectox.servicios;
 
 import com.mysql.jdbc.StringUtils;
 import java.io.IOException;
+import javax.faces.context.FacesContext;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -21,37 +22,53 @@ import ues.edu.sv.ingenieria.diseño.proyectox.beans.FmrSesion;
  *
  * @author estuardo
  */
-
 //Esta clase se usa para recibir las peicitiones de reidereccion y ver si hay una sesion activa
-public class FiltroSesion implements Filter{
+public class FiltroSesion implements Filter {
+
+    String[] AdminListPages = {
+        "/SistemaPrestamos/pages/adminUsuarios.jsf",
+        "/SistemaPrestamos/pages/parametro.jsf",
+        "/SistemaPrestamos/pages/adminFinanciera.jsf",
+        "/SistemaPrestamos/pages/bitacora.jsf",
+        "/SistemaPrestamos/index.jsf"
+    };
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-      //NO se usa ni se como
+        //NO se usa ni se como
     }
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-      // Obtener el atributo login de FmrSesion
-        FmrSesion loginBean = (FmrSesion)((HttpServletRequest)request).getSession().getAttribute("fmrSesion");
-         
-       // Para el primer request no hay usuario loggeado 
+        // Obtener el atributo login de FmrSesion
+        FmrSesion loginBean = (FmrSesion) ((HttpServletRequest) request).getSession().getAttribute("fmrSesion");
+
+        // Para el primer request no hay usuario loggeado 
         // Para las siguientes peticiones se tiene que verificar si el usuario esta loggeado
         if (loginBean == null || !loginBean.isLogin()) {
-            String contextPath = ((HttpServletRequest)request).getContextPath();
-            ((HttpServletResponse)response).sendRedirect(contextPath + "/index.jsf");
-        } 
-         chain.doFilter(request, response);
-     
-       
-    }
-    
-    
+            String contextPath = ((HttpServletRequest) request).getContextPath();
+            ((HttpServletResponse) response).sendRedirect(contextPath + "/index.jsf");
+        } else {
 
+            //validar para que solo usuarios admin puedan ongresar con el path de la pagina
+            String path = ((HttpServletRequest) request).getRequestURI(); //obtiene la pagina a la que se quiere ir
+
+            if (loginBean.getSesion().getRol() != 'A' && path.equals(AdminListPages[0]) || path.equals(AdminListPages[1]) || path.equals(AdminListPages[2]) || path.equals(AdminListPages[3])) {
+
+                /*HttpServletRequest pedirActual = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+                String paginaActual = pedirActual.getRequestURL().toString();*/
+
+                ((HttpServletResponse) response).sendRedirect("home.jsf");
+            } else {
+                chain.doFilter(request, response);
+            }
+
+        }
+    }
 
     @Override
     public void destroy() {
-       // tampoco se :v
+        // tampoco se :v
     }
-    
+
 }
