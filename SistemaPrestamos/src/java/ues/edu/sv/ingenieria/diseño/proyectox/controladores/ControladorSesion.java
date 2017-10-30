@@ -22,9 +22,9 @@ import ues.edu.sv.ingenieria.diseño.proyectox.servicios.Mensajeria;
 public class ControladorSesion {
 
     Direccionamientos direccionamineto = new Direccionamientos();
+  
    
    
-
     // metodo para comprar contraseñas la que se esta ingresando y la almacenda en la base de datos
     public boolean verificar(Sesion sesion) throws ErrorPrestamo {
         boolean verificar = false;
@@ -43,7 +43,7 @@ public class ControladorSesion {
             // compara que las contraseñas sean iguales y pone la flag en true si es asi de lo contrario permance en false
             if (claveComprobador.equals(clave)) {
                 verificar = true;
-               
+              
               /*  sesionverificada.setId(datos.get(0).getId());
                 sesionverificada.setUser(datos.get(0).getUser());
                 sesionverificada.setRol(datos.get(0).getRol());*/
