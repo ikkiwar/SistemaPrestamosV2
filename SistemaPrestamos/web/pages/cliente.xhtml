@@ -100,12 +100,12 @@
                             </p:commandButton>
 
 
-                            <p:commandButton icon="ui-icon-close" update=":form:tablaCliente" 
+                           <!-- <p:commandButton icon="ui-icon-close" update=":form:tablaCliente" 
                                              style="width: 25px;height: 25px;font-size: 5px; 
                                              background-color: orange" title="Eliminar" 
                                              onclick="PF('confirmar').show();">
                                 <f:setPropertyActionListener value="#{cliente}" target="#{clientes.selectedClient}" />
-                            </p:commandButton>
+                            </p:commandButton>-->
 
                         </p:column>
                     </p:dataTable>
@@ -188,7 +188,7 @@
                                 <h:panelGrid columns="2"  >
                                     <p:commandButton  value="Registrar"  icon="ui-icon-disk"  
                                                       action="#{clientes.submit()}" update="grid growl"
-                                                      onclick="PF('documentos').show()" 
+                                                      onclick="PF('documentos').show()"
                                                       oncomplete="PF('agregarCliente').hide();" />
 
                                     <p:commandButton value="Cancelar" icon="ui-icon-cancel"

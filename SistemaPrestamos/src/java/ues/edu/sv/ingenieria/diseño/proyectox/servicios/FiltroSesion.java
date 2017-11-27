@@ -50,18 +50,9 @@ public class FiltroSesion implements Filter {
             ((HttpServletResponse) response).sendRedirect(contextPath + "/index.jsf");
         } else {
 
-            //validar para que solo usuarios admin puedan ongresar con el path de la pagina
-            String path = ((HttpServletRequest) request).getRequestURI(); //obtiene la pagina a la que se quiere ir
-
-            if (loginBean.getSesion().getRol() != 'A' && path.equals(AdminListPages[0]) || path.equals(AdminListPages[1]) || path.equals(AdminListPages[2]) || path.equals(AdminListPages[3])) {
-
-                /*HttpServletRequest pedirActual = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-                String paginaActual = pedirActual.getRequestURL().toString();*/
-
-                ((HttpServletResponse) response).sendRedirect("home.jsf");
-            } else {
+         
                 chain.doFilter(request, response);
-            }
+           
 
         }
     }
